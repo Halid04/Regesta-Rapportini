@@ -1,0 +1,2 @@
+IDCommessa,IDSocieta,codice,macroCommessa,descrizione,stato,dataInizio,dataFine,dataGolive,rifCliente,rifProgetto,rifFunzionale,rifTecnico,giorniProgetto,giorniFunzionale,giorniSviluppo,pianificabile,visibileCliente,codiceICMS,sapOdv,tipologia,categoria,fixOrTimeMaterial
+306,societa6,codiceCommessa6,macroCommessa6,tant’era pien di sonno a quel punto,0,01/01/1999,23/06/2023,01/01/2005,cliente6,progetto6,funzionale6,tecnico6,150,63,253,true,false,icms6,sapOdv6,tipologia6,categoria6,aa

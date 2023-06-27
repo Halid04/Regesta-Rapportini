@@ -1,14 +1,16 @@
-namespace Rapportini_database.srv;
+namespace rapportini.srv;
 
-using { Rapportini_database.db as db} from '../db/schema';
+using {rapportini.db as db} from '../db/schema';
 
-service AppService{
-    entity Rapportini as projection on db.Rapportini;
-    entity Clienti as projection on db.Clienti;
-    entity Commesse as projection on db.Commesse;
-    entity ToDoList as projection on db.ToDoList;
-    entity ClientiSedi as projection on db.ClientiSedi;
-    entity RapportiniAllegati as projection on db.RapportiniAllegati;
+service AppService {
+
+  entity TblRapportini as projection on db.TblRapportini;
+  entity TblClienti as projection on db.TblClienti;
+  entity TblRapportiniAllegati as projection on db.TblRapportiniAllegati;
+  entity TblClientiSedi as projection on db.TblClientiSedi;
+  entity TblCommesse as projection on db.TblCommesse;
+  entity TblTodoList as projection on db.TblTodoList;
+
+  action onPostRapportini(rapportini: TblRapportini);
+
 }
-
-
