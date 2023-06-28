@@ -8,5 +8,6 @@ sap.ui.define([
 	}).then(function (oView) {
 		oView.placeAt("content");
 	});
+	//ciao
 
 });
