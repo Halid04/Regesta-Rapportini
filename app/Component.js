@@ -5,6 +5,8 @@ sap.ui.define(
     "sap/ui/model/resource/ResourceModel",
   ],
 
+
+  //ciao :)
   function (UIComponent, JSONModel, ResourceModel) {
     "use strict";
     return UIComponent.extend("rapportini.Component", {
