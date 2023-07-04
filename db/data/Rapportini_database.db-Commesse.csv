@@ -1,2 +1,0 @@
-IDCommessa,IDSocieta,IDCliente,codice,macroCommessa,descrizione,stato,dataInizio,dataFine,dataGolive,rifCliente,rifProgetto,rifFunzionale,rifTecnico,giorniProgetto,giorniFunzionale,giorniSviluppo,pianificabile,visibileCliente,codiceICMS,sapOdv,tipologia,categoria,fixOrTimeMaterial
-306,societa6,206,codiceCommessa6,macroCommessa6,tantera pien di sonno a quel punto,0,2022-05-01 10:15:00,2023-05-31 10:15:00,2023-05-31 10:15:00,cliente6,progetto6,funzionale6,tecnico6,150,63,253,true,false,icms6,sapOdv6,tipologia6,categoria6,aa
