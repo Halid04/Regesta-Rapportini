@@ -1,0 +1,79 @@
+<mvc:View
+controllerName="rapportini.controller.Cestino"
+xmlns="sap.m"
+xmlns:mvc="sap.ui.core.mvc"
+xmlns:l="sap.ui.layout">
+
+<Page id="cestino" title="Cestino" showNavButton = "true" navButtonPress = ".onNavBack">
+      <FlexBox
+            height="auto"
+            alignItems="Center"
+            justifyContent="Start"
+            class="sapUiMediumMarginTop">
+               <Button
+                  text="Ripristina tutto"
+                  press=".onRestoreAll"
+                  icon="sap-icon://refresh" class="sapUiSmallMargin"/>
+               <Button
+                  text="Elimina tutto"
+                  press=".onDeleteAll"
+                  icon="sap-icon://delete" />
+         </FlexBox>
+         <FlexBox
+               height="auto"
+               width="100vw"
+               alignItems="Center"
+               justifyContent="Center"
+               direction="Column"
+               class="sapUiMediumMarginTop">
+
+               <Table items="{path: '/RapportiniCestinati'}" id="tableRapportiniCestinatiID">
+                  <columns>
+                     <Column>
+                        <Text text="Utente" />
+                     </Column>
+                     <Column>
+                        <Text text="Data" />
+                     </Column>
+                     <Column>
+                        <Text text="Ore" />
+                     </Column>
+                     <Column>
+                        <Text text="Ticket" />
+                     </Column>
+                     <Column>
+                        <Text text="Cliente" />
+                     </Column>
+                     <Column>
+                        <Text text="Sede" />
+                     </Column>
+                     <Column>
+                        <Text text="Descrizione" />
+                     </Column>
+                     <Column>
+                        <Text text="" />
+                     </Column>
+                  </columns>
+                  <items>
+                     <ColumnListItem>
+                        <cells>
+                           <Text text="{utente}"/>
+                           <Text text="{giorno}" />
+                           <Text text="{ore}"/>
+                           <Text text="Desarrollo de aplicaciones web Rapportini" />
+                           <Text text="Nicolas Stage" />
+                           <Text text="{sede}" />
+                           <Text text="{descrizione}" />
+                           
+                           <HBox>
+                              <Button icon="sap-icon://refresh" press="onRestoreRapportino(${ID})" class="sapUiTinyMarginEnd" tooltip="Ripristina"/>
+                              <Button icon="sap-icon://delete" press="onDeleteRapportino(${ID})" class="sapUiTinyMarginEnd" tooltip="Elimina definitivamente"/>
+                           </HBox>
+                        </cells>
+                     </ColumnListItem>
+                  </items>
+               </Table>
+            </FlexBox>
+</Page>
+
+</mvc:View>

@@ -1,0 +1,94 @@
+<mvc:View
+controllerName="rapportini.controller.Tabella"
+xmlns="sap.m"
+xmlns:mvc="sap.ui.core.mvc"
+xmlns:l="sap.ui.layout"
+xmlns:fiori="sap.ui.webc.fiori"
+xmlns:tnt="sap.tnt">
+   <Page id="tablePage" title="" class="myApp" >
+         <headerContent>
+            <Image src="/img/logo.png" width="12rem" height="2.7rem" />
+
+            <Button icon="sap-icon://light-mode" tooltip="Tema chiaro" />
+            <Button icon="sap-icon://delete" tooltip="Cestino" />
+            <Button icon="sap-icon://bell" tooltip="Notifiche" />
+            <Avatar
+               src="/img/ghiro.jpeg"
+               displaySize="XS"
+               showBorder="true"
+               press="onPress"/> 
+            <Label text="Logout" class="logoutLabel" />
+         </headerContent>
+         <FlexBox
+            height="auto"
+            alignItems="Center"
+            justifyContent="Start"
+            class="sapUiMediumMarginTop">
+               <Button
+                  text="Add"
+                  press=".onNavToCreate"
+                  icon="sap-icon://add" class="sapUiSmallMargin"/>
+                  <Button
+                  text="Cestino"
+                  press=".onNavToTrashcan"
+                  icon="sap-icon://delete" />
+               <SearchField width="100%" search=".onSearch" class="sapUiSmallMargin"/>
+         </FlexBox>
+         <FlexBox
+               height="auto"
+               width="100vw"
+               alignItems="Center"
+               justifyContent="Center"
+               direction="Column"
+               class="sapUiMediumMarginTop">
+
+               <Table items="{path: '/Rapportini'}" id="tableRapportiniID">
+                  <columns>
+                     <Column>
+                        <Text text="Utente" />
+                     </Column>
+                     <Column>
+                        <Text text="Data" />
+                     </Column>
+                     <Column>
+                        <Text text="Ore" />
+                     </Column>
+                     <Column>
+                        <Text text="Ticket" />
+                     </Column>
+                     <Column>
+                        <Text text="Cliente" />
+                     </Column>
+                     <Column>
+                        <Text text="Sede" />
+                     </Column>
+                     <Column>
+                        <Text text="Descrizione" />
+                     </Column>
+                     <Column>
+                        <Text text="" />
+                     </Column>
+                  </columns>
+                  <items>
+                     <ColumnListItem>
+                        <cells>
+                           <Text text="{utente}"/>
+                           <Text text="{giorno}" />
+                           <Text text="{ore}"/>
+                           <Text text="Desarrollo de aplicaciones web Rapportini" />
+                           <Text text="Nicolas Stage" />
+                           <Text text="{sede}" />
+                           <Text text="{descrizione}" />
+                           
+                           <HBox>
+                              <Button icon="sap-icon://edit" press="onEditRapportino(${ID})" class="sapUiTinyMarginEnd" tooltip="Modifica"/>
+                              <Button icon="sap-icon://delete" press="onTrashRapportino(${ID})" class="sapUiTinyMarginEnd" tooltip="Elimina"/>
+                              <Button icon="sap-icon://copy" press="onCopyRapportino(${ID})" class="sapUiTinyMarginEnd" tooltip="Copia"/>
+                           </HBox>
+                        </cells>
+                     </ColumnListItem>
+                  </items>
+               </Table>
+            </FlexBox>
+   </Page>
+</mvc:View>

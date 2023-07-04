@@ -1,0 +1,131 @@
+{
+  "_version": "0.0.0",
+
+  "sap.app": {
+    "id": "rapportini",
+    "type": "application",
+    "title": "los tables della sociedad Regesta",
+    "description": "los tables della sociedad Regesta descicion",
+    "applicationVersion": {
+      "version": "1.0.0"
+    },
+    "dataSources": {
+      "default": {
+        "uri": "http://localhost:4004/app/",
+        "type": "OData",
+        "settings": {
+          "odataVersion": "4.0"
+        }
+      }
+    }
+  },
+
+  "sap.ui": {
+    "technology": "UI5",
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+
+  "sap.ui5": {
+    "rootView": {
+      "viewName": "rapportini.view.App",
+      "type": "XML",
+      "id": "app"
+    },
+
+    "dependencies": {
+      "minUI5Version": "1.93",
+      "libs": {
+        "sap.ui.core": {},
+        "sap.m": {}
+      }
+    },
+
+    "models": {
+      "": {
+        "dataSource": "default",
+        "settings": {
+          "updateGroupId": "myAppUpdateGroup"
+        }
+      }
+    },
+
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "type": "View",
+        "viewType": "XML",
+        "path": "rapportini.view",
+        "controlId": "app",
+        "controlAggregation": "pages",
+        "transition": "slide",
+        "bypassed": {
+          "target": "notFound"
+        },
+        "async": true,
+        "sample": {
+          "files": ["app/img/logo.png"]
+        }
+      },
+
+      "routes": [
+        {
+          "pattern": "",
+          "name": "tabellaRapportini",
+          "target": "tabellaRapportini"
+        },
+
+        {
+          "pattern": "creaRapportino/{operationID}/:IDRapportino:",
+          "name": "creaRapportino",
+          "target": "creaRapportino"
+        },
+
+        {
+          "pattern": "cestino",
+          "name": "cestino",
+          "target": "cestino"
+        }
+      ],
+
+      "targets": {
+        "tabellaRapportini": {
+          "id": "tabellaRapportini",
+          "name": "Tabella",
+          "level": 1
+        },
+
+        "creaRapportino": {
+          "id": "creaRapportino",
+          "path": "rapportini.view",
+          "name": "CreazioneRapportini",
+          "level": 2
+        },
+
+        "cestino": {
+          "id": "cestino",
+          "path": "rapportini.view",
+          "name": "Cestino",
+          "level": 2
+        },
+
+        "notFound": {
+          "id": "notFound",
+          "name": "NotFound",
+          "transition": "show"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,194 @@
+<mvc:View
+	xmlns="sap.m"
+	xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:core="sap.ui.core"
+   xmlns:mvc="sap.ui.core.mvc"
+   controllerName="rapportini.controller.CreazioneRapportini">
+
+<Page id="createPage" title="Nuovo rapportino">
+	<VBox class="sapUiSmallMargin">
+		<f:Form id="Aggiunta"
+			editable="true">
+			<f:layout>
+				<f:ColumnLayout
+					columnsM="2"
+					columnsL="3"
+					columnsXL="4"
+				/>
+			</f:layout>
+			<f:formContainers>
+				<f:FormContainer title="">
+					<f:formElements>
+						<f:FormElement label="Utente">
+							<f:fields>
+								<Input value="{JSONModel>/modelloRapportino/utente}" id="utente"/>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="Giorno">
+							<f:fields>
+								<Input value="{JSONModel>/modelloRapportino/giorno}" type="Date"/>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="Ore">
+							<f:fields>
+								<StepInput
+                           value="{JSONModel>/modelloRapportino/ore}"
+                           displayValuePrecision="2"
+                           min="0"
+                           max="15"
+                           width="5rem"
+                           step="0.5"/>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="Ticket">
+							<f:fields>
+								<ComboBox value="{JSONModel>/modelloRapportino/ticket}">
+                           <items>
+                              <core:Item text="Dato" key="DatoRicevuto"/>
+                              <core:Item text="Dato2" key="DatoRicevuto2"/>
+                              <core:Item text="Dato3" key="DatoRicevuto3"/>
+                           </items>
+                        </ComboBox>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="Cliente">
+							<f:fields>
+								<ComboBox value="{JSONModel>/modelloRapportino/clientet}">
+                           <items>
+                              <core:Item text="Dato" key="DatoRicevuto"/>
+                              <core:Item text="Dato2" key="DatoRicevuto2"/>
+                              <core:Item text="Dato3" key="DatoRicevuto3"/>
+                           </items>
+                        </ComboBox>
+							</f:fields>
+						</f:FormElement>
+                  <f:FormElement label="Commessa">
+							<f:fields>
+								<ComboBox value="{JSONModel>/modelloRapportino/commessa}">
+                           <items>
+                              <core:Item text="Dato" key="DatoRicevuto"/>
+                              <core:Item text="Dato2" key="DatoRicevuto2"/>
+                              <core:Item text="Dato3" key="DatoRicevuto3"/>
+                           </items>
+                        </ComboBox>
+							</f:fields>
+						</f:FormElement>
+                  <f:FormElement label="Descrizione">
+                     <Input value="{JSONModel>/modelloRapportino/descrizione}"/>
+                  </f:FormElement>
+                  <f:FormElement label="Sede">
+							<f:fields >
+								<ComboBox value="{JSONModel>/modelloRapportino/sede}">
+                           <items>
+                              <core:Item text="Dato" key="DatoRicevuto"/>
+                              <core:Item text="Dato2" key="DatoRicevuto2"/>
+                              <core:Item text="Dato3" key="DatoRicevuto3"/>
+                           </items>
+                        </ComboBox>
+							</f:fields>
+						</f:FormElement>
+                  <f:FormElement label="Destinazione">
+							<f:fields>
+								<ComboBox value="{JSONModel>/modelloRapportino/destinazione}">
+                           <items>
+                              <core:Item text="Dato" key="DatoRicevuto"/>
+                              <core:Item text="Dato2" key="DatoRicevuto2"/>
+                              <core:Item text="Dato3" key="DatoRicevuto3"/>
+                           </items>
+                        </ComboBox>
+							</f:fields>
+						</f:FormElement>
+                  <f:FormElement label="Docente">
+							<f:fields>
+								<ComboBox value="{JSONModel>/modelloRapportino/docente}">
+                           <items>
+                              <core:Item text="Dato" key="DatoRicevuto"/>
+                              <core:Item text="Dato2" key="DatoRicevuto2"/>
+                              <core:Item text="Dato3" key="DatoRicevuto3"/>
+                           </items>
+                        </ComboBox>
+							</f:fields>
+						</f:FormElement>
+                  <f:FormElement label="Corso">
+							<f:fields>
+								<ComboBox value="{JSONModel>/modelloRapportino/corso}">
+                           <items>
+                              <core:Item text="Dato" key="DatoRicevuto"/>
+                              <core:Item text="Dato2" key="DatoRicevuto2"/>
+                              <core:Item text="Dato3" key="DatoRicevuto3"/>
+                           </items>
+                        </ComboBox>
+							</f:fields>
+						</f:FormElement>
+					</f:formElements>
+				</f:FormContainer>
+				<f:FormContainer title="">
+					<f:formElements>
+						<f:FormElement label="Km">
+                     <Input value="{JSONModel>/modelloRapportino/km}" type="Number"/>
+                  </f:FormElement>
+                  <f:FormElement label="KmEuro" >
+                     <Input value="{JSONModel>/modelloRapportino/kmEuro}" type="Number"/>
+                  </f:FormElement>
+                  <f:FormElement label="Pedaggio" >
+                     <Input value="{JSONModel>/modelloRapportino/pedaggio}" type="Number"/>
+                  </f:FormElement>
+                  <f:FormElement label="Noleggio">
+                     <Input value="{JSONModel>/modelloRapportino/noleggio}" type="Number"/>
+                  </f:FormElement>
+                  <f:FormElement label="Trasporti">
+                     <Input value="{JSONModel>/modelloRapportino/trasporti}" type="Number"/>
+                  </f:FormElement>
+                  <f:FormElement label="Alloggio">
+                     <Input value="{JSONModel>/modelloRapportino/alloggio}" type="Number"/>
+                  </f:FormElement>
+                  <f:FormElement label="Forfait">
+                     <Input value="{JSONModel>/modelloRapportino/forfait}" type="Number"/>
+                  </f:FormElement>
+                  <f:FormElement label="Vitto">
+                     <Input value="{JSONModel>/modelloRapportino/vitto}" type="Number"/>
+                  </f:FormElement>
+                  <f:FormElement label="Varie">
+                     <Input value="{JSONModel>/modelloRapportino/varie}" type="Number"/>
+                  </f:FormElement>
+                  <f:FormElement label="Riservato">
+                     <Input value="{JSONModel>/modelloRapportino/riservato}" type="Number"/>
+                  </f:FormElement>
+                  <f:FormElement>
+							<f:fields>
+								<CheckBox text="Orario notturno"
+                        selected="{JSONModel>/modelloRapportino/orarioNotturno}"/>
+							</f:fields>
+						</f:FormElement>
+                  <f:FormElement>
+                     <CheckBox text="Plus"
+                        selected="{JSONModel>/modelloRapportino/plus}"/>
+                  </f:FormElement>
+                  <f:FormElement>
+                     <CheckBox text="Fatturabile"
+                        selected="{JSONModel>/modelloRapportino/fatturabile}"/>
+                  </f:FormElement>
+					</f:formElements>
+				</f:FormContainer>
+			</f:formContainers>
+		</f:Form>
+      <FlexBox
+         height="auto"
+         alignItems="Center"
+         justifyContent="End"
+         class="sapUiMediumMargin">
+            <Button
+               text="Salva"
+               press=".onSave"
+               icon="sap-icon://save" 
+               class="sapUiSmallMargin"/>
+            <Button
+               text="Annulla"
+               press=".onNavToTable"
+               icon="sap-icon://undo" 
+               class="sapUiSmallMargin"/>
+      </FlexBox>
+	</VBox>
+</Page>
+</mvc:View>
