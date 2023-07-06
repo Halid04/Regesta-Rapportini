@@ -310,6 +310,26 @@ sap.ui.define(
           target.speseVarie
         );
       },
+
+      onDeleteAll: async function () {
+        var oTable = this.getView().byId("tabella");
+        var indeces = oTable.getSelectedIndices();
+
+        var oModel = await this.getView().getModel();
+        var contexts = await oModel.bindList("/Rapportini").requestContexts();
+        var rapportini = contexts.map((x) => x.getObject());
+
+        var oBindingCestino = await oModel.bindList("/RapportiniCestinati");
+
+        for (let i = 0; i < indeces.length; i++) {
+          const element = rapportini[indeces[i]].ID;
+          oBindingCestino.create(rapportini[indeces[i]]);
+          oModel.delete("/Rapportini(" + element + ")", "$auto");
+        }
+        oModel.submitBatch("myAppUpdateGroup");
+
+        MessageToast.show("Elementi spostati nel cestino");
+      },
     });
   }
 );

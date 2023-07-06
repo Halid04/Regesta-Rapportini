@@ -21,9 +21,10 @@ sap.ui.define(
       },
 
       onRefresh: function () {
-        var oTable = this.getView().byId("tableRapportiniCestinatiID");
+        /*var oTable = this.getView().byId("tableRapportiniCestinatiID");
         var oBinding = oTable.getBinding("items");
-        oBinding.refresh();
+        oBinding.refresh();*/
+        this.getOwnerComponent().getModel().refresh();
       },
 
       onRestoreRapportino: async function (elementID) {

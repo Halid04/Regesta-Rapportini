@@ -15,17 +15,17 @@ controllerName="rapportini.controller.Cestino"
 <tnt:ToolPage id="tablePage" class="toolPage" height="auto">
       <tnt:header>
          <tnt:ToolHeader height="auto" class="toolheader">
-            <Image src="/img/logo.png" width="auto" height="2.5rem" class="sapUiSmallMarginBegin"/>
+            <Image src="/img/{globalData>/logoImagePath}" width="auto" height="2.5rem" class="sapUiSmallMarginBegin"/>
             <ToolbarSpacer>
                <layoutData>
                   <OverflowToolbarLayoutData priority="NeverOverflow" minWidth="20px" />
                </layoutData>
             </ToolbarSpacer>
             <tnt:ToolHeaderUtilitySeparator />
-            <Button icon="sap-icon://light-mode" tooltip="Tema chiaro" />
-            <Button icon="sap-icon://delete" tooltip="Cestino" press=".onNavToTrashcan" />
+            <Button icon="sap-icon://{globalData>/themeIcon}" tooltip="Tema chiaro" press=".onSwitchTheme"/>
+            <Button icon="sap-icon://undo" tooltip="Cestino" press=".onNavToTable" />
             <Button icon="sap-icon://bell" tooltip="Notifiche" />
-            <Avatar src="/img/shash.jpeg" displaySize="S" showBorder="true" press="onPress"/> 
+            <Avatar src="/img/shash.jpeg" displaySize="XS" showBorder="true" press="onPress"/> 
             <Label text="Logout" class="logoutLabel" id="logoutLabel"/>
          </tnt:ToolHeader>
       </tnt:header>
@@ -99,7 +99,7 @@ controllerName="rapportini.controller.Cestino"
                         <t:Column width="140px">
                            <Text text="Utente"/>
                            <t:template>
-                              <Text text="{= ${utente} === ${globalData>/myUsername} ? '${utente} (tu)' : ${utente}}"/>
+                              <Text text="{= ${utente} === ${globalData>/myUsername} ? ${globalData>/usernameSuffix} : ${utente}}"/>
                            </t:template>
                         </t:Column>
                         <t:Column width="100px">

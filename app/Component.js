@@ -21,6 +21,9 @@ sap.ui.define(
           myUsername: "shash",
           today: new Date().toISOString().slice(0, 10),
           monteore: 0.0,
+          usernameSuffix: "shash (tu)",
+          logoImagePath: "logoBianco.png",
+          themeIcon: "light-mode",
         };
 
         var oModel = this.getModel();

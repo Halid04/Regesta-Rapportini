@@ -6,6 +6,7 @@ sap.ui.define(
   ],
   function (Controller, History, UIComponent) {
     "use strict";
+    let modalitaScura = true;
 
     return Controller.extend("rapportini.controller.BaseController", {
       getRouter: function () {
@@ -33,6 +34,20 @@ sap.ui.define(
 
       onNavToTable: function () {
         this.getRouter().navTo("tabellaRapportini");
+      },
+
+      onSwitchTheme: function () {
+        modalitaScura = !modalitaScura;
+        const globalData = this.getView().getModel("globalData");
+        if (modalitaScura) {
+          sap.ui.getCore().applyTheme("sap_horizon_dark");
+          globalData.setProperty("/logoImagePath", "logoBianco.png");
+          globalData.setProperty("/themeIcon", "light-mode");
+        } else {
+          sap.ui.getCore().applyTheme("sap_horizon");
+          globalData.setProperty("/logoImagePath", "logoNero.png");
+          globalData.setProperty("/themeIcon", "dark-mode");
+        }
       },
     });
   }
