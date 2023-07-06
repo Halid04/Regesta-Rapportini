@@ -7,188 +7,436 @@
    controllerName="rapportini.controller.CreazioneRapportini">
 
 <Page id="createPage" title="Nuovo rapportino">
-	<VBox class="sapUiSmallMargin">
-		<f:Form id="Aggiunta"
-			editable="true">
-			<f:layout>
-				<f:ColumnLayout
-					columnsM="2"
-					columnsL="3"
-					columnsXL="4"
-				/>
-			</f:layout>
-			<f:formContainers>
-				<f:FormContainer title="">
-					<f:formElements>
-						<f:FormElement label="Utente">
-							<f:fields>
-								<Input value="{JSONModel>/modelloRapportino/utente}" id="utente"/>
-							</f:fields>
-						</f:FormElement>
-						<f:FormElement label="Giorno">
-							<f:fields>
-								<Input value="{JSONModel>/modelloRapportino/giorno}" type="Date"/>
-							</f:fields>
-						</f:FormElement>
-						<f:FormElement label="Ore">
-							<f:fields>
-								<StepInput
+	<VBox  
+         height="auto"
+         width="100%"
+         alignItems="Center"
+         justifyContent="Center"
+         class="sapUiResponsiveMargin">
+		<FlexBox
+ 
+         height="auto"
+         width="100%"
+         alignItems="start"
+         justifyContent="Center"
+         direction="Column">
+            <FlexBox
+            height="auto"
+            width="90vw"
+            alignItems="start"
+            justifyContent="start">
+               <FlexBox
+               height="auto"
+               width="35vw"
+               alignItems="Start"
+               justifyContent="start"
+               direction="Column">
+               <Label text="Utente"/>
+                <Input value="{JSONModel>/modelloRapportino/utente}" id="utente" required="true" placeholder="Username" width="60vw"/>
+               </FlexBox>
+            </FlexBox>
+
+
+            <FlexBox
+            height="auto"
+            width="90vw"
+            alignItems="Center"
+            justifyContent="Center">
+               <FlexBox
+               height="auto"
+               width="35vw"
+               alignItems="Start"
+               justifyContent="Center"
+               direction="Column">
+                  <Label text="orario" labelFor="inputText4" />
+                  <DateTimePicker
+                           id="DTP5"
+                           placeholder="Enter Date"
+                           change="handleChange"
+                           value= "{
+                              'path': 'JSONModel>/modelloRapportino/giorno',
+                              'type': 'sap.ui.model.type.DateTime',
+                              'formatOptions': {
+                                 'pattern': 'd/M/yy h:mm a'
+                              }
+                           }"
+                           />
+               </FlexBox>
+
+               <FlexBox
+               height="auto"
+               width="20rem"
+               alignItems="Start"
+               justifyContent="Center"
+               direction="Column">
+                  <Label text="Ore" />
+                  <StepInput
                            value="{JSONModel>/modelloRapportino/ore}"
+                           required="true"
+                           displayValuePrecision="2"
+                           min="0.5"
+                           max="15"
+                           width="15rem"
+                           step="0.5"/>
+               </FlexBox>
+
+               <FlexBox
+               height="auto"
+               width="35vw"
+               alignItems="Start"
+               justifyContent="Center"
+               direction="Row">
+                  <CheckBox text="Orario notturno"
+                        selected="{JSONModel>/modelloRapportino/orarioNotturno}"/>
+               </FlexBox>
+            </FlexBox>
+
+            <FlexBox
+            height="auto"
+            width="90vw"
+            alignItems="start"
+            justifyContent="start">
+               <FlexBox
+               height="auto"
+               width="40vw"
+               alignItems="Start"
+               justifyContent="Center"
+               direction="Column">
+                  <Label text="Ticket" />
+                  <ComboBox value="{JSONModel>/modelloRapportino/ticket}" placeholder="Ticket" required="true" width="30vw">
+                           <items>
+                              <core:Item text="Dato" key="DatoRicevuto"/>
+                              <core:Item text="Dato2" key="DatoRicevuto2"/>
+                              <core:Item text="Dato3" key="DatoRicevuto3"/>
+                           </items>
+                        </ComboBox>
+               </FlexBox>
+               <FlexBox
+               height="auto"
+               width="35vw"
+               alignItems="Start"
+               justifyContent="Center"
+               direction="Column">
+                  <Label text="Cliente"  />
+                  <ComboBox value="{JSONModel>/modelloRapportino/cliente}" placeholder="Cliente" width="30vw">
+                           <items>
+                              <core:Item text="Feralpi" key="Feralpi"/>
+                              <core:Item text="Ferrero" key="Ferrero"/>
+                              <core:Item text="Regesta SPA" key="Regesta SPA"/>
+                           </items>
+                        </ComboBox>
+               </FlexBox>
+            </FlexBox>
+
+
+            <FlexBox
+            height="auto"
+            width="90vw"
+            alignItems="Start"
+            justifyContent="Start">
+               <FlexBox
+               height="auto"
+               width="35vw"
+               alignItems="Start"
+               justifyContent="Start"
+               direction="Column">
+                  <Label text="Commessa" labelFor="" />
+                  <ComboBox value="{JSONModel>/modelloRapportino/commessa}" placeholder="Commessa" width="60vw">
+                           <items>
+                              <core:Item text="Aiuto cliente" key="Aiuto cliente"/>
+                              <core:Item text="Partita Biliardino" key="Partita Biliardino"/>
+                              <core:Item text="Problem solving" key="Problem  solving"/>
+                           </items>
+                        </ComboBox>
+               </FlexBox>
+            </FlexBox>
+
+
+            <FlexBox
+            height="auto"
+            width="90vw"
+            alignItems="Start"
+            justifyContent="Start">
+               <FlexBox
+               height="auto"
+               width="35vw"
+               alignItems="Start"
+               justifyContent="Start"
+               direction="Column">
+                  <Label text="Descrizione" />
+                  <Input value="{JSONModel>/modelloRapportino/descrizione}" required="true" placeholder="Scrivi una descrizione del lavoro svolto" width="60vw"/>
+               </FlexBox>
+            </FlexBox>
+
+            
+            <FlexBox
+            height="auto"
+            width="90vw"
+            alignItems="start"
+            justifyContent="start">
+               <FlexBox
+               height="auto"
+               width="40vw"
+               alignItems="Start"
+               justifyContent="Center"
+               direction="Column">
+                  <Label text="Sede" />
+                  <ComboBox value="{JSONModel>/modelloRapportino/sede}" placeholder="Sede" width="30vw">
+                           <items>
+                              <core:Item text="Ufficio" key="Ufficio"/>
+                              <core:Item text="Cliente" key="Cliente"/>
+                              <core:Item text="SmarthWorking" key="SmarthWorking"/>
+                           </items>
+                   </ComboBox>
+               </FlexBox>
+               <FlexBox
+               height="auto"
+               width="35vw"
+               alignItems="Start"
+               justifyContent="Center"
+               direction="Column">
+                  <Label text="Destinazione"  />
+                  <ComboBox value="{JSONModel>/modelloRapportino/destinazione}" placeholder="Destinazione" width="30vw" >
+                           <items>
+                              <core:Item text="Nessuna" key="N-A"/>
+                              <core:Item text="Mosca" key="Mosca"/>
+                              <core:Item text="Castelletto di Leno" key="Castelletto di Leno"/>
+                              <core:Item text="Borghetto di Sangiacomo" key="Borghetto di Sangiacomo"/>
+                           </items>
+                  </ComboBox>
+               </FlexBox>
+            </FlexBox>
+
+
+            <FlexBox
+            height="auto"
+            width="90vw"
+            alignItems="Center"
+            justifyContent="Center">
+               <FlexBox
+               height="auto"
+               width="35vw"
+               alignItems="Center"
+               justifyContent="Center"
+               direction="Column">
+                  <Label text="Km" />
+                 <StepInput
+                           value="{JSONModel>/modelloRapportino/km}"
+                           step="0.5"
                            displayValuePrecision="2"
                            min="0"
-                           max="15"
-                           width="5rem"
-                           step="0.5"/>
-							</f:fields>
-						</f:FormElement>
-						<f:FormElement label="Ticket">
-							<f:fields>
-								<ComboBox value="{JSONModel>/modelloRapportino/ticket}">
-                           <items>
-                              <core:Item text="Dato" key="DatoRicevuto"/>
-                              <core:Item text="Dato2" key="DatoRicevuto2"/>
-                              <core:Item text="Dato3" key="DatoRicevuto3"/>
-                           </items>
-                        </ComboBox>
-							</f:fields>
-						</f:FormElement>
-						<f:FormElement label="Cliente">
-							<f:fields>
-								<ComboBox value="{JSONModel>/modelloRapportino/clientet}">
-                           <items>
-                              <core:Item text="Dato" key="DatoRicevuto"/>
-                              <core:Item text="Dato2" key="DatoRicevuto2"/>
-                              <core:Item text="Dato3" key="DatoRicevuto3"/>
-                           </items>
-                        </ComboBox>
-							</f:fields>
-						</f:FormElement>
-                  <f:FormElement label="Commessa">
-							<f:fields>
-								<ComboBox value="{JSONModel>/modelloRapportino/commessa}">
-                           <items>
-                              <core:Item text="Dato" key="DatoRicevuto"/>
-                              <core:Item text="Dato2" key="DatoRicevuto2"/>
-                              <core:Item text="Dato3" key="DatoRicevuto3"/>
-                           </items>
-                        </ComboBox>
-							</f:fields>
-						</f:FormElement>
-                  <f:FormElement label="Descrizione">
-                     <Input value="{JSONModel>/modelloRapportino/descrizione}"/>
-                  </f:FormElement>
-                  <f:FormElement label="Sede">
-							<f:fields >
-								<ComboBox value="{JSONModel>/modelloRapportino/sede}">
-                           <items>
-                              <core:Item text="Dato" key="DatoRicevuto"/>
-                              <core:Item text="Dato2" key="DatoRicevuto2"/>
-                              <core:Item text="Dato3" key="DatoRicevuto3"/>
-                           </items>
-                        </ComboBox>
-							</f:fields>
-						</f:FormElement>
-                  <f:FormElement label="Destinazione">
-							<f:fields>
-								<ComboBox value="{JSONModel>/modelloRapportino/destinazione}">
-                           <items>
-                              <core:Item text="Dato" key="DatoRicevuto"/>
-                              <core:Item text="Dato2" key="DatoRicevuto2"/>
-                              <core:Item text="Dato3" key="DatoRicevuto3"/>
-                           </items>
-                        </ComboBox>
-							</f:fields>
-						</f:FormElement>
-                  <f:FormElement label="Docente">
-							<f:fields>
-								<ComboBox value="{JSONModel>/modelloRapportino/docente}">
-                           <items>
-                              <core:Item text="Dato" key="DatoRicevuto"/>
-                              <core:Item text="Dato2" key="DatoRicevuto2"/>
-                              <core:Item text="Dato3" key="DatoRicevuto3"/>
-                           </items>
-                        </ComboBox>
-							</f:fields>
-						</f:FormElement>
-                  <f:FormElement label="Corso">
-							<f:fields>
-								<ComboBox value="{JSONModel>/modelloRapportino/corso}">
-                           <items>
-                              <core:Item text="Dato" key="DatoRicevuto"/>
-                              <core:Item text="Dato2" key="DatoRicevuto2"/>
-                              <core:Item text="Dato3" key="DatoRicevuto3"/>
-                           </items>
-                        </ComboBox>
-							</f:fields>
-						</f:FormElement>
-					</f:formElements>
-				</f:FormContainer>
-				<f:FormContainer title="">
-					<f:formElements>
-						<f:FormElement label="Km">
-                     <Input value="{JSONModel>/modelloRapportino/km}" type="Number"/>
-                  </f:FormElement>
-                  <f:FormElement label="KmEuro" >
-                     <Input value="{JSONModel>/modelloRapportino/kmEuro}" type="Number"/>
-                  </f:FormElement>
-                  <f:FormElement label="Pedaggio" >
-                     <Input value="{JSONModel>/modelloRapportino/pedaggio}" type="Number"/>
-                  </f:FormElement>
-                  <f:FormElement label="Noleggio">
-                     <Input value="{JSONModel>/modelloRapportino/noleggio}" type="Number"/>
-                  </f:FormElement>
-                  <f:FormElement label="Trasporti">
-                     <Input value="{JSONModel>/modelloRapportino/trasporti}" type="Number"/>
-                  </f:FormElement>
-                  <f:FormElement label="Alloggio">
-                     <Input value="{JSONModel>/modelloRapportino/alloggio}" type="Number"/>
-                  </f:FormElement>
-                  <f:FormElement label="Forfait">
-                     <Input value="{JSONModel>/modelloRapportino/forfait}" type="Number"/>
-                  </f:FormElement>
-                  <f:FormElement label="Vitto">
-                     <Input value="{JSONModel>/modelloRapportino/vitto}" type="Number"/>
-                  </f:FormElement>
-                  <f:FormElement label="Varie">
-                     <Input value="{JSONModel>/modelloRapportino/varie}" type="Number"/>
-                  </f:FormElement>
-                  <f:FormElement label="Riservato">
-                     <Input value="{JSONModel>/modelloRapportino/riservato}" type="Number"/>
-                  </f:FormElement>
-                  <f:FormElement>
-							<f:fields>
-								<CheckBox text="Orario notturno"
-                        selected="{JSONModel>/modelloRapportino/orarioNotturno}"/>
-							</f:fields>
-						</f:FormElement>
-                  <f:FormElement>
-                     <CheckBox text="Plus"
+                           placeholder="Km"
+                           />
+               </FlexBox>
+
+               <FlexBox
+               height="auto"
+               width="35vw"
+               alignItems="Start"
+               justifyContent="Center"
+               direction="Column">
+                  <Label text="Km/Euro" />
+                 <StepInput
+                           value="{JSONModel>/modelloRapportino/kmEuro}"
+                           step="0.5"
+                           displayValuePrecision="2"
+                           min="0"
+                           placeholder="Km"
+                           />
+               </FlexBox>
+
+               <FlexBox
+               height="auto"
+               width="35vw"
+               alignItems="Start"
+               justifyContent="Center"
+               direction="Column">
+                  <Label text="Pedaggio"  />
+                 <StepInput
+                           value="{JSONModel>/modelloRapportino/pedaggio}"
+                           step="0.5"
+                           displayValuePrecision="2"
+                           min="0"
+                           placeholder="Km"
+                           />
+               </FlexBox>
+            </FlexBox>
+
+
+            <FlexBox
+            height="auto"
+            width="90vw"
+            alignItems="Center"
+            justifyContent="Center">
+               <FlexBox
+               height="auto"
+               width="35vw"
+               alignItems="Start"
+               justifyContent="Center"
+               direction="Column">
+                  <Label text="Noleggio" />
+                 <StepInput
+                           value="{JSONModel>/modelloRapportino/noleggio}"
+                           step="0.5"
+                           displayValuePrecision="2"
+                           min="0"
+                           placeholder="Km"
+                           />
+               </FlexBox>
+
+               <FlexBox
+               height="auto"
+               width="35vw"
+               alignItems="Start"
+               justifyContent="Center"
+               direction="Column">
+                  <Label text="Trasporti" />
+                 <StepInput
+                           value="{JSONModel>/modelloRapportino/trasporti}"
+                           step="0.5"
+                           displayValuePrecision="2"
+                           min="0"
+                           placeholder="Km"
+                           />
+               </FlexBox>
+
+               <FlexBox
+               height="auto"
+               width="35vw"
+               alignItems="Start"
+               justifyContent="Center"
+               direction="Column">
+                  <Label text="Alloggio"  />
+                 <StepInput
+                           value="{JSONModel>/modelloRapportino/alloggio}"
+                           step="0.5"
+                           displayValuePrecision="2"
+                           min="0"
+                           placeholder="Km"
+                           />
+               </FlexBox>
+            </FlexBox>
+            
+
+            <FlexBox
+            height="auto"
+            width="90vw"
+            alignItems="Center"
+            justifyContent="Center">
+               <FlexBox
+               height="auto"
+               width="35vw"
+               alignItems="Start"
+               justifyContent="Center"
+               direction="Column">
+                  <Label text="forfait" />
+                 <StepInput
+                           value="{JSONModel>/modelloRapportino/forfait}"
+                           step="0.5"
+                           displayValuePrecision="2"
+                           min="0"
+                           placeholder="Km"
+                           />
+               </FlexBox>
+
+               <FlexBox
+               height="auto"
+               width="35vw"
+               alignItems="Start"
+               justifyContent="Center"
+               direction="Column">
+                  <Label text="Vitto" />
+                 <StepInput
+                           value="{JSONModel>/modelloRapportino/vitto}"
+                           step="0.5"
+                           displayValuePrecision="2"
+                           min="0"
+                           placeholder="Km"
+                           />
+               </FlexBox>
+
+               <FlexBox
+               height="auto"
+               width="35vw"
+               alignItems="Start"
+               justifyContent="Center"
+               direction="Column">
+                  <Label text="Varie"  />
+                 <StepInput
+                           value="{JSONModel>/modelloRapportino/varie}"
+                           step="0.5"
+                           displayValuePrecision="2"
+                           min="0"
+                           placeholder="Km"
+                           />
+               </FlexBox>
+            </FlexBox>
+
+
+            <FlexBox
+            height="auto"
+            width="90vw"
+            alignItems="Center"
+            justifyContent="Center">
+               <FlexBox
+               height="auto"
+               width="35vw"
+               alignItems="Start"
+               justifyContent="Center"
+               direction="Column">
+                  <Label text="Riservato" />
+                 <StepInput
+                           value="{JSONModel>/modelloRapportino/riservato}"
+                           step="0.5"
+                           displayValuePrecision="2"
+                           min="0"
+                           placeholder="Km"
+                           />
+               </FlexBox>
+
+               <FlexBox
+               height="auto"
+               width="35vw"
+               alignItems="Start"
+               justifyContent="Center"
+               direction="Column">
+                  <CheckBox text="Plus"
                         selected="{JSONModel>/modelloRapportino/plus}"/>
-                  </f:FormElement>
-                  <f:FormElement>
-                     <CheckBox text="Fatturabile"
+                
+               </FlexBox>
+
+               <FlexBox
+               height="auto"
+               width="35vw"
+               alignItems="Start"
+               justifyContent="Center"
+               direction="Column">
+                 <CheckBox text="Fatturabile"
                         selected="{JSONModel>/modelloRapportino/fatturabile}"/>
-                  </f:FormElement>
-					</f:formElements>
-				</f:FormContainer>
-			</f:formContainers>
-		</f:Form>
-      <FlexBox
-         height="auto"
-         alignItems="Center"
-         justifyContent="End"
-         class="sapUiMediumMargin">
-            <Button
-               text="Salva"
-               press=".onSave"
-               icon="sap-icon://save" 
-               class="sapUiSmallMargin"/>
-            <Button
-               text="Annulla"
-               press=".onNavToTable"
-               icon="sap-icon://undo" 
-               class="sapUiSmallMargin"/>
-      </FlexBox>
+               
+               </FlexBox>
+            </FlexBox>
+            
+            </FlexBox>
+               <FlexBox
+               height="10Vh"
+               width="100vw"
+               alignItems="end"
+               justifyContent="Center">
+                  <Button 
+                  text="Salva" 
+                  press=".onSave"
+                  icon="sap-icon://add" 
+                  class="sapUiSmallMargin" />
+
+                  <Button 
+                  text="Annulla" 
+                  press=".onNavToTable"
+                  icon="sap-icon://undo"
+                  class="sapUiSmallMargin" />
+
+               </FlexBox>
+            </FlexBox>
 	</VBox>
 </Page>
 </mvc:View>

@@ -2,7 +2,7 @@ namespace rapportini.db;
 
 entity Rapportini
 {
-   key ID: Integer @(IncrementalCounter: true, InitialValue: 1);
+   key ID: UUID;
     IDUtente : Integer;
     utente : String(50);
     IDCliente : Association to one Clienti;
@@ -47,7 +47,7 @@ entity Rapportini
 
 entity RapportiniCestinati
 {
-   key ID: Integer @(IncrementalCounter: true, InitialValue: 1);
+   key ID: UUID;
     IDUtente : Integer;
     utente : String(50);
     IDCliente : Association to one Clienti;

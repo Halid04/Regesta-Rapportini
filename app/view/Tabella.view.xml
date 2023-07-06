@@ -1,94 +1,167 @@
 <mvc:View
-controllerName="rapportini.controller.Tabella"
-xmlns="sap.m"
-xmlns:mvc="sap.ui.core.mvc"
-xmlns:l="sap.ui.layout"
-xmlns:fiori="sap.ui.webc.fiori"
-xmlns:tnt="sap.tnt">
-   <Page id="tablePage" title="" class="myApp" >
-         <headerContent>
-            <Image src="/img/logo.png" width="12rem" height="2.7rem" />
+   controllerName="rapportini.controller.Tabella"
+   xmlns="sap.m"
+   xmlns:mvc="sap.ui.core.mvc"
+   xmlns:l="sap.ui.layout"
+   xmlns:fiori="sap.ui.webc.fiori"
+   xmlns:tnt="sap.tnt"
+   xmlns:t="sap.ui.table"
+   xmlns:f="sap.f"
+   xmlns:fb="sap.ui.comp.filterbar"
+   xmlns:svm="sap.ui.comp.smartvariants"
+   xmlns:core="sap.ui.core">
 
+   <tnt:ToolPage id="tablePage" class="toolPage">
+      <tnt:header>
+         <tnt:ToolHeader height="4rem" class="toolheader">
+            <Image src="/img/logo.png" width="11rem" height="2.5rem" class="sapUiSmallMarginBegin"/>
+            <ToolbarSpacer>
+               <layoutData>
+                  <OverflowToolbarLayoutData priority="NeverOverflow" minWidth="20px" />
+               </layoutData>
+            </ToolbarSpacer>
+            <tnt:ToolHeaderUtilitySeparator />
             <Button icon="sap-icon://light-mode" tooltip="Tema chiaro" />
-            <Button icon="sap-icon://delete" tooltip="Cestino" />
+            <Button icon="sap-icon://delete" tooltip="Cestino" press=".onNavToTrashcan" />
             <Button icon="sap-icon://bell" tooltip="Notifiche" />
-            <Avatar
-               src="/img/ghiro.jpeg"
-               displaySize="XS"
-               showBorder="true"
-               press="onPress"/> 
-            <Label text="Logout" class="logoutLabel" />
-         </headerContent>
-         <FlexBox
-            height="auto"
-            alignItems="Center"
-            justifyContent="Start"
-            class="sapUiMediumMarginTop">
-               <Button
-                  text="Add"
-                  press=".onNavToCreate"
-                  icon="sap-icon://add" class="sapUiSmallMargin"/>
-                  <Button
-                  text="Cestino"
-                  press=".onNavToTrashcan"
-                  icon="sap-icon://delete" />
-               <SearchField width="100%" search=".onSearch" class="sapUiSmallMargin"/>
-         </FlexBox>
-         <FlexBox
-               height="auto"
-               width="100vw"
-               alignItems="Center"
-               justifyContent="Center"
-               direction="Column"
-               class="sapUiMediumMarginTop">
+            <Avatar src="/img/shash.jpeg" displaySize="S" showBorder="true" press="onPress"/> 
+            <Label text="Logout" class="logoutLabel" id="logoutLabel"/>
+         </tnt:ToolHeader>
+      </tnt:header>
+      <tnt:sideContent>
+         <tnt:SideNavigation id="sideNavigation" selectedKey="subItem3">
+               <tnt:NavigationList>
+                  <tnt:NavigationListItem text="Rapportini" icon="sap-icon://activity-items">
+                     <tnt:NavigationListItem text="Lista" />
+                     <tnt:NavigationListItem text="Pianificazione Ferie" />
+                     <tnt:NavigationListItem text="Richiesta Sblocco" id="subItem3" key="subItem3" />
+                  </tnt:NavigationListItem>
+                  <tnt:NavigationListItem text="Tickets" icon="sap-icon://sap-box">
+                     <tnt:NavigationListItem text="Sub Item 1" />
+                     <tnt:NavigationListItem text="Sub Item 2" />
+                     <tnt:NavigationListItem text="Sub Item 3" />
+                     <tnt:NavigationListItem text="Sub Item 4" />
+                  </tnt:NavigationListItem>
+                  <tnt:NavigationListItem text="Anagrafiche" icon="sap-icon://business-card">
+                     <tnt:NavigationListItem text="Sub Item 1" />
+                     <tnt:NavigationListItem text="Sub Item 2" />
+                     <tnt:NavigationListItem text="Sub Item 3" />
+                     <tnt:NavigationListItem text="Sub Item 4" />
+                  </tnt:NavigationListItem>
+               </tnt:NavigationList>
+               <tnt:fixedItem>
+                  <tnt:NavigationList>
+                     <tnt:NavigationListItem text="Coordinatori" icon="sap-icon://group" />
+                     <tnt:NavigationListItem text="Team Leader" icon="sap-icon://manager" />
+                     <tnt:NavigationListItem text="Amministazione" icon="sap-icon://primary-key" />
+                  </tnt:NavigationList>
+               </tnt:fixedItem>
+            </tnt:SideNavigation>
+      </tnt:sideContent>
+      <tnt:mainContents>
+         <FlexBox height="auto" width="45rem"  alignItems="Center" justifyContent="Center" direction="Column">
+            <FlexBox height="auto" width="100%" alignItems="Center" justifyContent="Center" direction="Column" class="sapUiMediumMarginBegin">
+               <FlexBox height="auto" width="100%"  alignItems="Center" justifyContent="Start" class="sapUiSmallMargin">
+                  <Breadcrumbs currentLocationText="Lista" separatorStyle="GreaterThan">
+                     <Link press="onPress" text="Home"/>
+                     <Link press="onPress" text="Rapportini"/>
+                  </Breadcrumbs>
+               </FlexBox>
 
-               <Table items="{path: '/Rapportini'}" id="tableRapportiniID">
-                  <columns>
-                     <Column>
-                        <Text text="Utente" />
-                     </Column>
-                     <Column>
-                        <Text text="Data" />
-                     </Column>
-                     <Column>
-                        <Text text="Ore" />
-                     </Column>
-                     <Column>
-                        <Text text="Ticket" />
-                     </Column>
-                     <Column>
-                        <Text text="Cliente" />
-                     </Column>
-                     <Column>
-                        <Text text="Sede" />
-                     </Column>
-                     <Column>
-                        <Text text="Descrizione" />
-                     </Column>
-                     <Column>
-                        <Text text="" />
-                     </Column>
-                  </columns>
-                  <items>
-                     <ColumnListItem>
-                        <cells>
-                           <Text text="{utente}"/>
-                           <Text text="{giorno}" />
-                           <Text text="{ore}"/>
-                           <Text text="Desarrollo de aplicaciones web Rapportini" />
-                           <Text text="Nicolas Stage" />
-                           <Text text="{sede}" />
-                           <Text text="{descrizione}" />
-                           
-                           <HBox>
-                              <Button icon="sap-icon://edit" press="onEditRapportino(${ID})" class="sapUiTinyMarginEnd" tooltip="Modifica"/>
-                              <Button icon="sap-icon://delete" press="onTrashRapportino(${ID})" class="sapUiTinyMarginEnd" tooltip="Elimina"/>
-                              <Button icon="sap-icon://copy" press="onCopyRapportino(${ID})" class="sapUiTinyMarginEnd" tooltip="Copia"/>
-                           </HBox>
-                        </cells>
-                     </ColumnListItem>
-                  </items>
-               </Table>
+               <FlexBox height="auto" width="100%" alignItems="Center" justifyContent="Start" class="sapUiSmallMarginBottom">
+                  <Button text="Nuovo Rapportino" press=".onNavToCreate" icon="sap-icon://add"/>
+                  <!-- <Text text="Ore lavorate oggi: {globalData>/monteore}" class="sapUiMediumMargin"/> -->
+               </FlexBox>
+
+               <FlexBox height="auto" width="100%" alignItems="Center" justifyContent="Start">
+                  <fb:FilterBar  id="filterbar" persistencyKey="myPersKey" useToolbar="false" search=".onSearch" filterChange=".onFilterChange" afterVariantLoad=".onAfterVariantLoad" width="60.75rem">
+                     <fb:filterGroupItems >
+                        <fb:FilterGroupItem name="utente" label="Cerca" groupName="Group1" visibleInFilterBar="true">
+                           <fb:control>
+                              <MultiComboBox name="Utente" selectionChange=".onSelectionChange" items="{
+                                    path: '/Rapportini',
+                                    templateShareable: true
+                                 }">
+                                 <core:Item key="{utente}" text="{utente}"/>
+                              </MultiComboBox>
+                           </fb:control>
+                        </fb:FilterGroupItem>
+                     </fb:filterGroupItems>
+                  </fb:FilterBar>
+               </FlexBox>
             </FlexBox>
-   </Page>
+            <FlexBox height="100%" width="100%"  alignItems="Center" justifyContent="Start">
+               <ScrollContainer height="auto" width="auto" horizontal="true" vertical="true" class="sapUiSmallMarginBegin">
+                  <t:Table rows="{path: '/Rapportini'}" selectionMode="MultiToggle" width="99%" height="auto" alternateRowColors="true" id="tabella" fixedColumnCount="2">
+                     <t:columns>
+                        <t:Column width="140px">
+                           <t:template>
+                              <l:HorizontalLayout>
+                                 <Button icon="sap-icon://edit" class="sapUiTinyMarginEnd" press=".onEditRapportino(${ID})"/>
+                                 <Button icon="sap-icon://document-text" class="sapUiTinyMarginEnd" press=".onCopyRapportino(${ID})"/>
+                                 <Button icon="sap-icon://delete" class="sapUiTinyMarginEnd" press=".onTrashRapportino(${ID})"/>
+                              </l:HorizontalLayout>
+                           </t:template>
+                        </t:Column>
+                        <t:Column width="140px">
+                           <Text text="Utente"/>
+                           <t:template>
+                              <Text text="{= ${utente} === ${globalData>/myUsername} ? '${utente} (tu)' : ${utente}}"/>
+                           </t:template>
+                        </t:Column>
+                        <t:Column width="100px">
+                           <Text text="Giorno" />
+                           <t:template>
+                              <Text text="{giorno}" />
+                           </t:template>
+                        </t:Column>
+                        <t:Column width="50px">
+                           <Text text="Ore" />
+                           <t:template>
+                              <Text text="{ore}" />
+                           </t:template>
+                        </t:Column>
+                        <t:Column width="100px">   
+                           <Text text="Ticket" />
+                           <t:template>
+                              <Text text="Ticket esempio" />
+                           </t:template>
+                        </t:Column>
+                        <t:Column width="100px">
+                           <Text text="Cliente" />
+                           <t:template>
+                              <Text text="Cosa nostra" />
+                           </t:template>
+                        </t:Column>
+                        <t:Column width="100px">
+                           <Text text="Commessa" />
+                           <t:template>
+                              <Text text="Trabajo serio en pincanello" />
+                           </t:template>
+                        </t:Column>
+                        <t:Column width="50px">
+                           <Text text="Sede" />
+                           <t:template>
+                              <Text text="{sede}" />
+                           </t:template>
+                        </t:Column>
+                        <t:Column width="100px">
+                           <Text text="Descrizione" />
+                           <t:template>
+                              <Text text="{descrizione}" />
+                           </t:template>
+                        </t:Column>
+                        <t:Column width="100px">
+                           <Text text="Spese totali" />
+                           <t:template>
+                              <Text text="{km}" />
+                           </t:template>
+                        </t:Column>
+                     </t:columns>
+                  </t:Table>
+               </ScrollContainer>
+            </FlexBox>
+         </FlexBox>
+      </tnt:mainContents>
+   </tnt:ToolPage>
 </mvc:View>

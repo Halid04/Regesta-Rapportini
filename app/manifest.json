@@ -48,7 +48,8 @@
       "": {
         "dataSource": "default",
         "settings": {
-          "updateGroupId": "myAppUpdateGroup"
+          "updateGroupId": "myAppUpdateGroup",
+          "operationMode": "Server"
         }
       }
     },

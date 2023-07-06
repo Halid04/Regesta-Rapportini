@@ -5,8 +5,6 @@ sap.ui.define(
     "sap/ui/model/resource/ResourceModel",
   ],
 
-
-  //ciao :)
   function (UIComponent, JSONModel, ResourceModel) {
     "use strict";
     return UIComponent.extend("rapportini.Component", {
@@ -15,9 +13,33 @@ sap.ui.define(
         manifest: "json",
       },
 
-      init: function () {
+      init: async function () {
         UIComponent.prototype.init.apply(this, arguments);
         this.getRouter().initialize();
+
+        var oData = {
+          myUsername: "shash",
+          today: new Date().toISOString().slice(0, 10),
+          monteore: 0.0,
+        };
+
+        var oModel = this.getModel();
+        var oBinding = await oModel.bindList("/Rapportini");
+        var contexts = await oBinding.requestContexts();
+        var allRapportini = contexts.map((x) => x.getObject());
+
+        for (var i = 0; i < allRapportini.length; i++) {
+          if (
+            allRapportini[i].utente.localeCompare(oData.myUsername) == 0 &&
+            allRapportini[i].giorno.slice(0, 10).localeCompare(oData.today) == 0
+          ) {
+            console.log(allRapportini[i]);
+            oData.monteore += parseFloat(allRapportini[i].ore);
+            // console.log(monteoreUser);
+          }
+        }
+
+        this.setModel(new JSONModel(oData), "globalData");
       },
     });
   }
