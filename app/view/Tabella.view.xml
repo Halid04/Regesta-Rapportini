@@ -70,19 +70,79 @@
 
                <FlexBox height="auto" width="100%" alignItems="Center" justifyContent="Start" class="sapUiSmallMarginBottom">
                   <Button text="Nuovo Rapportino" press=".onNavToCreate" icon="sap-icon://add"/>
-                  <!-- <Text text="Ore lavorate oggi: {globalData>/monteore}" class="sapUiMediumMargin"/> -->
+                  <Text text="Ore lavorate oggi: {globalData>/monteore}" class="sapUiMediumMargin"/>
                </FlexBox>
 
                <FlexBox height="auto" width="100%" alignItems="Center" justifyContent="Start">
                   <fb:FilterBar  id="filterbar" persistencyKey="myPersKey" useToolbar="false" search=".onSearch" filterChange=".onFilterChange" afterVariantLoad=".onAfterVariantLoad" width="60.75rem">
                      <fb:filterGroupItems >
-                        <fb:FilterGroupItem name="utente" label="Cerca" groupName="Group1" visibleInFilterBar="true">
+                        <fb:FilterGroupItem name="utente" label="Utente" groupName="Group1" visibleInFilterBar="false">
                            <fb:control>
                               <MultiComboBox name="Utente" selectionChange=".onSelectionChange" items="{
                                     path: '/Rapportini',
                                     templateShareable: true
                                  }">
                                  <core:Item key="{utente}" text="{utente}"/>
+                              </MultiComboBox>
+                           </fb:control>
+                        </fb:FilterGroupItem>
+                        <fb:FilterGroupItem name="giorno" label="Giorno" groupName="Group1" visibleInFilterBar="false">
+                           <fb:control>
+                              <MultiComboBox name="Giorno" selectionChange=".onSelectionChange" items="{
+                                    path: '/Rapportini',
+                                    templateShareable: true
+                                 }">
+                                 <core:Item key="{giorno}" text="{giorno}"/>
+                              </MultiComboBox>
+                           </fb:control>
+                        </fb:FilterGroupItem>
+                        <fb:FilterGroupItem name="ore" label="Ore" groupName="Group1" visibleInFilterBar="false">
+                           <fb:control>
+                              <MultiComboBox name="Utente" selectionChange=".onSelectionChange" items="{
+                                    path: '/Rapportini',
+                                    templateShareable: true
+                                 }">
+                                 <core:Item key="{ore}" text="{ore}"/>
+                              </MultiComboBox>
+                           </fb:control>
+                        </fb:FilterGroupItem>
+                        <fb:FilterGroupItem name="ticket" label="Ticket" groupName="Group1" visibleInFilterBar="false">
+                           <fb:control>
+                              <MultiComboBox name="Ticket" selectionChange=".onSelectionChange" items="{
+                                    path: '/Rapportini',
+                                    templateShareable: true
+                                 }">
+                                 <core:Item key="{ticket}" text="{ticket}"/>
+                              </MultiComboBox>
+                           </fb:control>
+                        </fb:FilterGroupItem>
+                        <fb:FilterGroupItem name="cliente" label="Cliente" groupName="Group1" visibleInFilterBar="false">
+                           <fb:control>
+                              <MultiComboBox name="Cliente" selectionChange=".onSelectionChange" items="{
+                                    path: '/Rapportini',
+                                    templateShareable: true
+                                 }">
+                                 <core:Item key="{cliente}" text="{cliente}"/>
+                              </MultiComboBox>
+                           </fb:control>
+                        </fb:FilterGroupItem>
+                        <fb:FilterGroupItem name="commessa" label="Commessa" groupName="Group1" visibleInFilterBar="false">
+                           <fb:control>
+                              <MultiComboBox name="Commessa" selectionChange=".onSelectionChange" items="{
+                                    path: '/Rapportini',
+                                    templateShareable: true
+                                 }">
+                                 <core:Item key="{commessa}" text="{commessa}"/>
+                              </MultiComboBox>
+                           </fb:control>
+                        </fb:FilterGroupItem>
+                        <fb:FilterGroupItem name="sede" label="Sede" groupName="Group1" visibleInFilterBar="false">
+                           <fb:control>
+                              <MultiComboBox name="Sede" selectionChange=".onSelectionChange" items="{
+                                    path: '/Rapportini',
+                                    templateShareable: true
+                                 }">
+                                 <core:Item key="{sede}" text="{sede}"/>
                               </MultiComboBox>
                            </fb:control>
                         </fb:FilterGroupItem>
