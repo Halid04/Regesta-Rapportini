@@ -1,0 +1,17 @@
+ID,status,statusIT,statusEN
+10,Da assegnare,Da assegnare,To assign
+20,Assegnato,Assegnato,Assigned
+30,Attesa specifiche,Attesa specifiche,Waiting specs
+40,In lavorazione,In lavorazione,Develop
+50,Sospeso,Sospeso,Suspend
+60,Test,Test,Test
+70,Rilasciato in test,Rilasciato in test,Released in test
+90,Chiuso,Chiuso,Close
+-10,Resp. IT: approvare,Resp. IT: approvare,To approve IT admin
+0,Aperto,Aperto,Open
+-6,Da stimare,Da stimare,To estimate
+-20,Resp. AREA: approvare,Resp. AREA: approvare,To approve AREA admin
+-4,Stimato,Stimato,Estimated
+31,Attesa cliente,Attesa cliente,Customer response
+82,Da mettere in PROD,Da mettere in PROD,To setup in PROD
+84,Rilasciato in prod,Rilasciato in prod,Released in prod

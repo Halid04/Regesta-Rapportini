@@ -1,6 +1,5 @@
 {
   "_version": "0.0.0",
-
   "sap.app": {
     "id": "rapportini",
     "type": "application",
@@ -19,7 +18,6 @@
       }
     }
   },
-
   "sap.ui": {
     "technology": "UI5",
     "deviceTypes": {
@@ -28,14 +26,12 @@
       "phone": true
     }
   },
-
   "sap.ui5": {
     "rootView": {
       "viewName": "rapportini.view.App",
       "type": "XML",
       "id": "app"
     },
-
     "dependencies": {
       "minUI5Version": "1.93",
       "libs": {
@@ -43,7 +39,6 @@
         "sap.m": {}
       }
     },
-
     "models": {
       "": {
         "dataSource": "default",
@@ -53,7 +48,6 @@
         }
       }
     },
-
     "resources": {
       "css": [
         {
@@ -61,7 +55,6 @@
         }
       ]
     },
-
     "routing": {
       "config": {
         "routerClass": "sap.m.routing.Router",
@@ -76,51 +69,57 @@
         },
         "async": true,
         "sample": {
-          "files": ["app/img/logo.png"]
+          "files": [
+            "app/img/logo.png"
+          ]
         }
       },
-
       "routes": [
         {
           "pattern": "",
           "name": "tabellaRapportini",
           "target": "tabellaRapportini"
         },
-
         {
           "pattern": "creaRapportino/{operationID}/:IDRapportino:",
           "name": "creaRapportino",
           "target": "creaRapportino"
         },
-
         {
           "pattern": "cestino",
           "name": "cestino",
           "target": "cestino"
+        },
+        {
+          "pattern": "tickets",
+          "name": "tickets",
+          "target": "tickets"
         }
       ],
-
       "targets": {
         "tabellaRapportini": {
           "id": "tabellaRapportini",
           "name": "Tabella",
           "level": 1
         },
-
         "creaRapportino": {
           "id": "creaRapportino",
           "path": "rapportini.view",
           "name": "CreazioneRapportini",
           "level": 2
         },
-
         "cestino": {
           "id": "cestino",
           "path": "rapportini.view",
           "name": "Cestino",
           "level": 2
         },
-
+        "tickets": {
+          "id": "tickets",
+          "path": "rapportini.view",
+          "name": "Tickets",
+          "level": 2
+        },
         "notFound": {
           "id": "notFound",
           "name": "NotFound",

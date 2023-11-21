@@ -1,0 +1,25 @@
+ID,areaFunzionale,descrizione
+1,CO,Controlling
+2,FI,Finance
+3,PP,Production - SCM
+4,MM,Material Management
+5,SD,Sales distribution
+7,MES,MES
+8,EDI,EDI
+9,R&D,Ricerca e sviluppo
+10,PM,Plant maintenance
+11,QM,Quality management
+12,ALINK,ArchiveLink e gestione documentale Arxivar
+13,SYS,Sistemistiche - BC
+14,BI,Business Intelligence
+15,CS,Customer service
+16,WM,Warehouse Management
+17,HR,Gestione Personale
+19,WEB,Applicativi Web
+20,ORC,Orchestratore
+21,APO,Advanced Planning and Optimization
+22,BASIS,Sap Basis
+24,SUCFACT,Success Factor
+25,CRM,CRM
+26,CROSS,Attività cross modulo
+27,PS,Project System

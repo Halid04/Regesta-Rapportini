@@ -1,0 +1,2 @@
+ID,IDTicket_ID,assegnatoA,giorniPrev,giorniCons,status,dataInizio,dataFine,avanzamento,ruolo,responsabile,completato,standby
+1,1,assA,3.5,3.5,2,2000-01-01,2000-01-01,1,resp,true,true,true

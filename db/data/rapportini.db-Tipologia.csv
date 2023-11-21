@@ -1,0 +1,30 @@
+ID,tipologiaCommessa,fixOrTimeMaterial,tipologia,flagMonitorBudget,flagConfrontoBudget,IDCliente_ID,flagDefault
+1,Progetto,F,Progetto a corpo,,1,,1
+2,Progetto,F,Project Management,,1,,
+3,Progetto,T,Progetto T&M Migrazione dati,,1,,
+4,Progetto,T,Progetto T&M Training utente,0,1,,
+5,Progetto,T,Progetto T&M Sviluppi,1,1,,
+6,Progetto,T,Progetto T&M Assistenza post golive,0,1,,
+7,Progetto,T,Progetto T&M Profili autorizzativi,0,1,,
+8,Progetto,,Formazione,0,0,,
+9,Progetto,,Pre-sales,0,0,,
+10,Assistenza,,Contenitore,0,0,,
+11,Assistenza,,Assistenza,1,0,,1
+12,Progetto,,Attività interne Regesta,0,0,53,1
+13,AMS,,AMS,1,0,,1
+14,Progetto,,Formazione,0,0,53,0
+15,Assistenza,,Pre-sales,0,0,,0
+16,Assistenza,,Formazione,0,0,,0
+17,Assistenza,,Project Management,0,0,,0
+18,Progetto,,Attività interne,0,0,1119,1
+19,Progetto,,Formazione,0,0,1119,00/01/00 00:00
+20,Assistenza,,Contenitore,0,0,1122,1
+21,Assistenza,,Contenitore,0,0,1253,1
+22,Assistenza,,Contenitore,0,0,58,1
+23,Assistenza,,Contenitore,0,0,1212,1
+24,Assistenza,,Contenitore,0,0,1176,1
+25,Assistenza,,Contenitore,0,0,1116,1
+26,Progetto,,Pre-sales,0,0,53,0
+27,Progetto,,R&D,0,0,,0
+28,Progetto,,Pre-sales,0,0,1119,0
+29,Progetto,T,Progetto T&M Gestione progetto,0,0,47,0

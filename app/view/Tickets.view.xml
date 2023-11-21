@@ -1,0 +1,445 @@
+<mvc:View controllerName="rapportini.controller.Tickets"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:l="sap.ui.layout"
+	xmlns:f="sap.f"
+	xmlns:fb="sap.ui.comp.filterbar"
+	xmlns:svm="sap.ui.comp.smartvariants" displayBlock="true">
+	<App id="ticket">
+		<f:DynamicPage>
+			<f:title>
+				<f:DynamicPageTitle>
+					<f:heading>
+						<svm:SmartVariantManagement id="svm" showExecuteOnSelection="true" />
+					</f:heading>
+					<f:expandedContent>
+						<Label id="expandedLabel" text="No filters active" />
+					</f:expandedContent>
+					<f:snappedContent>
+						<Label id="snappedLabel" text="No filters active" />
+					</f:snappedContent>
+				</f:DynamicPageTitle>
+			</f:title>
+			<f:header>
+				<f:DynamicPageHeader>
+					<f:content>
+						<fb:FilterBar id="filterbar" persistencyKey="myPersKey" useToolbar="false" search=".onSearch" filterChange=".onFilterChange" afterVariantLoad=".onAfterVariantLoad">
+							<fb:filterGroupItems>
+								<fb:FilterGroupItem name="ID" label="ID" groupName="Group1" visibleInFilterBar="true">
+									<fb:control>
+										<MultiComboBox name="ID" selectionChange=".onSelectionChange" items="{
+												path: '/Tickets',
+												templateShareable: true
+											}">
+											<core:Item key="{ID}" text="{ID}"/>
+										</MultiComboBox>
+									</fb:control>
+								</fb:FilterGroupItem>
+								<fb:FilterGroupItem name="utente" label="Utente" groupName="Group1" visibleInFilterBar="true">
+									<fb:control>
+										<MultiComboBox id="idMultiComboBox-utente" name="utente" selectionChange=".onSelectionChange">
+										</MultiComboBox>
+									</fb:control>
+								</fb:FilterGroupItem>
+								<fb:FilterGroupItem name="IDCliente/descrizione" label="Cliente" groupName="Group1" visibleInFilterBar="true">
+									<fb:control>
+										<MultiComboBox id="idMultiComboBox-IDCliente_descrizione" name="cliente" selectionChange=".onSelectionChange">
+										</MultiComboBox>
+									</fb:control>
+								</fb:FilterGroupItem>
+								<fb:FilterGroupItem name="titolo" label="Titolo" groupName="Group1" visibleInFilterBar="true">
+									<fb:control>
+										<MultiComboBox id="idMultiComboBox-titolo" name="titolo" selectionChange=".onSelectionChange">
+										</MultiComboBox>
+									</fb:control>
+								</fb:FilterGroupItem>
+								<fb:FilterGroupItem name="status" label="Stato" groupName="Group1" visibleInFilterBar="true">
+									<fb:control>
+										<MultiComboBox id="idMultiComboBox-status" name="status" selectionChange=".onSelectionChange">
+										</MultiComboBox>
+									</fb:control>
+								</fb:FilterGroupItem>
+								<fb:FilterGroupItem name="assegnatoA" label="Assegnato A" groupName="Group1" visibleInFilterBar="false">
+									<fb:control>
+										<MultiComboBox id="idMultiComboBox-assegnatoA" name="assegnatoA" selectionChange=".onSelectionChange">
+										</MultiComboBox>
+									</fb:control>
+								</fb:FilterGroupItem>
+								<fb:FilterGroupItem name="IDCommessa/descrizione" label="Commessa" groupName="Group1" visibleInFilterBar="false">
+									<fb:control>
+										<MultiComboBox id="idMultiComboBox-IDCommessa_descrizione" name="commessa" selectionChange=".onSelectionChange">
+										</MultiComboBox>
+									</fb:control>
+								</fb:FilterGroupItem>
+								<fb:FilterGroupItem name="giorniStima" label="Giorni Stimati" groupName="Group1" visibleInFilterBar="false">
+									<fb:control>
+										<MultiComboBox id="idMultiComboBox-giorniStima" name="giorniStima" selectionChange=".onSelectionChange">
+										</MultiComboBox>
+									</fb:control>
+								</fb:FilterGroupItem>
+								<fb:FilterGroupItem name="giorniCons" label="Giorni Cons" groupName="Group1" visibleInFilterBar="false">
+									<fb:control>
+										<MultiComboBox id="idMultiComboBox-giorniCons" name="giorniCons" selectionChange=".onSelectionChange">
+										</MultiComboBox>
+									</fb:control>
+								</fb:FilterGroupItem>
+								<fb:FilterGroupItem name="flagNeedDev" label="Alert Dev" groupName="Group1" visibleInFilterBar="false">
+									<fb:control>
+										<MultiComboBox id="idMultiComboBox-flagNeedDev" name="flagNeedDev" selectionChange=".onSelectionChange">
+										</MultiComboBox>
+									</fb:control>
+								</fb:FilterGroupItem>
+								<fb:FilterGroupItem name="flagNeedFunz" label="Alert Funz" groupName="Group1" visibleInFilterBar="false">
+									<fb:control>
+										<MultiComboBox id="idMultiComboBox-flagNeedFunz" name="flagNeedFunz" selectionChange=".onSelectionChange">
+										</MultiComboBox>
+									</fb:control>
+								</fb:FilterGroupItem>
+								<fb:FilterGroupItem name="allegato" label="Allegato" groupName="Group1" visibleInFilterBar="false">
+									<fb:control>
+										<MultiComboBox id="idMultiComboBox-allegato" name="allegato" selectionChange=".onSelectionChange">
+										</MultiComboBox>
+									</fb:control>
+								</fb:FilterGroupItem>
+								<fb:FilterGroupItem name="flagAms" label="Ams" groupName="Group1" visibleInFilterBar="false">
+									<fb:control>
+										<MultiComboBox id="idMultiComboBox-flagAms" name="flagAms" selectionChange=".onSelectionChange">
+										</MultiComboBox>
+									</fb:control>
+								</fb:FilterGroupItem>
+								<fb:FilterGroupItem name="areaFunzionale" label="Area Funzionale" groupName="Group1" visibleInFilterBar="false">
+									<fb:control>
+										<MultiComboBox id="idMultiComboBox-areaFunzionale" name="areaFunzionale" selectionChange=".onSelectionChange">
+										</MultiComboBox>
+									</fb:control>
+								</fb:FilterGroupItem>
+								<fb:FilterGroupItem name="flagBugFix" label="Bug Fixing" groupName="Group1" visibleInFilterBar="false">
+									<fb:control>
+										<MultiComboBox id="idMultiComboBox-flagBugFix" name="flagBugFix" selectionChange=".onSelectionChange">
+										</MultiComboBox>
+									</fb:control>
+								</fb:FilterGroupItem>
+								<fb:FilterGroupItem name="flagCR" label="Change Request" groupName="Group1" visibleInFilterBar="false">
+									<fb:control>
+										<MultiComboBox id="idMultiComboBox-flagCR" name="flagBugFix" selectionChange=".onSelectionChange">
+										</MultiComboBox>
+									</fb:control>
+								</fb:FilterGroupItem>
+								<fb:FilterGroupItem name="chatPubblica" label="Chat Pubblica" groupName="Group1" visibleInFilterBar="false">
+									<fb:control>
+										<MultiComboBox id="idMultiComboBox-chatPubblica" name="chatPubblica" selectionChange=".onSelectionChange">
+										</MultiComboBox>
+									</fb:control>
+								</fb:FilterGroupItem>
+								<fb:FilterGroupItem name="flagDev" label="Dev?" groupName="Group1" visibleInFilterBar="false">
+									<fb:control>
+										<MultiComboBox id="idMultiComboBox-flagDev" name="flagDev" selectionChange=".onSelectionChange">
+										</MultiComboBox>
+									</fb:control>
+								</fb:FilterGroupItem>
+								<fb:FilterGroupItem name="flagFunz" label="Funz?" groupName="Group1" visibleInFilterBar="false">
+									<fb:control>
+										<MultiComboBox id="idMultiComboBox-flagFunz" name="flagFunz" selectionChange=".onSelectionChange">
+										</MultiComboBox>
+									</fb:control>
+								</fb:FilterGroupItem>
+								<fb:FilterGroupItem name="externalID" label="External ID" groupName="Group1" visibleInFilterBar="false">
+									<fb:control>
+										<MultiComboBox id="idMultiComboBox-externalID" name="externalID" selectionChange=".onSelectionChange">
+										</MultiComboBox>
+									</fb:control>
+								</fb:FilterGroupItem>
+								<fb:FilterGroupItem name="giorniConsCliente" label="GG Cons Cliente" groupName="Group1" visibleInFilterBar="false">
+									<fb:control>
+										<MultiComboBox id="idMultiComboBox-giorniConsCliente" name="giorniConsCliente" selectionChange=".onSelectionChange">
+										</MultiComboBox>
+									</fb:control>
+								</fb:FilterGroupItem>
+								<fb:FilterGroupItem name="giorniConsDev" label="GG Cons Dev" groupName="Group1" visibleInFilterBar="false">
+									<fb:control>
+										<MultiComboBox id="idMultiComboBox-giorniConsDev" name="giorniConsDev" selectionChange=".onSelectionChange">
+										</MultiComboBox>
+									</fb:control>
+								</fb:FilterGroupItem>
+								<fb:FilterGroupItem name="giorniStimaDev" label="GG Stima Dev" groupName="Group1" visibleInFilterBar="false">
+									<fb:control>
+										<MultiComboBox id="idMultiComboBox-giorniStimaDev" name="giorniStimaDev" selectionChange=".onSelectionChange">
+										</MultiComboBox>
+									</fb:control>
+								</fb:FilterGroupItem>
+								<fb:FilterGroupItem name="giorniStimaFunz" label="GG Stima Funz" groupName="Group1" visibleInFilterBar="false">
+									<fb:control>
+										<MultiComboBox id="idMultiComboBox-giorniStimaFunz" name="giorniStimaFunz" selectionChange=".onSelectionChange">
+										</MultiComboBox>
+									</fb:control>
+								</fb:FilterGroupItem>
+								<fb:FilterGroupItem name="IDParent" label="ID Parente" groupName="Group1" visibleInFilterBar="false">
+									<fb:control>
+										<MultiComboBox id="idMultiComboBox-IDParent" name="IDParent" selectionChange=".onSelectionChange">
+										</MultiComboBox>
+									</fb:control>
+								</fb:FilterGroupItem>
+								<fb:FilterGroupItem name="ordineSap" label="Ordine Sap" groupName="Group1" visibleInFilterBar="false">
+									<fb:control>
+										<MultiComboBox id="idMultiComboBox-ordineSap" name="ordineSap" selectionChange=".onSelectionChange">
+										</MultiComboBox>
+									</fb:control>
+								</fb:FilterGroupItem>
+								<fb:FilterGroupItem name="criticita" label="Criticità" groupName="Group1" visibleInFilterBar="false">
+									<fb:control>
+										<MultiComboBox id="idMultiComboBox-criticita" name="criticita" selectionChange=".onSelectionChange">
+										</MultiComboBox>
+									</fb:control>
+								</fb:FilterGroupItem>
+								<fb:FilterGroupItem name="nRilavorazioni" label="Rilavorazioni" groupName="Group1" visibleInFilterBar="false">
+									<fb:control>
+										<MultiComboBox id="idMultiComboBox-nRilavorazioni" name="Rilavorazioni" selectionChange=".onSelectionChange">
+										</MultiComboBox>
+									</fb:control>
+								</fb:FilterGroupItem>
+								<fb:FilterGroupItem name="supportoFunzionale" label="Supporto Funzionale" groupName="Group1" visibleInFilterBar="false">
+									<fb:control>
+										<MultiComboBox id="idMultiComboBox-supportoFunzionale" name="supportoFunzionale" selectionChange=".onSelectionChange">
+										</MultiComboBox>
+									</fb:control>
+								</fb:FilterGroupItem>
+								<fb:FilterGroupItem name="testo" label="Testo" groupName="Group1" visibleInFilterBar="false">
+									<fb:control>
+										<MultiComboBox id="idMultiComboBox-testo" name="testo" selectionChange=".onSelectionChange">
+										</MultiComboBox>
+									</fb:control>
+								</fb:FilterGroupItem>
+								<fb:FilterGroupItem name="IDTipologia/tipologia" label=" ID" groupName="Group1" visibleInFilterBar="false">
+									<fb:control>
+										<MultiComboBox id="idMultiComboBox-IDTipologia_tipologia" name="tipologia" selectionChange=".onSelectionChange">
+										</MultiComboBox>
+									</fb:control>
+								</fb:FilterGroupItem>
+								<fb:FilterGroupItem name="flagVisibileCliente" label="Visibile Cliente" groupName="Group1" visibleInFilterBar="false">
+									<fb:control>
+										<MultiComboBox id="idMultiComboBox-flagVisibileCliente" name="visibileCliente" selectionChange=".onSelectionChange">
+										</MultiComboBox>
+									</fb:control>
+								</fb:FilterGroupItem>
+							</fb:filterGroupItems>
+						</fb:FilterBar>
+					</f:content>
+				</f:DynamicPageHeader>
+			</f:header>
+			<f:content>
+				<Table id="ticketsTable" items='{path: "/Tickets"}' sticky="HeaderToolbar,ColumnHeaders">
+					<headerToolbar>
+						<OverflowToolbar>
+							<Title text="Tickets" level="H2"/>
+							<ToolbarSpacer/>
+							<Button icon="sap-icon://add" press="onCreateTicket">
+								<layoutData>
+									<OverflowToolbarLayoutData priority="NeverOverflow" />
+								</layoutData>
+							</Button>
+							<Button icon="sap-icon://refresh" press="onTableRefresh">
+								<layoutData>
+									<OverflowToolbarLayoutData priority="NeverOverflow" />
+								</layoutData>
+							</Button>
+							<Button icon="sap-icon://action-settings" press="onEditColumn">
+								<layoutData>
+									<OverflowToolbarLayoutData priority="NeverOverflow" />
+								</layoutData>
+							</Button>
+						</OverflowToolbar>
+					</headerToolbar>
+					<columns>
+						<Column id="IDCol" width="12em">
+							<Text text="ID" />
+						</Column>
+						<Column id="UtenteCol" width="12em">
+							<Text text="Utente" />
+						</Column>
+						<Column id="ClienteCol" width="12em">
+							<Text text="Cliente" />
+						</Column>
+						<Column id="TitoloCol" width="12em">
+							<Text text="Titolo" />
+						</Column>
+						<Column id="StatoCol" width="12em">
+							<Text text="Stato" />
+						</Column>
+						<Column id="DataInseritaCol" width="12em">
+							<Text text="Data Inserita" />
+						</Column>
+						<Column id="DataRichiestaCol" width="12em">
+							<Text text="Data Richiesta" />
+						</Column>
+						<Column id="AssegnatoACol" width="12em">
+							<Text text="Assegnato A" />
+						</Column>
+						<Column id="CommessaCol" width="12em">
+							<Text text="Commessa" />
+						</Column>
+						<Column id="GiorniStimaCol" width="12em">
+							<Text text="Giorni Stimati" />
+						</Column>
+						<Column id="DataConfermataCol" width="12em">
+							<Text text="Data Confermata" />
+						</Column>
+						<Column id="GiorniConsultativiCol" width="12em">
+							<Text text="Giorni Cons" />
+						</Column>
+						<Column id="AlertDevCol" width="12em">
+							<Text text="Alert Dev" />
+						</Column>
+						<Column id="AlertFunzCol" width="12em">
+							<Text text="Alert Funz" />
+						</Column>
+						<Column id="AllegatiCol" width="12em">
+							<Text text="Allegati" />
+						</Column>
+						<Column id="AmsCol" width="12em">
+							<Text text="Ams" />
+						</Column>
+						<Column id="AreaCol" width="12em">
+							<Text text="Area" />
+						</Column>
+						<Column id="AssegnabileACol" width="12em">
+							<Text text="Assegnabile A" />
+						</Column>
+						<Column id="BugFixingCol" width="12em">
+							<Text text="Bug Fixing" />
+						</Column>
+						<Column id="ChangeRequestCol" width="12em">
+							<Text text="Change Request" />
+						</Column>
+						<Column id="ChatClienteCol" width="12em">
+							<Text text="Chat Cliente" />
+						</Column>
+						<Column id="ChiusuraCol" width="12em">
+							<Text text="Chiusura" />
+						</Column>
+						<Column id="DataChiusuraCol" width="12em">
+							<Text text="Data Chiusura" />
+						</Column>
+						<Column id="DataFineSviluppiCol" width="12em">
+							<Text text="Data Fine Sviluppi" />
+						</Column>
+						<Column id="DataProduzioneCol" width="12em">
+							<Text text="Data Produzione" />
+						</Column>
+						<Column id="DevCol" width="12em">
+							<Text text="Dev?" />
+						</Column>
+						<Column id="FunzCol" width="12em">
+							<Text text="Funz?" />
+						</Column>
+						<Column id="EsecuzioneCol" width="12em">
+							<Text text="Esecuzione" />
+						</Column>
+						<Column id="ExternalIDCol" width="12em">
+							<Text text="External ID" />
+						</Column>
+						<Column id="FileCol" width="12em">
+							<Text text="File" />
+						</Column>
+						<Column id="GGConsClienteCol" width="12em">
+							<Text text="GG Cons Cliente" />
+						</Column>
+						<Column id="GGConsDevCol" width="12em">
+							<Text text="GG Cons Dev" />
+						</Column>
+						<Column id="GGPrevDevCol" width="12em">
+							<Text text="GG Prev Dev" />
+						</Column>
+						<Column id="GGPrevFunzCol" width="12em">
+							<Text text="GG Prev Funz" />
+						</Column>
+						<Column id="IDParentCol" width="12em">
+							<Text text="ID Parent" />
+						</Column>
+						<Column id="InfoInterneCol" width="12em">
+							<Text text="Info Interne" />
+						</Column>
+						<Column id="OrdineSapCol" width="12em">
+							<Text text="Ordine Sap" />
+						</Column>
+						<Column id="PrioritaCol" width="12em">
+							<Text text="Priorita" />
+						</Column>
+						<Column id="RichiestaCol" width="12em">
+							<Text text="Richiesta" />
+						</Column>
+						<Column id="RilavorazioniCol" width="12em">
+							<Text text="Rilavorazioni" />
+						</Column>
+						<Column id="SupportoFunzionaleCol" width="12em">
+							<Text text="Supporto Funzionale" />
+						</Column>
+						<Column id="TestoCol" width="12em">
+							<Text text="Testo" />
+						</Column>
+						<Column id="TipologiaCol" width="12em">
+							<Text text="Tipologia" />
+						</Column>
+						<Column id="UrgenzaCol" width="12em">
+							<Text text="Urgenza" />
+						</Column>
+						<Column id="VisibileClienteCol" width="12em">
+							<Text text="Visibile Cliente" />
+						</Column>
+					</columns>
+					<items>
+						<ColumnListItem type="Active" vAlign="Middle" press=".openEditTicket">
+							<cells>
+								<ObjectIdentifier title="{ID}"/>
+								<Text text="{utente}" />
+								<Text text="{IDCliente/descrizione}" />
+								<Text text="{titolo}" />
+								<Text text="{status}" />
+								<Text text="{insertDate}" />
+								<Text text="{dataConsegnaRichiesta}" />
+								<Text text="{assegnatoA}" />
+								<Text text="{IDCommessa/descrizione}" />
+								<Text text="{giorniStima}" />
+								<Text text="{dataConsegnaSchedulata}" />
+								<Text text="{giorniCons}" />
+								<Text text="{flagNeedDev}" />
+								<Text text="{flagNeedFunz}" />
+								<Text text="{allegato}" />
+								<Text text="{flagAms}" />
+								<Text text="{areaFunzionale}" />
+								<Text text="N/A" />
+								<Text text="{flagBugFix}" />
+								<Text text="{flagCR}" />
+								<Text text="{chatPubblica}" />
+								<Text text="N/A" />
+								<Text text="{dataChiusura}" />
+								<Text text="{dataSviluppi}" />
+								<Text text="{dataProduzione}" />
+								<Text text="{flagDev}" />
+								<Text text="{flagFunz}" />
+								<Text text="N/A" />
+								<Text text="{externalID}" />
+								<Text text="N/A" />
+								<Text text="{giorniConsCliente}" />
+								<Text text="{giorniConsDev}" />
+								<Text text="{giorniStimaDev}" />
+								<Text text="{giorniStimaFunz}" />
+								<Text text="{IDParent}" />
+								<Text text="N/A" />
+								<Text text="{ordineSap}" />
+								<Text text="{criticita}" />
+								<Text text="N/A" />
+								<Text text="{nRilavorazioni}" />
+								<Text text="{supportoFunzionale}" />
+								<Text text="{testo}" />
+								<Text text="{IDTipologia/tipologia}" />
+								<Text text="N/A" />
+								<Text text="{flagVisibileCliente}" />
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
+			</f:content>
+		</f:DynamicPage>
+	</App>
+</mvc:View>
