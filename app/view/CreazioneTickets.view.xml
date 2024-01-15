@@ -1,0 +1,217 @@
+<mvc:View
+	xmlns="sap.m"
+	xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:core="sap.ui.core"
+   	xmlns:mvc="sap.ui.core.mvc"
+   	controllerName="rapportini.controller.CreazioneTickets">
+
+<Page id="createPage" title="Creazione Ticket">
+	<VBox  
+         height="auto"
+         width="100%"
+         alignItems="Center"
+         justifyContent="Center"
+         class="sapUiResponsiveMargin">
+		 <FlexBox
+         height="auto"
+         width="100%"
+         alignItems="start"
+         justifyContent="Center"
+         direction="Column"
+         class="creazioneTicketsFlex">
+		 	<FlexBox
+            height="auto"
+            width="90vw"
+            alignItems="start"
+            justifyContent="start">
+               <FlexBox
+               height="auto"
+               width="35vw"
+               alignItems="Start"
+               justifyContent="start"
+               direction="Column">
+               <Label text="Utente"/>
+               <Input value="{JSONModel>/modelloTicket/utente}" id="utente" placeholder="Username" width="90vw"/>
+               </FlexBox>
+            </FlexBox>
+			<FlexBox
+            height="auto"
+            width="90vw"
+            alignItems="Start"
+            justifyContent="Start">
+               <FlexBox
+               height="auto"
+               width="55vw"
+               alignItems="Start"
+               justifyContent="Center"
+               direction="Column">
+                  <Label text="Area Funzionale"/>
+				  <Input value="{JSONModel>/modelloTicket/areaFunzionale}" placeholder="Area Funzionale" width="35vw"/>
+                </FlexBox>
+
+                <FlexBox
+                height="auto"
+                width="35vw"
+                alignItems="Start"
+                justifyContent="Center"
+                direction="Column">
+                  <Label text="Titolo"/>
+                  <Input value="{JSONModel>/modelloTicket/titolo}" placeholder="Titolo" width="35vw"/>
+                </FlexBox>
+            </FlexBox>
+			<FlexBox
+            height="auto"
+            width="90vw"
+            alignItems="start"
+            justifyContent="start">
+               <FlexBox
+               height="auto"
+               width="35vw"
+               alignItems="Start"
+               justifyContent="start"
+               direction="Column">
+               <Label text="Testo"/>
+               <Input value="{JSONModel>/modelloTicket/testo}" placeholder="Testo" width="90vw"/>
+               </FlexBox>
+            </FlexBox>
+			<FlexBox
+            height="auto"
+            width= "110vw"
+            alignItems="Center"
+            justifyContent="Center">
+               <FlexBox
+               height="auto"
+               width="50vw"
+               alignItems="Start"
+               justifyContent="Center"
+               direction="Column">
+                <Label text="Assegnato A" />
+				<Input value="{JSONModel>/modelloTicket/assegnatoA}" placeholder="Assegnato A" width="17vw"/>
+               </FlexBox>
+
+               <FlexBox
+               height="auto"
+               width="50vw"
+               alignItems="Start"
+               justifyContent="Center"
+               direction="Column">
+                <Label text="Stato" />
+				<StepInput
+				value="{JSONModel>/modelloTicket/status}"
+				step="1"
+				displayValuePrecision="0"
+				min="0"
+				placeholder="Stato"
+				/>
+               </FlexBox>
+
+               <FlexBox
+               height="auto"
+               width="50vw"
+               alignItems="Start"
+               justifyContent="Center"
+               direction="Column">
+                <Label text="Criticita" />
+				<Input value="{JSONModel>/modelloTicket/criticita}" placeholder="Criticita" width="17vw"/>
+               </FlexBox>
+            </FlexBox>
+			<FlexBox
+            height="auto"
+            width="90vw"
+            alignItems="Start"
+            justifyContent="Start">
+               <FlexBox
+               height="auto"
+               width="55vw"
+               alignItems="Start"
+               justifyContent="Center"
+               direction="Column">
+                  <Label text="Data Consegna Richiesta"/>
+				  <DatePicker
+					id="DP1"
+					value="{
+						'path':'JSONModel>/modelloTicket/dataConsegnaRichiesta',
+						'type':'sap.ui.model.type.Date',
+						'formatOptions': {
+							'pattern': 'd/M/yy'
+						}
+					}"
+					change="handleChange"
+					width="35vw"/>
+                </FlexBox>
+
+                <FlexBox
+                height="auto"
+                width="35vw"
+                alignItems="Start"
+                justifyContent="Center"
+                direction="Column">
+                  <Label text="Data Consegna Schedulata"/>
+                  <DatePicker
+					id="DP2"
+					value="{
+						'path':'JSONModel>/modelloTicket/dataConsegnaSchedulata',
+						'type':'sap.ui.model.type.Date',
+						'formatOptions': {
+							'pattern': 'd/M/yy'
+						}
+					}"
+					change="handleChange"
+					width="35vw"/>
+                </FlexBox>
+            </FlexBox>
+			<FlexBox
+            height="auto"
+            width= "110vw"
+            alignItems="Start"
+            justifyContent="Center">
+               <FlexBox
+               height="auto"
+               width="50vw"
+               alignItems="Start"
+               justifyContent="Center"
+               direction="Column">
+                  <Label text="Allegato" />
+				  <Input value="{JSONModel>/modelloTicket/allegato}" placeholder="Allegato" width="17vw"/>
+               </FlexBox>
+
+               <FlexBox
+               height="auto"
+               width="50vw"
+               alignItems="Start"
+               justifyContent="Start"
+               direction="Column">
+                  <CheckBox text="Bug Fix" selected="{JSONModel>/modelloTicket/flagBugFix}"/>
+               </FlexBox>
+
+               <FlexBox
+               height="auto"
+               width="50vw"
+               alignItems="Start"
+               justifyContent="Start"
+               direction="Column">
+                 <CheckBox text="Cliente Visibile" selected="{JSONModel>/modelloTicket/flagVisibileCliente}"/>
+               </FlexBox>
+            </FlexBox>
+			<FlexBox
+			height="10Vh"
+			width="90vw"
+			alignItems="Center"
+			justifyContent="End">
+				<Button 
+				text="Salva"
+				press=".onSave"
+				icon="sap-icon://save" 
+				class="sapUiSmallMargin" />
+
+				<Button 
+				text="Annulla" 
+				press=".onNavToTicketsTable"
+				icon="sap-icon://undo"
+				class="sapUiSmallMargin" />
+			</FlexBox>
+		 </FlexBox>
+	</VBox>
+</Page>
+</mvc:View>

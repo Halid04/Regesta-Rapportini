@@ -36,6 +36,10 @@ sap.ui.define(
         this.getRouter().navTo("tabellaRapportini");
       },
 
+      onNavToTicketsTable: function () {
+        this.getRouter().navTo("tickets");
+      },
+
       onSwitchTheme: function () {
         modalitaScura = !modalitaScura;
         const globalData = this.getView().getModel("globalData");

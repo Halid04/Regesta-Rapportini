@@ -1,232 +1,361 @@
-sap.ui.define([
-	"rapportini/controller/BaseController",
-	"sap/ui/core/mvc/Controller",
-	"sap/m/TablePersoController",
-	"./PersoService",
-	"sap/m/library",
-	'sap/ui/model/Filter',
-	'sap/ui/model/FilterOperator',
-	'sap/ui/comp/smartvariants/PersonalizableInfo'
-], function (BaseController, Controller, TablePersoController, PersoService, mlibrary, Filter, FilterOperator, PersonalizableInfo) {
-	"use strict";
-	var ResetAllMode = mlibrary.ResetAllMode;
+sap.ui.define(
+  [
+    "rapportini/controller/BaseController",
+    "sap/m/MessageToast",
+    "sap/ui/core/mvc/Controller",
+    "sap/m/TablePersoController",
+    "./PersoService",
+    "sap/m/library",
+    "sap/ui/model/Filter",
+    "sap/ui/model/FilterOperator",
+    "sap/ui/comp/smartvariants/PersonalizableInfo",
+  ],
+  function (
+    BaseController,
+    MessageToast,
+    Controller,
+    TablePersoController,
+    PersoService,
+    mlibrary,
+    Filter,
+    FilterOperator,
+    PersonalizableInfo
+  ) {
+    "use strict";
+    var ResetAllMode = mlibrary.ResetAllMode;
 
-	return BaseController.extend("rapportini.controller.Tickets", {
-		onInit: async function () {
-			this._oTPC = new TablePersoController({
-				table: this.byId("ticketsTable"),
-				componentName: "regestaTickets",
-				resetAllMode: ResetAllMode.ServiceReset,
-				persoService: PersoService
-			}).activate();
+    return BaseController.extend("rapportini.controller.Tickets", {
+      onInit: async function () {
+        this.getRouter()
+          .getRoute("tickets")
+          .attachPatternMatched(this._onObjectMatched, this);
+        this._oTPC = new TablePersoController({
+          table: this.byId("ticketsTable"),
+          componentName: "regestaTickets",
+          resetAllMode: ResetAllMode.ServiceReset,
+          persoService: PersoService,
+        }).activate();
 
-			this.applyData = this.applyData.bind(this);
-			this.fetchData = this.fetchData.bind(this);
-			this.getFiltersWithValues = this.getFiltersWithValues.bind(this);
+        this.applyData = this.applyData.bind(this);
+        this.fetchData = this.fetchData.bind(this);
+        this.getFiltersWithValues = this.getFiltersWithValues.bind(this);
 
-			this.oSmartVariantManagement = this.getView().byId("svm");
-			this.oExpandedLabel = this.getView().byId("expandedLabel");
-			this.oSnappedLabel = this.getView().byId("snappedLabel");
-			this.oFilterBar = this.getView().byId("filterbar");
-			this.oTable = this.getView().byId("ticketsTable");
+        this.oSmartVariantManagement = this.getView().byId("svm");
+        this.oExpandedLabel = this.getView().byId("expandedLabel");
+        this.oSnappedLabel = this.getView().byId("snappedLabel");
+        this.oFilterBar = this.getView().byId("filterbar");
+        this.oTable = this.getView().byId("ticketsTable");
 
-			this.oFilterBar.registerFetchData(this.fetchData);
-			this.oFilterBar.registerApplyData(this.applyData);
-			this.oFilterBar.registerGetFiltersWithValues(this.getFiltersWithValues);
+        this.oFilterBar.registerFetchData(this.fetchData);
+        this.oFilterBar.registerApplyData(this.applyData);
+        this.oFilterBar.registerGetFiltersWithValues(this.getFiltersWithValues);
 
-			var oPersInfo = new PersonalizableInfo({
-				type: "filterBar",
-				keyName: "persistencyKey",
-				dataSource: "",
-				control: this.oFilterBar
-			});
-			this.oSmartVariantManagement.addPersonalizableControl(oPersInfo);
-			this.oSmartVariantManagement.initialise(function () {}, this.oFilterBar);
+        var oPersInfo = new PersonalizableInfo({
+          type: "filterBar",
+          keyName: "persistencyKey",
+          dataSource: "",
+          control: this.oFilterBar,
+        });
+        this.oSmartVariantManagement.addPersonalizableControl(oPersInfo);
+        this.oSmartVariantManagement.initialise(function () {},
+        this.oFilterBar);
 
-			// Rimozione duplicati
+        // Rimozione duplicati
 
-			const model = this.getOwnerComponent().getModel();
+        const model = this.getOwnerComponent().getModel();
 
-			const contextTickets = await model.bindList("/Tickets", undefined, undefined, undefined, {
-				$expand: "IDCliente,IDCommessa,IDTipologia"
-			}).requestContexts();
-			const parametersTickets = ["utente", "IDCliente_descrizione", "titolo", "status", "assegnatoA", "IDCommessa_descrizione", "giorniStima", "giorniCons", "flagNeedDev", "flagNeedFunz", "allegato", "flagAms", "areaFunzionale", "flagBugFix", "flagCR", "chatPubblica", "flagDev", "flagFunz", "externalID", "giorniConsCliente", "giorniConsDev", "giorniStimaDev", "giorniStimaFunz", "IDParent", "ordineSap", "criticita", "nRilavorazioni", "supportoFunzionale", "testo", "IDTipologia_tipologia", "flagVisibileCliente"]
-			const tickets = contextTickets.map(x => (x.getObject()));
-			this.filterMultiComboBox(parametersTickets, tickets)
+        const contextTickets = await model
+          .bindList("/Tickets", undefined, undefined, undefined, {
+            $expand: "IDCliente,IDCommessa,IDTipologia",
+          })
+          .requestContexts();
+        const parametersTickets = [
+          "utente",
+          "IDCliente_descrizione",
+          "titolo",
+          "status",
+          "assegnatoA",
+          "IDCommessa_descrizione",
+          "giorniStima",
+          "giorniCons",
+          "flagNeedDev",
+          "flagNeedFunz",
+          "allegato",
+          "flagAms",
+          "areaFunzionale",
+          "flagBugFix",
+          "flagCR",
+          "chatPubblica",
+          "flagDev",
+          "flagFunz",
+          "externalID",
+          "giorniConsCliente",
+          "giorniConsDev",
+          "giorniStimaDev",
+          "giorniStimaFunz",
+          "IDParent",
+          "ordineSap",
+          "criticita",
+          "nRilavorazioni",
+          "supportoFunzionale",
+          "testo",
+          "IDTipologia_tipologia",
+          "flagVisibileCliente",
+        ];
+        const tickets = contextTickets.map((x) => x.getObject());
+        this.filterMultiComboBox(parametersTickets, tickets);
 
-			// const context = await oModel.bindList('/Tickets').requestContexts();
-			// const tickets = context.map(x=> (x.getObject()));
-		},
+        // const context = await oModel.bindList('/Tickets').requestContexts();
+        // const tickets = context.map(x=> (x.getObject()));
+      },
 
-		filterMultiComboBox: function (parameters, tickets) {
-			parameters.forEach(parameter => {
-				var oMultiComboBox = this.getView().byId("idMultiComboBox-" + parameter);
-				oMultiComboBox.removeAllItems();
-				parameter = parameter.split("_")
-				let uniqueItems = []
+      _onObjectMatched: function (oEvent) {
+        this.getOwnerComponent().getModel().refresh();
+      },
 
-				if (parameter.length > 1) {
-					uniqueItems = [...new Set(tickets.map(x => (
-						x[parameter[0]][parameter[1]]
-					)))]
-				} else {
-					uniqueItems = [...new Set(tickets.map(x => (
-						x[parameter[0]]
-					)))]
-				}
+      filterMultiComboBox: function (parameters, tickets) {
+        parameters.forEach((parameter) => {
+          var oMultiComboBox = this.getView().byId(
+            "idMultiComboBox-" + parameter
+          );
+          oMultiComboBox.removeAllItems();
+          parameter = parameter.split("_");
+          let uniqueItems = [];
 
-				uniqueItems.forEach(item => {
-					oMultiComboBox.addItem(new sap.ui.core.Item({
-						key: item,
-						text: item
-					}));
-				})
-			})
-		},
+          if (parameter.length > 1) {
+            uniqueItems = [
+              ...new Set(tickets.map((x) => x[parameter[0]][parameter[1]])),
+            ];
+          } else {
+            uniqueItems = [...new Set(tickets.map((x) => x[parameter[0]]))];
+          }
 
-		onEditColumn: function (oEvent) {
-			this._oTPC.openDialog()
-		},
+          uniqueItems.forEach((item) => {
+            oMultiComboBox.addItem(
+              new sap.ui.core.Item({
+                key: item,
+                text: item,
+              })
+            );
+          });
+        });
+      },
 
-		onTableRefresh: function () {
-			this.getOwnerComponent().getModel().refresh()
-		},
+      onEditColumn: function (oEvent) {
+        this._oTPC.openDialog();
+      },
 
-		onExit: function () {
-			this.oModel = null;
-			this.oSmartVariantManagement = null;
-			this.oExpandedLabel = null;
-			this.oSnappedLabel = null;
-			this.oFilterBar = null;
-			this.oTable = null;
-			this._oTPC.destroy()
-		},
+      onTableRefresh: function () {
+        this.getOwnerComponent().getModel().refresh();
+      },
 
-		fetchData: function () {
-			var aData = this.oFilterBar.getAllFilterItems().reduce(function (aResult, oFilterItem) {
-				aResult.push({
-					groupName: oFilterItem.getGroupName(),
-					fieldName: oFilterItem.getName(),
-					fieldData: oFilterItem.getControl().getSelectedKeys()
-				});
-				return aResult;
-			}, []);
-			return aData;
-		},
+      onExit: function () {
+        this.oModel = null;
+        this.oSmartVariantManagement = null;
+        this.oExpandedLabel = null;
+        this.oSnappedLabel = null;
+        this.oFilterBar = null;
+        this.oTable = null;
+        this._oTPC.destroy();
+      },
 
-		applyData: function (aData) {
-			aData.forEach(function (oDataObject) {
-				var oControl = this.oFilterBar.determineControlByName(oDataObject.fieldName, oDataObject.groupName);
-				oControl.setSelectedKeys(oDataObject.fieldData);
-			}, this);
-		},
+      fetchData: function () {
+        var aData = this.oFilterBar
+          .getAllFilterItems()
+          .reduce(function (aResult, oFilterItem) {
+            aResult.push({
+              groupName: oFilterItem.getGroupName(),
+              fieldName: oFilterItem.getName(),
+              fieldData: oFilterItem.getControl().getSelectedKeys(),
+            });
+            return aResult;
+          }, []);
+        return aData;
+      },
 
-		getFiltersWithValues: function () {
-			var aFiltersWithValue = this.oFilterBar.getFilterGroupItems().reduce(function (aResult, oFilterGroupItem) {
-				var oControl = oFilterGroupItem.getControl();
+      applyData: function (aData) {
+        aData.forEach(function (oDataObject) {
+          var oControl = this.oFilterBar.determineControlByName(
+            oDataObject.fieldName,
+            oDataObject.groupName
+          );
+          oControl.setSelectedKeys(oDataObject.fieldData);
+        }, this);
+      },
 
-				if (oControl && oControl.getSelectedKeys && oControl.getSelectedKeys().length > 0) {
-					aResult.push(oFilterGroupItem);
-				}
+      getFiltersWithValues: function () {
+        var aFiltersWithValue = this.oFilterBar
+          .getFilterGroupItems()
+          .reduce(function (aResult, oFilterGroupItem) {
+            var oControl = oFilterGroupItem.getControl();
 
-				return aResult;
-			}, []);
-			return aFiltersWithValue;
-		},
+            if (
+              oControl &&
+              oControl.getSelectedKeys &&
+              oControl.getSelectedKeys().length > 0
+            ) {
+              aResult.push(oFilterGroupItem);
+            }
 
-		onSelectionChange: function (oEvent) {
-			this.oSmartVariantManagement.currentVariantSetModified(true);
-			this.oFilterBar.fireFilterChange(oEvent);
-		},
+            return aResult;
+          }, []);
+        return aFiltersWithValue;
+      },
 
-		onSearch: function () {
-			var aTableFilters = this.oFilterBar.getFilterGroupItems().reduce(function (aResult, oFilterGroupItem) {
-				var oControl = oFilterGroupItem.getControl(),
-					aSelectedKeys = oControl.getSelectedKeys(),
-					aFilters = aSelectedKeys.map(function (sSelectedKey) {
-						return new Filter({
-							path: oFilterGroupItem.getName(),
-							operator: FilterOperator.EQ,
-							value1: sSelectedKey
-						});
-					});
-				if (aSelectedKeys.length > 0) {
-					aResult.push(new Filter({
-						filters: aFilters,
-						and: false
-					}));
-				}
+      onSelectionChange: function (oEvent) {
+        this.oSmartVariantManagement.currentVariantSetModified(true);
+        this.oFilterBar.fireFilterChange(oEvent);
+      },
 
-				return aResult;
-			}, []);
+      onSearch: function () {
+        var aTableFilters = this.oFilterBar
+          .getFilterGroupItems()
+          .reduce(function (aResult, oFilterGroupItem) {
+            var oControl = oFilterGroupItem.getControl(),
+              aSelectedKeys = oControl.getSelectedKeys(),
+              aFilters = aSelectedKeys.map(function (sSelectedKey) {
+                return new Filter({
+                  path: oFilterGroupItem.getName(),
+                  operator: FilterOperator.EQ,
+                  value1: sSelectedKey,
+                });
+              });
+            if (aSelectedKeys.length > 0) {
+              aResult.push(
+                new Filter({
+                  filters: aFilters,
+                  and: false,
+                })
+              );
+            }
 
-			this.oTable.getBinding("items").filter(aTableFilters);
-			this.oTable.setShowOverlay(false);
-		},
+            return aResult;
+          }, []);
 
-		onFilterChange: function () {
-			this._updateLabelsAndTable();
-		},
+        this.oTable.getBinding("items").filter(aTableFilters);
+        this.oTable.setShowOverlay(false);
+      },
 
-		onAfterVariantLoad: function () {
-			this._updateLabelsAndTable();
-		},
+      onFilterChange: function () {
+        this._updateLabelsAndTable();
+      },
 
-		getFormattedSummaryText: function () {
-			var aFiltersWithValues = this.oFilterBar.retrieveFiltersWithValues();
+      onAfterVariantLoad: function () {
+        this._updateLabelsAndTable();
+      },
 
-			if (aFiltersWithValues.length === 0) {
-				return "No filters active";
-			}
+      getFormattedSummaryText: function () {
+        var aFiltersWithValues = this.oFilterBar.retrieveFiltersWithValues();
 
-			if (aFiltersWithValues.length === 1) {
-				return aFiltersWithValues.length + " filter active: " + aFiltersWithValues.join(", ");
-			}
+        if (aFiltersWithValues.length === 0) {
+          return "No filters active";
+        }
 
-			return aFiltersWithValues.length + " filters active: " + aFiltersWithValues.join(", ");
-		},
+        if (aFiltersWithValues.length === 1) {
+          return (
+            aFiltersWithValues.length +
+            " filter active: " +
+            aFiltersWithValues.join(", ")
+          );
+        }
 
-		getFormattedSummaryTextExpanded: function () {
-			var aFiltersWithValues = this.oFilterBar.retrieveFiltersWithValues();
+        return (
+          aFiltersWithValues.length +
+          " filters active: " +
+          aFiltersWithValues.join(", ")
+        );
+      },
 
-			if (aFiltersWithValues.length === 0) {
-				return "No filters active";
-			}
+      getFormattedSummaryTextExpanded: function () {
+        var aFiltersWithValues = this.oFilterBar.retrieveFiltersWithValues();
 
-			var sText = aFiltersWithValues.length + " filters active",
-				aNonVisibleFiltersWithValues = this.oFilterBar.retrieveNonVisibleFiltersWithValues();
+        if (aFiltersWithValues.length === 0) {
+          return "No filters active";
+        }
 
-			if (aFiltersWithValues.length === 1) {
-				sText = aFiltersWithValues.length + " filter active";
-			}
+        var sText = aFiltersWithValues.length + " filters active",
+          aNonVisibleFiltersWithValues =
+            this.oFilterBar.retrieveNonVisibleFiltersWithValues();
 
-			if (aNonVisibleFiltersWithValues && aNonVisibleFiltersWithValues.length > 0) {
-				sText += " (" + aNonVisibleFiltersWithValues.length + " hidden)";
-			}
+        if (aFiltersWithValues.length === 1) {
+          sText = aFiltersWithValues.length + " filter active";
+        }
 
-			return sText;
-		},
+        if (
+          aNonVisibleFiltersWithValues &&
+          aNonVisibleFiltersWithValues.length > 0
+        ) {
+          sText += " (" + aNonVisibleFiltersWithValues.length + " hidden)";
+        }
 
-		_updateLabelsAndTable: function () {
-			this.oExpandedLabel.setText(this.getFormattedSummaryTextExpanded());
-			this.oSnappedLabel.setText(this.getFormattedSummaryText());
-			this.oTable.setShowOverlay(true);
-		},
+        return sText;
+      },
 
-		openEditTicket: function (oEvent) {
-			var oItem = oEvent.getSource();
-			var oBindingContext = oItem.getBindingContext();
-			var oModel = this.getOwnerComponent().getModel();
+      _updateLabelsAndTable: function () {
+        this.oExpandedLabel.setText(this.getFormattedSummaryTextExpanded());
+        this.oSnappedLabel.setText(this.getFormattedSummaryText());
+        this.oTable.setShowOverlay(true);
+      },
+      onNavToTrashcanTickets: function () {
+        this.getRouter().navTo("cestinoTickets");
+      },
 
-			this.getOwnerComponent().getRouter().navTo("EditTickets", {
-				pathID: oBindingContext.getObject().ID
-			})
-			// oSettingsModel.setProperty("/navigatedItem", oModel.getProperty("ProductId", oBindingContext));
-		},
+      onCreateTicket: function () {
+        this.getRouter().navTo("creaTickets", {
+          operationID: "nuovo",
+        });
+      },
+      //   openEditTicket: function (oEvent) {
+      //     oEvent.getSource();
+      //     var elementID = oEvent.getSource().getBindingContext().getObject().ID;
+      //     this.getRouter().navTo("creaTickets", {
+      //       operationID: "modifica",
+      //       IDTicket: elementID,
+      //     });
+      //   },
+      openEditTicket: function (elementID) {
+        this.getRouter().navTo("creaTickets", {
+          operationID: "modifica",
+          IDTicket: elementID,
+        });
+      },
+      onDeleteTicket: async function (elementID) {
+        var oModel = await this.getView().getModel();
+        var contexts = await oModel.bindList("/Tickets").requestContexts();
+        var tickets = contexts.map((x) => x.getObject());
 
-		onCreateTicket: function () {
-			this.getOwnerComponent().getRouter().navTo("CreateTickets")
-		}
+        let value = tickets.find((element) => {
+          return element.ID === elementID;
+        });
+        let index = tickets.indexOf(value);
 
-	});
-});
+        var oBindingCestino = await oModel.bindList("/TicketsCestinati");
+        oBindingCestino.create(tickets[index]);
+        oModel.submitBatch("myAppUpdateGroup");
+
+        oModel.delete("/Tickets(" + elementID + ")", "$auto");
+        console.log("id", elementID);
+        MessageToast.show("Elemento spostato nel cestino");
+      },
+      onDeleteAllTicket: async function () {
+        var oTable = this.getView().byId("tabella");
+        var indeces = oTable.getSelectedIndices();
+
+        var oModel = await this.getView().getModel();
+        var contexts = await oModel.bindList("/Tickets").requestContexts();
+        var tickets = contexts.map((x) => x.getObject());
+
+        var oBindingCestino = await oModel.bindList("/TicketsCestinati");
+
+        for (let i = 0; i < indeces.length; i++) {
+          const element = tickets[indeces[i]].ID;
+          oBindingCestino.create(tickets[indeces[i]]);
+          oModel.delete("/Tickets(" + element + ")", "$auto");
+        }
+        oModel.submitBatch("myAppUpdateGroup");
+
+        MessageToast.show("Elementi spostati nel cestino");
+      },
+    });
+  }
+);

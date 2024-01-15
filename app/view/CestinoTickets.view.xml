@@ -1,5 +1,5 @@
 <mvc:View
-controllerName="rapportini.controller.Cestino"
+controllerName="rapportini.controller.CestinoTickets"
    xmlns="sap.m"
    xmlns:mvc="sap.ui.core.mvc"
    xmlns:l="sap.ui.layout"
@@ -59,9 +59,9 @@ controllerName="rapportini.controller.Cestino"
          <FlexBox height="auto" width="45rem"  alignItems="Center" justifyContent="Center" direction="Column">
             <FlexBox height="auto" width="100%" alignItems="Center" justifyContent="Center" direction="Column" class="sapUiMediumMarginBegin">
                <FlexBox height="auto" width="100%"  alignItems="Center" justifyContent="Start" class="sapUiSmallMargin">
-                  <Breadcrumbs currentLocationText="Cestino Rapportini" separatorStyle="GreaterThan">
+                  <Breadcrumbs currentLocationText="Cestino Tickets" separatorStyle="GreaterThan">
                      <Link press="onPress" text="Home"/>
-                     <Link press="onPress" text="Rapportini"/>
+                     <Link press="onPress" text="Tickets"/>
                   </Breadcrumbs>
                </FlexBox>
             </FlexBox>
@@ -82,68 +82,69 @@ controllerName="rapportini.controller.Cestino"
             </FlexBox>
             <FlexBox height="auto" width="100%"  alignItems="Center" justifyContent="Start">
                <ScrollContainer height="auto" width="auto" horizontal="true" vertical="true" class="sapUiSmallMarginBegin">
-                  <t:Table rows="{path: '/RapportiniCestinati'}" selectionMode="MultiToggle" width="99%" height="auto" alternateRowColors="true" id="tabella" fixedColumnCount="2">
+                  <t:Table rows="{path: '/TicketsCestinati'}" selectionMode="MultiToggle" width="99%" height="auto" alternateRowColors="true" id="tabella" fixedColumnCount="2">
                      <t:columns>
                         <t:Column width="140px">
                            <t:template>
                               <l:HorizontalLayout>
-                                 <Button icon="sap-icon://refresh" press="onRestoreRapportino(${ID})" class="sapUiTinyMarginEnd" tooltip="Ripristina"/>
-                                 <Button icon="sap-icon://delete" press="onDeleteRapportino(${ID})" class="sapUiTinyMarginEnd" tooltip="Elimina definitivamente"/>
+                                 <Button icon="sap-icon://refresh" press="onRestoreTicket(${ID})" class="sapUiTinyMarginEnd" tooltip="Ripristina"/>
+                                 <Button icon="sap-icon://delete" press="onDeleteTicket(${ID})" class="sapUiTinyMarginEnd" tooltip="Elimina definitivamente"/>
                               </l:HorizontalLayout>
                            </t:template>
                         </t:Column>
-                        <t:Column width="140px">
+                        <t:Column width="100px">
                            <Text text="Utente"/>
                            <t:template>
                               <Text text="{= ${utente} === ${globalData>/myUsername} ? ${globalData>/usernameSuffix} : ${utente}}"/>
                            </t:template>
                         </t:Column>
+                        
                         <t:Column width="100px">
-                           <Text text="Giorno" />
+                           <Text text="Titolo" />
                            <t:template>
-                              <Text text="{giorno}" />
+                              <Text text="{titolo}" />
                            </t:template>
                         </t:Column>
-                        <t:Column width="50px">
-                           <Text text="Ore" />
+						<t:Column width="100px">
+                           <Text text="Ultima Modifica" />
                            <t:template>
-                              <Text text="{ore}" />
+                              <Text text="{ultimaModifica}" />
                            </t:template>
                         </t:Column>
-                        <t:Column width="100px">   
-                           <Text text="Ticket" />
+						<t:Column width="100px">
+                           <Text text="Data Inserimento" />
                            <t:template>
-                              <Text text="Ticket esempio" />
+                              <Text text="{insertDate}" />
                            </t:template>
                         </t:Column>
-                        <t:Column width="100px">
-                           <Text text="Cliente" />
+						<t:Column width="100px">
+                           <Text text="Data Consegna Richiesta" />
                            <t:template>
-                              <Text text="Cosa nostra" />
+                              <Text text="{dataConsegnaRichiesta}" />
                            </t:template>
                         </t:Column>
-                        <t:Column width="100px">
-                           <Text text="Commessa" />
+						<t:Column width="100px">
+                           <Text text="Area Funzionale" />
                            <t:template>
-                              <Text text="Trabajo serio en pincanello" />
+                              <Text text="{areaFunzionale}" />
                            </t:template>
                         </t:Column>
-                        <t:Column width="50px">
-                           <Text text="Sede" />
+						<t:Column width="100px">
+                           <Text text="Testo" />
                            <t:template>
-                              <Text text="{sede}" />
+                              <Text text="{testo}" />
                            </t:template>
                         </t:Column>
-                        <t:Column width="100px">
-                           <Text text="Descrizione" />
+						<t:Column width="100px">
+                           <Text text="Stato" />
                            <t:template>
-                              <Text text="{descrizione}" />
+                              <Text text="{status}" />
                            </t:template>
                         </t:Column>
-                        <t:Column width="100px">
-                           <Text text="Spese totali" />
+						<t:Column width="100px">
+                           <Text text="Criticita" />
                            <t:template>
-                              <Text text="{km}" />
+                              <Text text="{criticita}" />
                            </t:template>
                         </t:Column>
                      </t:columns>

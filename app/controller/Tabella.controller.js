@@ -28,8 +28,8 @@ sap.ui.define(
         this.getFiltersWithValues = this.getFiltersWithValues.bind(this);
 
         this.oSmartVariantManagement = this.getView().byId("svm");
-        //this.oExpandedLabel = this.getView().byId("expandedLabel");
-        //this.oSnappedLabel = this.getView().byId("snappedLabel");
+        this.oExpandedLabel = this.getView().byId("expandedLabel");
+        this.oSnappedLabel = this.getView().byId("snappedLabel");
         this.oFilterBar = this.getView().byId("filterbar");
         this.oTable = this.getView().byId("tabella");
 
@@ -43,9 +43,19 @@ sap.ui.define(
           dataSource: "",
           control: this.oFilterBar,
         });
-        //this.oSmartVariantManagement.addPersonalizableControl(oPersInfo);
-        //this.oSmartVariantManagement.initialise(function () {},
-        //this.oFilterBar);
+        this.oSmartVariantManagement.addPersonalizableControl(oPersInfo);
+        this.oSmartVariantManagement.initialise(function () { },
+          this.oFilterBar);
+
+        //STAVAMO LAVORANDO QUI
+        /*const model = this.getOwnerComponent().getModel();
+
+        const contextTickets = await model.bindList("/Tickets", undefined, undefined, undefined, {
+          $expand: "IDCliente,IDCommessa,IDTipologia"
+        }).requestContexts();
+        const parametersTickets = ["utente", "IDCliente_descrizione", "titolo", "status", "assegnatoA", "IDCommessa_descrizione", "giorniStima", "giorniCons", "flagNeedDev", "flagNeedFunz", "allegato", "flagAms", "areaFunzionale", "flagBugFix", "flagCR", "chatPubblica", "flagDev", "flagFunz", "externalID", "giorniConsCliente", "giorniConsDev", "giorniStimaDev", "giorniStimaFunz", "IDParent", "ordineSap", "criticita", "nRilavorazioni", "supportoFunzionale", "testo", "IDTipologia_tipologia", "flagVisibileCliente"]
+        const tickets = contextTickets.map(x => (x.getObject()));
+        this.filterMultiComboBox(parametersTickets, tickets)*/
       },
 
       filterMultiComboBox: function (parameters, rapportini) {
@@ -141,12 +151,16 @@ sap.ui.define(
             var oControl = oFilterGroupItem.getControl(),
               aSelectedKeys = oControl.getSelectedKeys(),
               aFilters = aSelectedKeys.map(function (sSelectedKey) {
+                sSelectedKey = sSelectedKey;
+                console.log(sSelectedKey)
+                if (!oFilterGroupItem.getName().substring(0, 2).localeCompare("ID")) sSelectedKey = sSelectedKey.replace('.', '');
                 return new Filter({
                   path: oFilterGroupItem.getName(),
                   operator: FilterOperator.EQ,
                   value1: sSelectedKey,
                 });
               });
+
             if (aSelectedKeys.length > 0) {
               aResult.push(
                 new Filter({
@@ -218,7 +232,7 @@ sap.ui.define(
         return sText;
       },
 
-      _updateLabelsAndTable: function () {},
+      _updateLabelsAndTable: function () { },
 
       onNavToCreate: function () {
         this.getRouter().navTo("creaRapportino", {
@@ -253,7 +267,7 @@ sap.ui.define(
         if (
           rapportini[index].utente === globalData.getProperty("/myUsername") &&
           rapportini[index].giorno.slice(0, 10) ===
-            globalData.getProperty("/today")
+          globalData.getProperty("/today")
         ) {
           globalData.setProperty(
             "/monteore",

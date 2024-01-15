@@ -69,9 +69,7 @@
         },
         "async": true,
         "sample": {
-          "files": [
-            "app/img/logo.png"
-          ]
+          "files": ["app/img/logo.png"]
         }
       },
       "routes": [
@@ -91,9 +89,19 @@
           "target": "cestino"
         },
         {
+          "pattern": "cestinoTickets",
+          "name": "cestinoTickets",
+          "target": "cestinoTickets"
+        },
+        {
           "pattern": "tickets",
           "name": "tickets",
           "target": "tickets"
+        },
+        {
+          "pattern": "creaTickets/{operationID}/:IDTicket:",
+          "name": "creaTickets",
+          "target": "creaTickets"
         }
       ],
       "targets": {
@@ -114,10 +122,24 @@
           "name": "Cestino",
           "level": 2
         },
+
+        "cestinoTickets": {
+          "id": "cestinoTickets",
+          "path": "rapportini.view",
+          "name": "CestinoTickets",
+          "level": 2
+        },
         "tickets": {
           "id": "tickets",
           "path": "rapportini.view",
           "name": "Tickets",
+          "level": 2
+        },
+
+        "creaTickets": {
+          "id": "creaTickets",
+          "path": "rapportini.view",
+          "name": "CreazioneTickets",
           "level": 2
         },
         "notFound": {

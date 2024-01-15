@@ -6,7 +6,7 @@
    xmlns:mvc="sap.ui.core.mvc"
    controllerName="rapportini.controller.CreazioneRapportini">
 
-<Page id="createPage" title="Workbench Rapportini">
+<Page id="createPage" title="Creazione Rapportino">
 	<VBox  
          height="auto"
          width="100%"
@@ -14,12 +14,12 @@
          justifyContent="Center"
          class="sapUiResponsiveMargin">
 		<FlexBox
- 
          height="auto"
          width="100%"
          alignItems="start"
          justifyContent="Center"
-         direction="Column">
+         direction="Column"
+         class="creazioneRapportiniFlex">
             <FlexBox
             height="auto"
             width="90vw"
@@ -455,7 +455,7 @@
             </FlexBox>
                <FlexBox
                height="10Vh"
-               width="90%"
+               width="90vw"
                alignItems="Center"
                justifyContent="End">
                   <Button 

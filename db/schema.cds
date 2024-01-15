@@ -9,7 +9,7 @@ entity Rapportini {
         IDClienteSede      : Association to one ClientiSedi;
         IDProgetto         : Integer;
         IDProgettoAttivita : Integer;
-        IDToDoList         : Association to one TodoList;
+        IDTicket         : Association to one Tickets;
         codice             : String(50);
         descrizione        : String(250);
         attivita           : String(50);
@@ -33,7 +33,7 @@ entity Rapportini {
         speseVarie         : Decimal(18, 2);
         docente            : String(100);
         IDCommessa2        : Association to one Commesse;
-        IDToDoList2        : Association to one TodoList;
+        IDTicket2        : Association to one Tickets;
         ore2               : Decimal(18, 1);
         descrizione2       : String(250);
         ruolo              : String(50);
@@ -53,7 +53,7 @@ entity RapportiniCestinati {
         IDClienteSede      : Association to one ClientiSedi;
         IDProgetto         : Integer;
         IDProgettoAttivita : Integer;
-        IDToDoList         : Association to one TodoList;
+        IDTicket       : Association to one Tickets;
         codice             : String(50);
         descrizione        : String(250);
         attivita           : String(50);
@@ -77,7 +77,7 @@ entity RapportiniCestinati {
         speseVarie         : Decimal(18, 2);
         docente            : String(100);
         IDCommessa2        : Association to one Commesse;
-        IDToDoList2        : Association to one TodoList;
+        IDTicket2        : Association to one Tickets;
         ore2               : Decimal(18, 1);
         descrizione2       : String(250);
         ruolo              : String(50);
@@ -88,10 +88,7 @@ entity RapportiniCestinati {
 }
 
 entity Clienti {
-    key ID                   : Integer @(
-            IncrementalCounter: true,
-            InitialValue      : 1
-        );
+    key ID                   : Integer default 1;
         codice               : String(50);
         descrizione          : String(250);
         password             : String(250);
@@ -135,67 +132,7 @@ entity ClientiSedi {
         pedaggioedaggio5 : Decimal(18, 2);
 }
 
-entity TodoList {
-    key ID                          : Integer @(
-            IncrementalCounter: true,
-            InitialValue      : 1
-        );
-        insertDate                  : DateTime;
-        utente                      : String(50);
-        IDCliente                   : Association to one Clienti;
-        IDCommessa                  : Association to one Commesse;
-        areaFunzionale              : String(10);
-        titolo                      : String(250);
-        testo                       : String;
-        propostoA                   : String(50);
-        giorniStima                 : Decimal(18, 3);
-        dataConsegnaRichiesta       : DateTime;
-        assegnatoA                  : String(250);
-        giorniCons                  : Decimal(18, 3);
-        dataConsegnaSchedulata      : DateTime;
-        status                      : Integer;
-        dataChiusura                : DateTime;
-        ordinamento                 : Integer;
-        allegato                    : String(250);
-        statusPrev                  : Integer;
-        externalID                  : String(50);
-        flagVisibileCliente         : Boolean;
-        dataProduzione              : DateTime;
-        flagBugFix                  : Boolean;
-        giorniConsCliente           : Decimal(18, 3);
-        chatPubblica                : String;
-        assegnatoAPrev              : String(250);
-        flagCR                      : Boolean;
-        flagArxivar                 : Boolean;
-        IDTodoListParent            : Integer;
-        chatPrivata                 : String;
-        dataSpecifiche              : DateTime;
-        giorniConsDev               : Decimal(18, 3);
-        giorniStimaDev              : Decimal(18, 3);
-        giorniStimaFunz             : Decimal(18, 3);
-        giorniConsFunz              : Decimal(18, 3);
-        dataSviluppi                : DateTime;
-        flagDev                     : Boolean;
-        flagFunz                    : Boolean;
-        criticita                   : String(20);
-        flagPadre                   : Boolean;
-        flagFiglio                  : Boolean;
-        nRilavorazioni              : Integer;
-        supportoFunzionale          : String(250);
-        flagNeedDev                 : Boolean;
-        flagNeedFunz                : Boolean;
-        flagIngegnerizzabile        : Boolean;
-        nAllegati                   : Integer;
-        ordineSap                   : String(40);
-        ultimaModifica              : DateTime;
-        ultimaModificaUtente        : String(50);
-        ultimaModificaCliente       : DateTime;
-        ultimaModificaUtenteCliente : String(50);
-        flagAms                     : Boolean;
-        IDTodoListTipologia         : Integer;
-        inoltraA                    : String(250);
-        messageID                   : String(255);
-}
+
 
 entity Commesse {
     key ID                : Integer default 1;
@@ -226,7 +163,66 @@ entity Commesse {
 }
 
 entity Tickets {
-    key ID                          : Integer;
+    key ID                          : UUID;
+        insertDate                  : Date;
+        utente                      : String(50);
+        IDCliente                   : Association to Clienti;
+        IDCommessa                  : Association to Commesse;
+        areaFunzionale              : String(50);
+        titolo                      : String(250);
+        testo                       : LargeString;
+        propostoA                   : String(50);
+        giorniStima                 : Decimal(18, 3);
+        dataConsegnaRichiesta       : Date;
+        assegnatoA                  : String(250);
+        giorniCons                  : Decimal(18, 3);
+        dataConsegnaSchedulata      : Date;
+        status                      : Integer;
+        dataChiusura                : Date;
+        ordinamento                 : Integer;
+        allegato                    : String(250);
+        statusPrev                  : Integer;
+        externalID                  : String(50);
+        flagVisibileCliente         : Boolean;
+        dataProduzione              : Date;
+        flagBugFix                  : Boolean;
+        giorniConsCliente           : Decimal(18, 3);
+        chatPubblica                : LargeString;
+        assegnatoAPrev              : String(250);
+        flagCR                      : Boolean;
+        flagArxivar                 : Boolean;
+        IDParent                    : Integer;
+        chatPrivata                 : LargeString;
+        dataSpecifiche              : Date;
+        giorniConsDev               : Decimal(18, 3);
+        giorniStimaDev              : Decimal(18, 3);
+        giorniStimaFunz             : Decimal(18, 3);
+        giorniConsFunz              : Decimal(18, 3);
+        dataSviluppi                : Date;
+        flagDev                     : Boolean;
+        flagFunz                    : Boolean;
+        criticita                   : LargeString;
+        flagPadre                   : Boolean;
+        flagFiglio                  : Boolean;
+        nRilavorazioni              : Integer;
+        supportoFunzionale          : String(250);
+        flagNeedDev                 : Boolean;
+        flagNeedFunz                : Boolean;
+        flagIngegnerizzabile        : Boolean;
+        nAllegati                   : Integer;
+        ordineSap                   : String(40);
+        ultimaModifica              : Date;
+        ultimaModificaUtente        : String(50);
+        ultimaModificaCliente       : Date;
+        ultimaModificaUtenteCliente : String(50);
+        flagAms                     : Boolean;
+        IDTipologia                 : Association to Tipologia;
+        inoltraA                    : String(250);
+        messageID                   : String(255);
+}
+
+entity TicketsCestinati {
+        key ID                          : UUID;
         insertDate                  : Date;
         utente                      : String(50);
         IDCliente                   : Association to Clienti;

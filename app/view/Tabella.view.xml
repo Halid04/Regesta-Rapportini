@@ -22,7 +22,6 @@
             </ToolbarSpacer>
             <tnt:ToolHeaderUtilitySeparator />
             <Button icon="sap-icon://{globalData>/themeIcon}" tooltip="Cambia tema" press=".onSwitchTheme"/>
-            <Button icon="sap-icon://delete" tooltip="Cestino" press=".onNavToTrashcan" />
             <Button icon="sap-icon://bell" tooltip="Notifiche" />
             <Avatar src="/img/shash.jpeg" displaySize="XS" showBorder="true" press="onPress"/> 
             <Label text="Logout" class="logoutLabel" id="logoutLabel"/>
@@ -31,16 +30,13 @@
       <tnt:sideContent>
          <tnt:SideNavigation id="sideNavigation" selectedKey="subItem3">
                <tnt:NavigationList>
-                  <tnt:NavigationListItem text="Rapportini" icon="sap-icon://activity-items">
-                     <tnt:NavigationListItem text="Lista" />
-                     <tnt:NavigationListItem text="Pianificazione Ferie" />
-                     <tnt:NavigationListItem text="Richiesta Sblocco" id="subItem3" key="subItem3" />
+                  <tnt:NavigationListItem text="Rapportini" icon="sap-icon://activity-items" href='#'>
+                     <tnt:NavigationListItem text="Lista Rapportini" href='#'/>
+                     <tnt:NavigationListItem text="Cestino Rapportini" href='#/cestino'/>
                   </tnt:NavigationListItem>
-                  <tnt:NavigationListItem text="Tickets" icon="sap-icon://sap-box">
-                     <tnt:NavigationListItem text="Sub Item 1" />
-                     <tnt:NavigationListItem text="Sub Item 2" />
-                     <tnt:NavigationListItem text="Sub Item 3" />
-                     <tnt:NavigationListItem text="Sub Item 4" />
+                  <tnt:NavigationListItem text="Tickets" icon="sap-icon://sap-box" href='#/tickets'>
+                     <tnt:NavigationListItem text="Lista Tickets" href='#/tickets'/>
+                     <tnt:NavigationListItem text="Cestino Tickets" href='#/cestinoTickets'/>
                   </tnt:NavigationListItem>
                   <tnt:NavigationListItem text="Anagrafiche" icon="sap-icon://business-card">
                      <tnt:NavigationListItem text="Sub Item 1" />
@@ -62,7 +58,7 @@
          <FlexBox height="auto" width="45rem"  alignItems="Center" justifyContent="Center" direction="Column">
             <FlexBox height="auto" width="100%" alignItems="Center" justifyContent="Center" direction="Column" class="sapUiMediumMarginBegin">
                <FlexBox height="auto" width="100%"  alignItems="Center" justifyContent="Start" class="sapUiSmallMargin">
-                  <Breadcrumbs currentLocationText="Lista" separatorStyle="GreaterThan">
+                  <Breadcrumbs currentLocationText="Lista Rapportini" separatorStyle="GreaterThan">
                      <Link press="onPress" text="Home"/>
                      <Link press="onPress" text="Rapportini"/>
                   </Breadcrumbs>

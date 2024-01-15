@@ -10,8 +10,8 @@ service AppService {
   entity RapportiniAllegati    as projection on db.RapportiniAllegati;
   entity ClientiSedi           as projection on db.ClientiSedi;
   entity Commesse              as projection on db.Commesse;
-  entity TodoList              as projection on db.TodoList;
   entity Tickets               as projection on db.Tickets;
+    entity TicketsCestinati      as projection on db.TicketsCestinati;
   entity Allegati              as projection on db.Allegati;
   entity AreeFunzionali        as projection on db.AreeFunzionali;
   entity AssegnatoA            as projection on db.AssegnatoA;
