@@ -11,6 +11,8 @@ sap.ui.define(
     let op;
     let IDCurrent;
     let IDTicketsCreati = [];
+    let clienteID = null;
+    let commessaID = null;
     return BaseController.extend("rapportini.controller.CreazioneTickets", {
       generateIDTickets: function () {
         return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
@@ -40,6 +42,8 @@ sap.ui.define(
             areaFunzionale: "",
             titolo: "",
             testo: "",
+            cliente: null,
+            commessa: null,
             assegnatoA: "",
             criticita: "",
             dataConsegnaRichiesta: null,
@@ -59,6 +63,8 @@ sap.ui.define(
             areaFunzionale: ticket.areaFunzionale,
             titolo: ticket.titolo,
             testo: ticket.testo,
+            cliente: ticket.IDCliente_ID,
+            commessa: ticket.IDCommessa_ID,
             assegnatoA: ticket.assegnatoA,
             criticita: ticket.criticita,
             dataConsegnaRichiesta: new Date(ticket.dataConsegnaRichiesta),
@@ -90,19 +96,19 @@ sap.ui.define(
                 .bindList("/Tickets")
                 .requestContexts();
               var tickets = contexts.map((x) => x.getObject());
-
+              
               let value = tickets.find((element) => {
                 return element.ID === IDCurrent;
               });
 
               let index = tickets.indexOf(value);
               console.log("index", index);
-              console.log(tickets[index]);
+              
               oData = this.creaModelloEsistente(tickets[index]);
             }
 
             var oModel = new JSONModel(oData);
-            this.getView().setModel(oModel, "JSONModel");
+            var jsonModel = this.getView().setModel(oModel, "JSONModel");
           }, this);
       },
       saveTicket: function (ticket, binding, oDataModel, myRouter) {
@@ -117,6 +123,8 @@ sap.ui.define(
             "areaFunzionale",
             "titolo",
             "testo",
+            "IDCliente_ID",
+            "IDCommessa_ID",
             "assegnatoA",
             "criticita",
             "dataConsegnaRichiesta",
@@ -139,7 +147,33 @@ sap.ui.define(
         oDataModel.submitBatch("myAppUpdateGroup");
         myRouter.navTo("tickets");
       },
+      handleSelectionChangeCliente: async function(oEvent) {
 
+        let selectedKeys = oEvent.getSource().getSelectedKey();
+        clienteID = selectedKeys;
+        
+        var commesseContexts = await this.getView().getModel().bindList("/Commesse").requestContexts();
+        var commesseList = []
+        var commesse = commesseContexts.map((x) => x.getObject());
+        commesse.forEach(commessa => {
+          if(commessa.IDCliente_ID == clienteID){
+            commesseList.push({
+              ID: commessa.ID,
+              descrizione: commessa.descrizione
+            })
+          }
+        });
+
+        console.log(commesseList)
+        var commesseModel = new JSONModel(commesseList);
+        
+        var jsonModel = this.getView().setModel(commesseModel, "Commesse");
+
+      },
+      handleSelectionChangeCommessa: function(oEvent) {
+        let selectedKeys = oEvent.getSource().getSelectedKey();
+        commessaID = selectedKeys;
+      },
       onSave: async function () {
         function dateFormater(date) {
           if (date) {
@@ -156,14 +190,17 @@ sap.ui.define(
         var modelloTicket = this.getView()
           .getModel("JSONModel")
           .getProperty("/modelloTicket");
+
+      
+
         const currentDate = new Date();
 
         let newTicket = {
           ID: this.onCheckIDTickets(),
           insertDate: dateFormater(currentDate),
           utente: modelloTicket.utente,
-          IDCliente: null,
-          IDCommessa: null,
+          IDCliente_ID: parseInt(clienteID),
+          IDCommessa_ID: parseInt(commessaID),
           areaFunzionale: modelloTicket.areaFunzionale,
           titolo: modelloTicket.titolo,
           testo: modelloTicket.testo,
@@ -220,6 +257,7 @@ sap.ui.define(
           inoltraA: "",
           messageID: "",
         };
+        console.log(clienteID)
         console.log("ticket da salvare", newTicket);
         let oDataModel = this.getView().getModel();
         let oBinding = await oDataModel.bindList("/Tickets");
