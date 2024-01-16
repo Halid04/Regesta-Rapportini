@@ -60,6 +60,42 @@
                   <Input value="{JSONModel>/modelloTicket/titolo}" placeholder="Titolo" width="35vw"/>
                 </FlexBox>
             </FlexBox>
+
+            <FlexBox
+            height="auto"
+            width="90vw"
+            alignItems="Start"
+            justifyContent="Start">
+               <FlexBox
+               height="auto"
+               width="55vw"
+               alignItems="Start"
+               justifyContent="Center"
+               direction="Column">
+                <Label text="Cliente" />
+                <ComboBox id="comboClienti" items="{path: '/Clienti'}"  selectedKey="{path: 'JSONModel>/modelloTicket/cliente'}" placeholder="Cliente" selectionChange="handleSelectionChangeCliente" width="35vw">
+                        <!-- <items> -->
+                           <core:ListItem text="{descrizione}" key="{ID}"/>
+                        <!-- </items> -->
+                </ComboBox>
+                </FlexBox>
+
+                <FlexBox
+                
+                height="auto"
+                width="35vw"
+                alignItems="Start"
+                justifyContent="Center"
+                direction="Column">
+                <Label text="Commessa"  />
+                <ComboBox id="comboCommesse" items="{path: 'Commesse>/'}" selectedKey="{path: 'JSONModel>/modelloTicket/commessa'}" placeholder="Commesse" selectionChange="handleSelectionChangeCommessa" width="35vw">
+                        <!-- <items> -->
+                           <core:ListItem text="{Commesse>descrizione}" key="{Commesse>ID}"/>
+                        <!-- </items> -->
+                </ComboBox>
+                </FlexBox>
+            </FlexBox>
+
 			<FlexBox
             height="auto"
             width="90vw"
