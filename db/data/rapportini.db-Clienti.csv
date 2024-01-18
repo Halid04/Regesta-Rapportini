@@ -18,4 +18,4 @@ ID,codice,descrizione,password,giorniProgettoAnno,giorniFunzionaleAnno,giorniSvi
 17,COD017,SmartCitySolutions,UrbanInnovation456,280.0,250.5,120.2,false,SAP017,logo_smartcitysolutions.png,scheda_smartcitysolutions.pdf,CuentaSmartCity
 18,COD018,GlobalTradeLogistics,TradePass123,90.5,70.0,40.2,true,SAP018,logo_globaltradelogistics.png,scheda_globaltradelogistics.pdf,CuentaTrade
 19,COD019,RoboTechInnovations,Robotics456,160.0,130.5,60.2,false,SAP019,logo_robotechinnovations.png,scheda_robotechinnovations.pdf,CuentaRoboTech
-20,COD020,AeroSpaceTech,AirSpacePass123,190.5,160.0,80.2,true,SAP020,logo_aer
+20,COD020,AeroSpaceTech,AirSpacePass123,190.5,160.0,80.2,true,SAP020,logo_aeroSpace.png,scheda_AeroSpaceTech.pdf,CuentaAeroSpace
