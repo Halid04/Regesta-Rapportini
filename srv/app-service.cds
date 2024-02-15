@@ -11,7 +11,7 @@ service AppService {
   entity ClientiSedi           as projection on db.ClientiSedi;
   entity Commesse              as projection on db.Commesse;
   entity Tickets               as projection on db.Tickets;
-    entity TicketsCestinati      as projection on db.TicketsCestinati;
+  entity TicketsCestinati      as projection on db.TicketsCestinati;
   entity Allegati              as projection on db.Allegati;
   entity AreeFunzionali        as projection on db.AreeFunzionali;
   entity AssegnatoA            as projection on db.AssegnatoA;

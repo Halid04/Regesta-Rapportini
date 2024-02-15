@@ -148,10 +148,15 @@ sap.ui.define(
         myRouter.navTo("tickets");
       },
       handleSelectionChangeCliente: async function(oEvent) {
-
         let selectedKeys = oEvent.getSource().getSelectedKey();
         clienteID = selectedKeys;
-        
+    
+        if(commessaID != null){
+          commessaID = null;
+          MessageBox.show("Cliente cambiato, commessa resettata");
+          this.getView().byId("comboCommesse").setSelectedKey(null);
+        }
+
         var commesseContexts = await this.getView().getModel().bindList("/Commesse").requestContexts();
         var commesseList = []
         var commesse = commesseContexts.map((x) => x.getObject());
@@ -163,17 +168,17 @@ sap.ui.define(
             })
           }
         });
-
+    
         console.log(commesseList)
         var commesseModel = new JSONModel(commesseList);
-        
-        var jsonModel = this.getView().setModel(commesseModel, "Commesse");
-
-      },
-      handleSelectionChangeCommessa: function(oEvent) {
+        this.getView().setModel(commesseModel, "Commesse");
+    },
+      handleSelectionChangeCommessa: async function(oEvent) {
         let selectedKeys = oEvent.getSource().getSelectedKey();
         commessaID = selectedKeys;
+
       },
+      
       onSave: async function () {
         function dateFormater(date) {
           if (date) {
@@ -191,6 +196,19 @@ sap.ui.define(
           .getModel("JSONModel")
           .getProperty("/modelloTicket");
 
+          const campiObbligatori = ["utente", "cliente", "commessa"];
+
+        for (var i = 0; i < campiObbligatori.length; i++) {
+          if (
+            modelloTicket[campiObbligatori[i]] == "" ||
+            modelloTicket[campiObbligatori[i]] == null
+          ) {
+            console.log(campiObbligatori[i])
+            console.log(modelloTicket[campiObbligatori[i]])
+            MessageBox.show("Per favore, compila tutti i campi obbligatori");
+            return;
+          }
+        }
       
 
         const currentDate = new Date();
