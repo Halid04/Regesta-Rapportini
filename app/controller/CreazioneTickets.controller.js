@@ -226,6 +226,7 @@ sap.ui.define(
       handleSelectionChangeCommessa: async function (oEvent) {
         let selectedKeys = oEvent.getSource().getSelectedKey();
         commessaID = selectedKeys;
+
       },
       handleSelectionChangeTipologia: async function (oEvent) {
         let selectedKeys = oEvent.getSource().getSelectedKey();
