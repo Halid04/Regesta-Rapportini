@@ -158,7 +158,8 @@ controllerName="rapportini.controller.CreazioneTickets">
                 width="17vw"/>
                </FlexBox>
             </FlexBox>
-			<FlexBox
+
+            <FlexBox
             height="auto"
             width="90vw"
             alignItems="Start"
