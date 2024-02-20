@@ -151,9 +151,8 @@ sap.ui.define(
             var oControl = oFilterGroupItem.getControl(),
               aSelectedKeys = oControl.getSelectedKeys(),
               aFilters = aSelectedKeys.map(function (sSelectedKey) {
-                sSelectedKey = sSelectedKey;
-                console.log(sSelectedKey)
-                if (!oFilterGroupItem.getName().substring(0, 2).localeCompare("ID")) sSelectedKey = sSelectedKey.replace('.', '');
+                if (oFilterGroupItem.getName().substring(0, 2) == "ID") sSelectedKey = sSelectedKey.replace('.', '');
+                if (oFilterGroupItem.getName() == "giorno") sSelectedKey = "29 giu 2023";
                 return new Filter({
                   path: oFilterGroupItem.getName(),
                   operator: FilterOperator.EQ,

@@ -15,7 +15,7 @@ entity Rapportini {
         attivita           : String(50);
         sede               : String(10);
         destinazione       : String(50);
-        giorno             : DateTime;
+        giorno             : Date;
         ore                : Decimal(18, 1);
         oreLavorate        : Decimal(18, 1);
         km                 : Integer;
@@ -210,7 +210,6 @@ entity Tickets {
         flagNeedFunz                : Boolean;
         flagIngegnerizzabile        : Boolean;
         nAllegati                   : Integer;
-        ordineSap                   : String(40);
         ultimaModifica              : Date;
         ultimaModificaUtente        : String(50);
         ultimaModificaCliente       : Date;

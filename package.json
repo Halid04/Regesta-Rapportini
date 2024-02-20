@@ -6,7 +6,7 @@
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
-    "@sap/cds": "^6",
+    "@sap/cds": "^6.8.4",
     "express": "^4"
   },
   "devDependencies": {
@@ -14,5 +14,15 @@
   },
   "scripts": {
     "start": "cds watch"
+  },
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "sqlite",
+        "credentials": {
+          "database": "rapportini.db"
+        }
+      }
+    }
   }
 }

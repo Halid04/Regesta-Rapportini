@@ -11,6 +11,9 @@ sap.ui.define(
     let op;
     let IDCurrent;
     let IDTicketsCreati = [];
+    let clienteID = null;
+    let commessaID = null;
+    let tipologiaID = null;
     return BaseController.extend("rapportini.controller.CreazioneTickets", {
       generateIDTickets: function () {
         return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
@@ -36,38 +39,58 @@ sap.ui.define(
       creaModelloVuoto: function () {
         return {
           modelloTicket: {
-            utente: "",
+            insertDate: new Date(),
+            utente: this.getView()
+              .getModel("globalData")
+              .getProperty("/myUsername"),
             areaFunzionale: "",
             titolo: "",
             testo: "",
+            giorniStima: 0.0,
+            cliente: null,
+            commessa: null,
             assegnatoA: "",
+            giorniStimaDev: 0.0,
+            giorniStimaFunz: 0.0,
             criticita: "",
+            supportoFunzionale: "",
             dataConsegnaRichiesta: null,
             status: 0,
-            dataConsegnaSchedulata: null,
+            // dataConsegnaSchedulata: null,
             allegato: "",
+            externalID: "",
             flagVisibileCliente: false,
             flagBugFix: false,
             ultimaModifica: null,
+            tipologia: null,
           },
         };
       },
       creaModelloEsistente: function (ticket) {
         return {
           modelloTicket: {
+            insertDate: new Date(ticket.insertDate),
             utente: ticket.utente,
             areaFunzionale: ticket.areaFunzionale,
             titolo: ticket.titolo,
             testo: ticket.testo,
+            giorniStima: ticket.giorniStima,
+            cliente: ticket.IDCliente_ID,
+            commessa: ticket.IDCommessa_ID,
             assegnatoA: ticket.assegnatoA,
+            giorniStimaDev: ticket.giorniStimaDev,
+            giorniStimaFunz: ticket.giorniStimaFunz,
             criticita: ticket.criticita,
+            supportoFunzionale: ticket.supportoFunzionale,
             dataConsegnaRichiesta: new Date(ticket.dataConsegnaRichiesta),
             status: ticket.status,
-            dataConsegnaSchedulata: new Date(ticket.dataConsegnaSchedulata),
+            // dataConsegnaSchedulata: new Date(ticket.dataConsegnaSchedulata),
             allegato: ticket.allegato,
+            externalID: ticket.externalID,
             flagVisibileCliente: ticket.flagVisibileCliente,
             flagBugFix: ticket.flagBugFix,
             ultimaModifica: ticket.ultimaModifica,
+            tipologia: ticket.IDTipologia_ID,
           },
         };
       },
@@ -97,12 +120,12 @@ sap.ui.define(
 
               let index = tickets.indexOf(value);
               console.log("index", index);
-              console.log(tickets[index]);
+
               oData = this.creaModelloEsistente(tickets[index]);
             }
 
             var oModel = new JSONModel(oData);
-            this.getView().setModel(oModel, "JSONModel");
+            var jsonModel = this.getView().setModel(oModel, "JSONModel");
           }, this);
       },
       saveTicket: function (ticket, binding, oDataModel, myRouter) {
@@ -113,19 +136,28 @@ sap.ui.define(
           var path = "/Tickets(" + IDCurrent + ")";
 
           const properties = [
+            "insertDate",
             "utente",
             "areaFunzionale",
             "titolo",
             "testo",
+            "giorniStima",
+            "IDCliente_ID",
+            "IDCommessa_ID",
             "assegnatoA",
+            "giorniStimaDev",
+            "giorniStimaFunz",
             "criticita",
+            "supportoFunzionale",
             "dataConsegnaRichiesta",
             "status",
-            "dataConsegnaSchedulata",
+            // "dataConsegnaSchedulata",
             "allegato",
+            "externalID",
             "flagVisibileCliente",
             "flagBugFix",
             "ultimaModifica",
+            "IDTipologia_ID",
           ];
 
           for (var i = 0; i < properties.length; i++) {
@@ -139,7 +171,66 @@ sap.ui.define(
         oDataModel.submitBatch("myAppUpdateGroup");
         myRouter.navTo("tickets");
       },
+      handleSelectionChangeCliente: async function (oEvent) {
+        let selectedKeys = oEvent.getSource().getSelectedKey();
+        clienteID = selectedKeys;
 
+        if (commessaID != null) {
+          commessaID = null;
+          // MessageBox.show("Cliente cambiato, commessa resettata");
+          this.getView().byId("comboCommesse").setSelectedKey(null);
+        }
+
+        if (tipologiaID != null) {
+          tipologiaID = null;
+          // MessageBox.show("Cliente cambiato, Tipologia resettata");
+          this.getView().byId("comboTipologie").setSelectedKey(null);
+        }
+
+        var commesseContexts = await this.getView()
+          .getModel()
+          .bindList("/Commesse")
+          .requestContexts();
+        var commesseList = [];
+        var commesse = commesseContexts.map((x) => x.getObject());
+        commesse.forEach((commessa) => {
+          if (commessa.IDCliente_ID == clienteID) {
+            commesseList.push({
+              ID: commessa.ID,
+              descrizione: commessa.descrizione,
+            });
+          }
+        });
+
+        var tipologiaContexts = await this.getView()
+          .getModel()
+          .bindList("/Tipologia")
+          .requestContexts();
+        var tipologiaList = [];
+        var tipologia = tipologiaContexts.map((x) => x.getObject());
+        tipologia.forEach((tipologia) => {
+          if (tipologia.IDCliente_ID == clienteID) {
+            tipologiaList.push({
+              ID: tipologia.ID,
+              tipologia: tipologia.tipologia,
+            });
+          }
+        });
+
+        // console.log(commesseList);
+        var commesseModel = new JSONModel(commesseList);
+        this.getView().setModel(commesseModel, "Commesse");
+        var tipologiaModel = new JSONModel(tipologiaList);
+        this.getView().setModel(tipologiaModel, "Tipologia");
+      },
+      handleSelectionChangeCommessa: async function (oEvent) {
+        let selectedKeys = oEvent.getSource().getSelectedKey();
+        commessaID = selectedKeys;
+      },
+      handleSelectionChangeTipologia: async function (oEvent) {
+        let selectedKeys = oEvent.getSource().getSelectedKey();
+        tipologiaID = selectedKeys;
+      },
       onSave: async function () {
         function dateFormater(date) {
           if (date) {
@@ -156,33 +247,57 @@ sap.ui.define(
         var modelloTicket = this.getView()
           .getModel("JSONModel")
           .getProperty("/modelloTicket");
+
+        const campiObbligatori = [
+          "utente",
+          "cliente",
+          "commessa",
+          "areaFunzionale",
+          "titolo",
+          "tipologia",
+          "dataConsegnaRichiesta",
+        ];
+
+        for (var i = 0; i < campiObbligatori.length; i++) {
+          if (
+            modelloTicket[campiObbligatori[i]] == "" ||
+            modelloTicket[campiObbligatori[i]] == null
+          ) {
+            // console.log(campiObbligatori[i]);
+            // console.log(modelloTicket[campiObbligatori[i]]);
+            MessageToast.show("Per favore, compila tutti i campi obbligatori");
+            return;
+          }
+        }
+
         const currentDate = new Date();
 
         let newTicket = {
           ID: this.onCheckIDTickets(),
-          insertDate: dateFormater(currentDate),
+          insertDate: dateFormater(modelloTicket.insertDate),
           utente: modelloTicket.utente,
-          IDCliente: null,
-          IDCommessa: null,
+          IDCliente_ID: parseInt(clienteID),
+          IDCommessa_ID: parseInt(commessaID),
           areaFunzionale: modelloTicket.areaFunzionale,
           titolo: modelloTicket.titolo,
           testo: modelloTicket.testo,
           propostoA: "",
-          giorniStima: 0.0,
+          giorniStima: modelloTicket.giorniStima,
           dataConsegnaRichiesta: dateFormater(
             modelloTicket.dataConsegnaRichiesta
           ),
           assegnatoA: modelloTicket.assegnatoA,
           giorniCons: 0.0,
-          dataConsegnaSchedulata: dateFormater(
-            modelloTicket.dataConsegnaSchedulata
-          ),
+          // dataConsegnaSchedulata: dateFormater(
+          //   modelloTicket.dataConsegnaSchedulata
+          // ),
+          dataConsegnaSchedulata: null,
           status: parseInt(modelloTicket.status),
           dataChiusura: null,
           ordinamento: 0,
           allegato: modelloTicket.allegato,
           statusPrev: 0,
-          externalID: null,
+          externalID: modelloTicket.externalID,
           flagVisibileCliente: modelloTicket.flagVisibileCliente,
           dataProduzione: null,
           flagBugFix: modelloTicket.flagBugFix,
@@ -195,8 +310,8 @@ sap.ui.define(
           chatPrivata: "",
           dataSpecifiche: null,
           giorniConsDev: 0.0,
-          giorniStimaDev: 0.0,
-          giorniStimaFunz: 0.0,
+          giorniStimaDev: modelloTicket.giorniStimaDev,
+          giorniStimaFunz: modelloTicket.giorniStimaFunz,
           giorniConsFunz: 0.0,
           dataSviluppi: null,
           flagDev: false,
@@ -205,7 +320,7 @@ sap.ui.define(
           flagPadre: false,
           flagFiglio: false,
           nRilavorazioni: 0,
-          supportoFunzionale: "",
+          supportoFunzionale: modelloTicket.supportoFunzionale,
           flagNeedDev: false,
           flagNeedFunz: false,
           flagIngegnerizzabile: false,
@@ -216,10 +331,11 @@ sap.ui.define(
           ultimaModificaCliente: null,
           ultimaModificaUtenteCliente: null,
           flagAms: false,
-          IDTipologia: null,
+          IDTipologia_ID: parseInt(tipologiaID),
           inoltraA: "",
           messageID: "",
         };
+        console.log(clienteID);
         console.log("ticket da salvare", newTicket);
         let oDataModel = this.getView().getModel();
         let oBinding = await oDataModel.bindList("/Tickets");
