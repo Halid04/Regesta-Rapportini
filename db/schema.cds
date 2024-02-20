@@ -15,7 +15,7 @@ entity Rapportini {
         attivita           : String(50);
         sede               : String(10);
         destinazione       : String(50);
-        giorno             : DateTime;
+        giorno             : Date;
         ore                : Decimal(18, 1);
         oreLavorate        : Decimal(18, 1);
         km                 : Integer;
