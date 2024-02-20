@@ -210,6 +210,7 @@ entity Tickets {
         flagNeedFunz                : Boolean;
         flagIngegnerizzabile        : Boolean;
         nAllegati                   : Integer;
+        ordineSap                   : String(40);
         ultimaModifica              : Date;
         ultimaModificaUtente        : String(50);
         ultimaModificaCliente       : Date;
@@ -221,7 +222,7 @@ entity Tickets {
 }
 
 entity TicketsCestinati {
-        key ID                          : UUID;
+        key ID                      : UUID;
         insertDate                  : Date;
         utente                      : String(50);
         IDCliente                   : Association to Clienti;
