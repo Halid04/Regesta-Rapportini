@@ -2,17 +2,21 @@ sap.ui.define(
   [
     "rapportini/controller/BaseController",
     "sap/m/MessageToast",
+    "sap/ui/model/Sorter",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
     "sap/ui/comp/smartvariants/PersonalizableInfo",
+    "sap/ui/core/library",
   ],
 
   function (
     BaseController,
     MessageToast,
+    Sorter,
     Filter,
     FilterOperator,
-    PersonalizableInfo
+    PersonalizableInfo,
+    CoreLibrary
   ) {
     "use strict";
 
@@ -37,7 +41,7 @@ sap.ui.define(
         this.oFilterBar.registerApplyData(this.applyData);
         this.oFilterBar.registerGetFiltersWithValues(this.getFiltersWithValues);
 
-        var oPersInfo = new PersonalizableInfo({
+        /*var oPersInfo = new PersonalizableInfo({
           type: "filterBar",
           keyName: "persistencyKey",
           dataSource: "",
@@ -45,7 +49,10 @@ sap.ui.define(
         });
         this.oSmartVariantManagement.addPersonalizableControl(oPersInfo);
         this.oSmartVariantManagement.initialise(function () { },
-          this.oFilterBar);
+          this.oFilterBar);*/
+
+        var oDateColumn = this.getView().byId("giorno");
+        this.getView().byId("tabella").sort(oDateColumn, CoreLibrary.SortOrder.Ascending);
 
         //STAVAMO LAVORANDO QUI
         /*const model = this.getOwnerComponent().getModel();
@@ -174,6 +181,16 @@ sap.ui.define(
 
         this.oTable.getBinding("rows").filter(aTableFilters);
         this.oTable.setShowOverlay(false);
+      },
+
+      sortDate: function (oEvent) {
+        var oView = this.getView();
+        var oTable = oView.byId("tabella");
+        var oDateColumn = oView.byId("giorno");
+
+        console.log(CoreLibrary.SortOrder);
+        oTable.sort(oDateColumn,);
+        this._bSortColumnDescending = !this._bSortColumnDescending;
       },
 
       onFilterChange: function () {

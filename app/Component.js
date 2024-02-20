@@ -24,6 +24,7 @@ sap.ui.define(
           usernameSuffix: "shash (tu)",
           logoImagePath: "logoBianco.png",
           themeIcon: "light-mode",
+          order: 0
         };
 
         var oModel = this.getModel();

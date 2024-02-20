@@ -10,9 +10,19 @@
     "express": "^4"
   },
   "devDependencies": {
-    "sqlite3": "^5"
+    "sqlite3": "^5.1.7"
   },
   "scripts": {
     "start": "cds watch"
+  },
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "sqlite",
+        "credentials": {
+          "database": "rapportini.db"
+        }
+      }
+    }
   }
 }

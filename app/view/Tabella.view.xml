@@ -150,6 +150,20 @@
             <FlexBox height="100%" width="100%"  alignItems="Center" justifyContent="Start">
                <ScrollContainer height="auto" width="auto" horizontal="true" vertical="false" class="sapUiSmallMarginBegin">
                   <t:Table rows="{path: '/Rapportini'}" selectionMode="MultiToggle" width="99%" height="auto" alternateRowColors="true" id="tabella" fixedColumnCount="2">
+                     <t:extension>
+                        <OverflowToolbar style="Clear">
+                           <Title id="title" text="Rapportini"/>
+                           <ToolbarSpacer/>
+                           <Button
+                              icon="sap-icon://sort"
+                              tooltip="Sort Categories in addition to current sorting"
+                              press="sortDate"/>
+                           <Button
+                              icon="sap-icon://decline"
+                              tooltip="Clear all sortings"
+                              press="clearAllSortings"/>
+                        </OverflowToolbar>
+				         </t:extension>
                      <t:columns>
                         <t:Column width="140px">
                            <t:template>
@@ -166,7 +180,7 @@
                               <Text text="{= ${utente} === ${globalData>/myUsername} ? ${globalData>/usernameSuffix} : ${utente}}"/>
                            </t:template>
                         </t:Column>
-                        <t:Column width="100px">
+                        <t:Column width="100px" id="giorno">
                            <Text text="Giorno" />
                            <t:template>
                               <Text text="{giorno}" />
