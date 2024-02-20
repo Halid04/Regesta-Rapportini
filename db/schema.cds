@@ -210,7 +210,6 @@ entity Tickets {
         flagNeedFunz                : Boolean;
         flagIngegnerizzabile        : Boolean;
         nAllegati                   : Integer;
-        ordineSap                   : String(40);
         ultimaModifica              : Date;
         ultimaModificaUtente        : String(50);
         ultimaModificaCliente       : Date;
