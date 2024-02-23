@@ -1,6 +1,7 @@
 <mvc:View
 xmlns="sap.m"
 xmlns:l="sap.ui.layout"
+xmlns:u="sap.ui.unified"
 xmlns:f="sap.ui.layout.form"
 xmlns:core="sap.ui.core"
 xmlns:mvc="sap.ui.core.mvc"
@@ -117,7 +118,7 @@ controllerName="rapportini.controller.CreazioneTickets">
                </FlexBox>
             </FlexBox>
 
-			<FlexBox
+			   <FlexBox
             height="auto"
             width="110vw"
             alignItems="Center"
@@ -129,7 +130,9 @@ controllerName="rapportini.controller.CreazioneTickets">
                justifyContent="Center"
                direction="Column">
                   <Label text="Area Funzionale" required="true"/>
-				      <Input value="{JSONModel>/modelloTicket/areaFunzionale}" placeholder="Area Funzionale" width="17vw"/>
+				      <ComboBox id="comboAreaFunzionale" items="{path: '/AreeFunzionali'}"  selectedKey="{path: 'JSONModel>/modelloTicket/areaFunzionale'}" placeholder="Area Funzionale" selectionChange="handleSelectionChangeAreaFunzionale" width="17vw">
+                     <core:ListItem text="{areaFunzionale} - {descrizione}" key="{ID}"/>
+                </ComboBox>
                </FlexBox>
 
                <FlexBox
@@ -149,13 +152,9 @@ controllerName="rapportini.controller.CreazioneTickets">
                justifyContent="Center"
                direction="Column">
                 <Label text="Stato" />
-                <StepInput
-                value="{JSONModel>/modelloTicket/status}"
-                step="1"
-                displayValuePrecision="0"
-                min="0"
-                placeholder="Stato"
-                width="17vw"/>
+                <ComboBox id="comboStatus" items="{path: '/Status'}"  selectedKey="{path: 'JSONModel>/modelloTicket/status'}" placeholder="Stato" selectionChange="handleSelectionChangeStatus" width="17vw">
+                     <core:ListItem text="{status}" key="{ID}"/>
+                </ComboBox>
                </FlexBox>
             </FlexBox>
 
@@ -362,7 +361,13 @@ controllerName="rapportini.controller.CreazioneTickets">
             justifyContent="Start"
             direction="Column">
                <Label text="Allegato" />
-               <Input value="{JSONModel>/modelloTicket/allegato}" placeholder="Allegato" width="17vw"/>
+               <u:FileUploader
+               id="fileUploader"
+               name="myFileUpload"
+               uploadUrl="upload/"
+               tooltip="Upload your file to the local server"
+               uploadComplete="handleUploadComplete"/>               
+               <!-- <Input value="{JSONModel>/modelloTicket/allegato}" placeholder="Allegato" width="17vw"/> -->
             </FlexBox>
          </FlexBox>
 

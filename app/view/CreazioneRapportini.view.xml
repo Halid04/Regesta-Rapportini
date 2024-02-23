@@ -49,15 +49,15 @@
                justifyContent="Center"
                direction="Column">
                   <Label text="Data e ora" labelFor="inputText4" />
-                  <DateTimePicker
+                  <DatePicker
                            id="DTP5"
-                           placeholder="Enter Date"
+                           placeholder="Inserisci Data"
                            change="handleChange"
                            value= "{
                               'path': 'JSONModel>/modelloRapportino/giorno',
-                              'type': 'sap.ui.model.type.DateTime',
+                              'type': 'sap.ui.model.type.Date',
                               'formatOptions': {
-                                 'pattern': 'd/M/yy h:mm a'
+                                 'pattern': 'dd/MM/yyyy'
                               }
                            }"
                            />
@@ -172,7 +172,7 @@
                            <items>
                               <core:Item text="Ufficio" key="Ufficio"/>
                               <core:Item text="Cliente" key="Cliente"/>
-                              <core:Item text="SmarthWorking" key="SmarthWorking"/>
+                              <core:Item text="SmarthWork" key="SmarthWorking"/>
                            </items>
                    </ComboBox>
                </FlexBox>
@@ -209,8 +209,8 @@
                   <Label text="Km" />
                  <StepInput
                            value="{JSONModel>/modelloRapportino/km}"
-                           step="0.5"
-                           displayValuePrecision="2"
+                           step="1"
+                           displayValuePrecision="0"
                            min="0"
                            placeholder="Km"
                            />

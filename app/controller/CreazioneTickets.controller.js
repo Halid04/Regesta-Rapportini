@@ -14,6 +14,8 @@ sap.ui.define(
     let clienteID = null;
     let commessaID = null;
     let tipologiaID = null;
+    let statutsID = null;
+    let areaFunzionaleID = null;
     return BaseController.extend("rapportini.controller.CreazioneTickets", {
       generateIDTickets: function () {
         return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
@@ -43,7 +45,7 @@ sap.ui.define(
             utente: this.getView()
               .getModel("globalData")
               .getProperty("/myUsername"),
-            areaFunzionale: "",
+            areaFunzionale: null,
             titolo: "",
             testo: "",
             giorniStima: 0.0,
@@ -55,7 +57,7 @@ sap.ui.define(
             criticita: "",
             supportoFunzionale: "",
             dataConsegnaRichiesta: null,
-            status: 0,
+            status: null,
             // dataConsegnaSchedulata: null,
             allegato: "",
             externalID: "",
@@ -71,7 +73,7 @@ sap.ui.define(
           modelloTicket: {
             insertDate: new Date(ticket.insertDate),
             utente: ticket.utente,
-            areaFunzionale: ticket.areaFunzionale,
+            areaFunzionale: ticket.areaFunzionale_ID,
             titolo: ticket.titolo,
             testo: ticket.testo,
             giorniStima: ticket.giorniStima,
@@ -83,7 +85,7 @@ sap.ui.define(
             criticita: ticket.criticita,
             supportoFunzionale: ticket.supportoFunzionale,
             dataConsegnaRichiesta: new Date(ticket.dataConsegnaRichiesta),
-            status: ticket.status,
+            status: ticket.Status_ID,
             // dataConsegnaSchedulata: new Date(ticket.dataConsegnaSchedulata),
             allegato: ticket.allegato,
             externalID: ticket.externalID,
@@ -128,7 +130,29 @@ sap.ui.define(
             var jsonModel = this.getView().setModel(oModel, "JSONModel");
           }, this);
       },
-      saveTicket: function (ticket, binding, oDataModel, myRouter) {
+      handleUploadComplete: function (oEvent) {
+        var sResponse = oEvent.getParameter("response"),
+          aRegexResult = /\d{4}/.exec(sResponse),
+          iHttpStatusCode = aRegexResult && parseInt(aRegexResult[0]),
+          sMessage;
+
+        if (sResponse) {
+          sMessage =
+            iHttpStatusCode === 200
+              ? sResponse + " (Upload Success)"
+              : sResponse + " (Upload Error)";
+          MessageToast.show(sMessage);
+        }
+
+        console.log("upload complete");
+      },
+      saveTicket: async function (
+        ticket,
+        binding,
+        oDataModel,
+        myRouter,
+        oFileUploader
+      ) {
         if (op == "nuovo" || op == "copia") {
           binding.create(ticket);
           console.log("ticket creato / copiato con successo 👍");
@@ -138,7 +162,7 @@ sap.ui.define(
           const properties = [
             "insertDate",
             "utente",
-            "areaFunzionale",
+            "areaFunzionale_ID",
             "titolo",
             "testo",
             "giorniStima",
@@ -150,7 +174,7 @@ sap.ui.define(
             "criticita",
             "supportoFunzionale",
             "dataConsegnaRichiesta",
-            "status",
+            "Status_ID",
             // "dataConsegnaSchedulata",
             "allegato",
             "externalID",
@@ -167,6 +191,9 @@ sap.ui.define(
             );
           }
         }
+
+        // await oFileUploader.checkFileReadable();
+        // oFileUploader.upload();
 
         oDataModel.submitBatch("myAppUpdateGroup");
         myRouter.navTo("tickets");
@@ -231,19 +258,26 @@ sap.ui.define(
         let selectedKeys = oEvent.getSource().getSelectedKey();
         tipologiaID = selectedKeys;
       },
-      onSave: async function () {
-        function dateFormater(date) {
-          if (date) {
-            return (
-              date.getFullYear() +
-              "-" +
-              String(date.getMonth() + 1).padStart(2, "0") +
-              "-" +
-              String(date.getDate()).padStart(2, "0")
-            );
-          }
+      handleSelectionChangeStatus: async function (oEvent) {
+        let selectedKeys = oEvent.getSource().getSelectedKey();
+        statutsID = selectedKeys;
+      },
+      handleSelectionChangeAreaFunzionale: async function (oEvent) {
+        let selectedKeys = oEvent.getSource().getSelectedKey();
+        areaFunzionaleID = selectedKeys;
+      },
+      dateFormater: function (date) {
+        if (date) {
+          return (
+            date.getFullYear() +
+            "-" +
+            String(date.getMonth() + 1).padStart(2, "0") +
+            "-" +
+            String(date.getDate()).padStart(2, "0")
+          );
         }
-
+      },
+      onSave: async function () {
         var modelloTicket = this.getView()
           .getModel("JSONModel")
           .getProperty("/modelloTicket");
@@ -274,25 +308,22 @@ sap.ui.define(
 
         let newTicket = {
           ID: this.onCheckIDTickets(),
-          insertDate: dateFormater(modelloTicket.insertDate),
+          insertDate: this.dateFormater(modelloTicket.insertDate),
           utente: modelloTicket.utente,
           IDCliente_ID: parseInt(clienteID),
           IDCommessa_ID: parseInt(commessaID),
-          areaFunzionale: modelloTicket.areaFunzionale,
+          areaFunzionale_ID: parseInt(areaFunzionaleID),
           titolo: modelloTicket.titolo,
           testo: modelloTicket.testo,
           propostoA: "",
           giorniStima: modelloTicket.giorniStima,
-          dataConsegnaRichiesta: dateFormater(
+          dataConsegnaRichiesta: this.dateFormater(
             modelloTicket.dataConsegnaRichiesta
           ),
           assegnatoA: modelloTicket.assegnatoA,
           giorniCons: 0.0,
-          // dataConsegnaSchedulata: dateFormater(
-          //   modelloTicket.dataConsegnaSchedulata
-          // ),
           dataConsegnaSchedulata: null,
-          status: parseInt(modelloTicket.status),
+          status_ID: parseInt(statutsID),
           dataChiusura: null,
           ordinamento: 0,
           allegato: modelloTicket.allegato,
@@ -326,7 +357,7 @@ sap.ui.define(
           flagIngegnerizzabile: false,
           nAllegati: 0,
           ordineSap: "",
-          ultimaModifica: dateFormater(currentDate),
+          ultimaModifica: this.dateFormater(currentDate),
           ultimaModificaUtente: null,
           ultimaModificaCliente: null,
           ultimaModificaUtenteCliente: null,
@@ -350,8 +381,14 @@ sap.ui.define(
           bindingFinal = contexts[index];
         }
         var myRouter = this.getRouter();
-
-        this.saveTicket(newTicket, bindingFinal, oDataModel, myRouter);
+        var oFileUploader = this.byId("fileUploader");
+        this.saveTicket(
+          newTicket,
+          bindingFinal,
+          oDataModel,
+          myRouter,
+          oFileUploader
+        );
       },
     });
   }

@@ -143,7 +143,10 @@ sap.ui.define(
               oData = this.creaModelloEsistente(rapportini[index]);
             }
 
-            var ticketContexts = await this.getView().getModel().bindList("/Tickets").requestContexts();
+            var ticketContexts = await this.getView()
+              .getModel()
+              .bindList("/Tickets")
+              .requestContexts();
             var ticket = ticketContexts.map((x) => x.getObject());
             console.log(ticket);
             console.log("onInit");
@@ -156,7 +159,10 @@ sap.ui.define(
         let selectedKeys = oEvent.getSource().getSelectedKey();
         ticketID = selectedKeys;
 
-        var contexts = await this.getView().getModel().bindList("/Tickets").requestContexts();
+        var contexts = await this.getView()
+          .getModel()
+          .bindList("/Tickets")
+          .requestContexts();
         var tickets = contexts.map((x) => x.getObject());
         var ticket = tickets.find((element) => {
           return element.ID === ticketID;
@@ -166,7 +172,6 @@ sap.ui.define(
 
         this.getView().byId("comboClienti").setSelectedKey(clienteID);
         this.getView().byId("comboCommesse").setSelectedKey(commessaID);
-
       },
       saveRapportino: function (
         rapportino,
@@ -226,7 +231,7 @@ sap.ui.define(
           rapportino.utente === globalData.getProperty("/myUsername") &&
           globalData.getProperty("/today") === rapportino.giorno.slice(0, 10)
         ) {
-          console.log("sovrascrivi monteore");
+          // console.log("sovrascrivi monteore");
           globalData.setProperty("/monteore", monteore);
         }
 
@@ -235,7 +240,17 @@ sap.ui.define(
         oDataModel.submitBatch("myAppUpdateGroup");
         myRouter.navTo("tabellaRapportini");
       },
-
+      dateFormater: function (date) {
+        if (date) {
+          return (
+            date.getFullYear() +
+            "-" +
+            String(date.getMonth() + 1).padStart(2, "0") +
+            "-" +
+            String(date.getDate()).padStart(2, "0")
+          );
+        }
+      },
       onSave: async function () {
         var modelloRapportino = this.getView()
           .getModel("JSONModel")
@@ -268,10 +283,10 @@ sap.ui.define(
           attivita: "---",
           sede: modelloRapportino.sede,
           destinazione: modelloRapportino.destinazione,
-          giorno: new Date(modelloRapportino.giorno).toISOString(),
+          giorno: this.dateFormater(modelloRapportino.giorno),
           ore: modelloRapportino.ore,
           oreLavorate: modelloRapportino.ore,
-          km: parseFloat(modelloRapportino.km),
+          km: parseInt(modelloRapportino.km),
           kmEuro: modelloRapportino.kmEuro,
           pedaggio: modelloRapportino.pedaggio,
           forfait: modelloRapportino.forfait,

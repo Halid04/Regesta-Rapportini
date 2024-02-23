@@ -59,7 +59,7 @@ entity RapportiniCestinati {
         attivita           : String(50);
         sede               : String(10);
         destinazione       : String(50);
-        giorno             : DateTime;
+        giorno             : Date;
         ore                : Decimal(18, 1);
         oreLavorate        : Decimal(18, 1);
         km                 : Integer;
@@ -168,7 +168,7 @@ entity Tickets {
         utente                      : String(50);
         IDCliente                   : Association to Clienti;
         IDCommessa                  : Association to Commesse;
-        areaFunzionale              : String(50);
+        areaFunzionale              : Association to AreeFunzionali;
         titolo                      : String(250);
         testo                       : LargeString;
         propostoA                   : String(50);
@@ -177,7 +177,7 @@ entity Tickets {
         assegnatoA                  : String(250);
         giorniCons                  : Decimal(18, 3);
         dataConsegnaSchedulata      : Date;
-        status                      : Integer;
+        status                      : Association to Status;
         dataChiusura                : Date;
         ordinamento                 : Integer;
         allegato                    : String(250);
@@ -222,12 +222,12 @@ entity Tickets {
 }
 
 entity TicketsCestinati {
-        key ID                      : UUID;
+        key ID                          : UUID;
         insertDate                  : Date;
         utente                      : String(50);
         IDCliente                   : Association to Clienti;
         IDCommessa                  : Association to Commesse;
-        areaFunzionale              : String(50);
+        areaFunzionale              : Association to AreeFunzionali;
         titolo                      : String(250);
         testo                       : LargeString;
         propostoA                   : String(50);
@@ -236,7 +236,7 @@ entity TicketsCestinati {
         assegnatoA                  : String(250);
         giorniCons                  : Decimal(18, 3);
         dataConsegnaSchedulata      : Date;
-        status                      : Integer;
+        status                      : Association to Status;
         dataChiusura                : Date;
         ordinamento                 : Integer;
         allegato                    : String(250);

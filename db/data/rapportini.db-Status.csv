@@ -1,17 +1,17 @@
 ID,status,statusIT,statusEN
-10,Da assegnare,Da assegnare,To assign
-20,Assegnato,Assegnato,Assigned
-30,Attesa specifiche,Attesa specifiche,Waiting specs
-40,In lavorazione,In lavorazione,Develop
-50,Sospeso,Sospeso,Suspend
-60,Test,Test,Test
-70,Rilasciato in test,Rilasciato in test,Released in test
-90,Chiuso,Chiuso,Close
--10,Resp. IT: approvare,Resp. IT: approvare,To approve IT admin
-0,Aperto,Aperto,Open
--6,Da stimare,Da stimare,To estimate
--20,Resp. AREA: approvare,Resp. AREA: approvare,To approve AREA admin
--4,Stimato,Stimato,Estimated
-31,Attesa cliente,Attesa cliente,Customer response
-82,Da mettere in PROD,Da mettere in PROD,To setup in PROD
-84,Rilasciato in prod,Rilasciato in prod,Released in prod
+1,Resp. AREA: approvare,Resp. AREA: approvare,To assign
+2,Resp. IT: approvare,Resp. IT: approvare,Assigned
+3,Da stimare,Da stimare,Waiting specs
+4,Stimato,Stimato,Develop
+5,Aperto,Aperto,Suspend
+6,Da assegnare,Da assegnare,Test
+7,Assegnato,Assegnato,Released in test
+8,Attesa specifiche,Attesa specifiche,Close
+9,Attesa cliente,Attesa cliente,To approve IT admin
+10,In lavorazione,In lavorazione,Open
+11,Sospeso,Sospeso,To estimate
+12,Test,Test,To approve AREA admin
+13,Rilasciato in test,Rilasciato in test,Estimated
+14,Da mettere in PROD,Da mettere in PROD,Customer response
+15,Rilasciato in prod,Rilasciato in prod,To setup in PROD
+16,Chiuso,Chiuso,Released in prod
