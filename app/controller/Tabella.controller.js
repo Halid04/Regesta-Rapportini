@@ -36,6 +36,8 @@ sap.ui.define(
         this.oSnappedLabel = this.getView().byId("snappedLabel");
         this.oFilterBar = this.getView().byId("filterbar");
         this.oTable = this.getView().byId("tabella");
+        this.sortOrder = true;
+        this.sortKey = "giorno";
 
         this.oFilterBar.registerFetchData(this.fetchData);
         this.oFilterBar.registerApplyData(this.applyData);
@@ -50,9 +52,6 @@ sap.ui.define(
         this.oSmartVariantManagement.addPersonalizableControl(oPersInfo);
         this.oSmartVariantManagement.initialise(function () { },
           this.oFilterBar);*/
-
-        var oDateColumn = this.getView().byId("giorno");
-        this.getView().byId("tabella").sort(oDateColumn, CoreLibrary.SortOrder.Ascending);
 
         //STAVAMO LAVORANDO QUI
         /*const model = this.getOwnerComponent().getModel();
@@ -159,7 +158,6 @@ sap.ui.define(
               aSelectedKeys = oControl.getSelectedKeys(),
               aFilters = aSelectedKeys.map(function (sSelectedKey) {
                 if (oFilterGroupItem.getName().substring(0, 2) == "ID") sSelectedKey = sSelectedKey.replace('.', '');
-                if (oFilterGroupItem.getName() == "giorno") sSelectedKey = "29 giu 2023";
                 return new Filter({
                   path: oFilterGroupItem.getName(),
                   operator: FilterOperator.EQ,
@@ -183,14 +181,13 @@ sap.ui.define(
         this.oTable.setShowOverlay(false);
       },
 
-      sortDate: function (oEvent) {
-        var oView = this.getView();
-        var oTable = oView.byId("tabella");
-        var oDateColumn = oView.byId("giorno");
+      onSelectSort: function (oEvent) {
+        this.sortKey = this.getView().byId("select-sort").getSelectedKey();
+      },
 
-        console.log(CoreLibrary.SortOrder);
-        oTable.sort(oDateColumn,);
-        this._bSortColumnDescending = !this._bSortColumnDescending;
+      onSort: function (oEvent) {
+        this.sortOrder = !this.sortOrder;
+        this.oTable.getBinding("rows").sort((this.sortOrder == true ? "desc" : "asc") && new Sorter(this.sortKey, this.sortOrder));
       },
 
       onFilterChange: function () {

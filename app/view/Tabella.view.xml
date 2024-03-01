@@ -154,10 +154,15 @@
                         <OverflowToolbar style="Clear">
                            <Title id="title" text="Rapportini"/>
                            <ToolbarSpacer/>
+                           <ComboBox selectionChange=".onSelectSort" id="select-sort">
+                              <core:Item key="giorno" text="Giorno"/>
+                              <core:Item key="ore" text="Ore"/>
+                              <core:Item key="km" text="Km"/>
+                           </ComboBox>
                            <Button
                               icon="sap-icon://sort"
                               tooltip="Sort Categories in addition to current sorting"
-                              press="sortDate"/>
+                              press=".onSort"/>
                            <Button
                               icon="sap-icon://decline"
                               tooltip="Clear all sortings"
@@ -222,7 +227,7 @@
                               <Text text="{descrizione}" />
                            </t:template>
                         </t:Column>
-                        <t:Column width="100px">
+                        <t:Column width="100px" id="spese">
                            <Text text="Spese totali" />
                            <t:template>
                               <Text text="{km}" />
