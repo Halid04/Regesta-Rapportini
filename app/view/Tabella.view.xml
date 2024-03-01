@@ -185,7 +185,7 @@
                               <Text text="{= ${utente} === ${globalData>/myUsername} ? ${globalData>/usernameSuffix} : ${utente}}"/>
                            </t:template>
                         </t:Column>
-                        <t:Column width="100px" id="giorno">
+                        <t:Column width="100px">
                            <Text text="Giorno" />
                            <t:template>
                               <Text text="{giorno}" />
@@ -227,7 +227,7 @@
                               <Text text="{descrizione}" />
                            </t:template>
                         </t:Column>
-                        <t:Column width="100px" id="spese">
+                        <t:Column width="100px">
                            <Text text="Spese totali" />
                            <t:template>
                               <Text text="{km}" />

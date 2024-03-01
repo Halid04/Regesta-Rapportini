@@ -2,21 +2,19 @@ sap.ui.define(
   [
     "rapportini/controller/BaseController",
     "sap/m/MessageToast",
-    "sap/ui/model/Sorter",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
     "sap/ui/comp/smartvariants/PersonalizableInfo",
-    "sap/ui/core/library",
+    "sap/ui/model/Sorter"
   ],
 
   function (
     BaseController,
     MessageToast,
-    Sorter,
     Filter,
     FilterOperator,
     PersonalizableInfo,
-    CoreLibrary
+    Sorter
   ) {
     "use strict";
 
@@ -36,12 +34,13 @@ sap.ui.define(
         this.oSnappedLabel = this.getView().byId("snappedLabel");
         this.oFilterBar = this.getView().byId("filterbar");
         this.oTable = this.getView().byId("tabella");
-        this.sortOrder = true;
-        this.sortKey = "giorno";
 
         this.oFilterBar.registerFetchData(this.fetchData);
         this.oFilterBar.registerApplyData(this.applyData);
         this.oFilterBar.registerGetFiltersWithValues(this.getFiltersWithValues);
+
+        this.sortOrder = true;  //true = desc, false = asc
+        this.sortKey = "giorno";
 
         /*var oPersInfo = new PersonalizableInfo({
           type: "filterBar",
@@ -51,7 +50,7 @@ sap.ui.define(
         });
         this.oSmartVariantManagement.addPersonalizableControl(oPersInfo);
         this.oSmartVariantManagement.initialise(function () { },
-          this.oFilterBar);*/
+          this.oFilterBar);
 
         //STAVAMO LAVORANDO QUI
         /*const model = this.getOwnerComponent().getModel();
@@ -187,7 +186,7 @@ sap.ui.define(
 
       onSort: function (oEvent) {
         this.sortOrder = !this.sortOrder;
-        this.oTable.getBinding("rows").sort((this.sortOrder == true ? "desc" : "asc") && new Sorter(this.sortKey, this.sortOrder));
+        this.oTable.getBinding("rows").sort((this.sortOrder == true ? "desc" : "asc") && new Sorter(this.sortKey, this.sortOrder == true));
       },
 
       onFilterChange: function () {

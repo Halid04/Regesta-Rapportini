@@ -82,7 +82,7 @@ controllerName="rapportini.controller.CestinoTickets"
             </FlexBox>
             <FlexBox height="auto" width="100%"  alignItems="Center" justifyContent="Start">
                <ScrollContainer height="auto" width="auto" horizontal="true" vertical="true" class="sapUiSmallMarginBegin">
-                  <t:Table rows="{path: '/TicketsCestinati'}" selectionMode="MultiToggle" width="99%" height="auto" alternateRowColors="true" id="tabella" fixedColumnCount="2">
+                  <t:Table rows="{path: '/TicketsCestinati', parameters:{$expand: 'IDCliente,IDTipologia,IDCommessa,areaFunzionale,status'}}" selectionMode="MultiToggle" width="99%" height="auto" alternateRowColors="true" id="tabella" fixedColumnCount="2">
                      <t:columns>
                         <t:Column width="140px">
                            <t:template>
@@ -126,7 +126,7 @@ controllerName="rapportini.controller.CestinoTickets"
 						<t:Column width="100px">
                            <Text text="Area Funzionale" />
                            <t:template>
-                              <Text text="{areaFunzionale}" />
+                              <Text text="{areaFunzionale/descrizione}" />
                            </t:template>
                         </t:Column>
 						<t:Column width="100px">
@@ -138,7 +138,7 @@ controllerName="rapportini.controller.CestinoTickets"
 						<t:Column width="100px">
                            <Text text="Stato" />
                            <t:template>
-                              <Text text="{status}" />
+                              <Text text="{status/status}" />
                            </t:template>
                         </t:Column>
 						<t:Column width="100px">

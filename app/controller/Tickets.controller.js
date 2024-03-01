@@ -9,6 +9,7 @@ sap.ui.define(
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
     "sap/ui/comp/smartvariants/PersonalizableInfo",
+    "sap/ui/model/Sorter"
   ],
   function (
     BaseController,
@@ -19,7 +20,8 @@ sap.ui.define(
     mlibrary,
     Filter,
     FilterOperator,
-    PersonalizableInfo
+    PersonalizableInfo,
+    Sorter
   ) {
     "use strict";
     var ResetAllMode = mlibrary.ResetAllMode;
@@ -44,21 +46,23 @@ sap.ui.define(
         this.oExpandedLabel = this.getView().byId("expandedLabel");
         this.oSnappedLabel = this.getView().byId("snappedLabel");
         this.oFilterBar = this.getView().byId("filterbar");
-        this.oTable = this.getView().byId("ticketsTable");
+        this.oTable = this.getView().byId("tabella");
+        this.sortOrder = true;
+        this.sortKey = "utente";
 
         this.oFilterBar.registerFetchData(this.fetchData);
         this.oFilterBar.registerApplyData(this.applyData);
         this.oFilterBar.registerGetFiltersWithValues(this.getFiltersWithValues);
 
-        var oPersInfo = new PersonalizableInfo({
+        /*var oPersInfo = new PersonalizableInfo({
           type: "filterBar",
           keyName: "persistencyKey",
           dataSource: "",
           control: this.oFilterBar,
         });
         this.oSmartVariantManagement.addPersonalizableControl(oPersInfo);
-        this.oSmartVariantManagement.initialise(function () {},
-        this.oFilterBar);
+        this.oSmartVariantManagement.initialise(function () { },
+          this.oFilterBar);*/
 
         // Rimozione duplicati
 
@@ -111,6 +115,15 @@ sap.ui.define(
 
       _onObjectMatched: function (oEvent) {
         this.getOwnerComponent().getModel().refresh();
+      },
+
+      onSelectSort: function (oEvent) {
+        this.sortKey = this.getView().byId("select-sort").getSelectedKey();
+      },
+
+      onSort: function (oEvent) {
+        this.sortOrder = !this.sortOrder;
+        this.oTable.getBinding("rows").sort((this.sortOrder == true ? "desc" : "asc") && new Sorter(this.sortKey, this.sortOrder == true));
       },
 
       filterMultiComboBox: function (parameters, tickets) {

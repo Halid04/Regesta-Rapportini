@@ -11,6 +11,9 @@ sap.ui.define(
     let op;
     let IDCurrent;
     let IDUtentiCreati = [];
+    let ticketID;
+    let clienteID;
+    let commessaID;
     return BaseController.extend("rapportini.controller.CreazioneRapportini", {
       generateIDUtente: function () {
         return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
@@ -73,9 +76,9 @@ sap.ui.define(
             giorno: new Date(rapportino.giorno),
             ore: rapportino.ore,
             orarioNotturno: false,
-            ticket: "",
-            cliente: "",
-            commessa: "",
+            ticket: rapportino.IDTicket_ID,
+            cliente: rapportino.IDCliente_ID,
+            commessa: rapportino.IDCommessa_ID,
             descrizione: rapportino.descrizione,
             sede: rapportino.sede,
             destinazione: rapportino.destinazione,
@@ -140,13 +143,36 @@ sap.ui.define(
               oData = this.creaModelloEsistente(rapportini[index]);
             }
 
+            var ticketContexts = await this.getView()
+              .getModel()
+              .bindList("/Tickets")
+              .requestContexts();
+            var ticket = ticketContexts.map((x) => x.getObject());
+            console.log(ticket);
             console.log("onInit");
             var oModel = new JSONModel(oData);
             this.getView().setModel(oModel, "JSONModel");
           }, this);
         console.log(this.getView().getModel("JSONModel"));
       },
+      handleSelectionChangeTicket: async function (oEvent) {
+        let selectedKeys = oEvent.getSource().getSelectedKey();
+        ticketID = selectedKeys;
 
+        var contexts = await this.getView()
+          .getModel()
+          .bindList("/Tickets")
+          .requestContexts();
+        var tickets = contexts.map((x) => x.getObject());
+        var ticket = tickets.find((element) => {
+          return element.ID === ticketID;
+        });
+        clienteID = ticket.IDCliente_ID;
+        commessaID = ticket.IDCommessa_ID;
+
+        this.getView().byId("comboClienti").setSelectedKey(clienteID);
+        this.getView().byId("comboCommesse").setSelectedKey(commessaID);
+      },
       saveRapportino: function (
         rapportino,
         binding,
@@ -166,6 +192,9 @@ sap.ui.define(
           var path = "/Rapportini(" + IDCurrent + ")";
           const properties = [
             "utente",
+            "IDTicket_ID",
+            "IDCliente_ID",
+            "IDCommessa_ID",
             "descrizione",
             "sede",
             "destinazione",
@@ -202,7 +231,7 @@ sap.ui.define(
           rapportino.utente === globalData.getProperty("/myUsername") &&
           globalData.getProperty("/today") === rapportino.giorno.slice(0, 10)
         ) {
-          console.log("sovrascrivi monteore");
+          // console.log("sovrascrivi monteore");
           globalData.setProperty("/monteore", monteore);
         }
 
@@ -211,7 +240,17 @@ sap.ui.define(
         oDataModel.submitBatch("myAppUpdateGroup");
         myRouter.navTo("tabellaRapportini");
       },
-
+      dateFormater: function (date) {
+        if (date) {
+          return (
+            date.getFullYear() +
+            "-" +
+            String(date.getMonth() + 1).padStart(2, "0") +
+            "-" +
+            String(date.getDate()).padStart(2, "0")
+          );
+        }
+      },
       onSave: async function () {
         var modelloRapportino = this.getView()
           .getModel("JSONModel")
@@ -233,21 +272,21 @@ sap.ui.define(
           ID: this.onCheckIDUtente(),
           IDUtente: 0,
           utente: modelloRapportino.utente,
-          IDCliente: null,
-          IDCommessa: null,
+          IDCliente_ID: parseInt(clienteID),
+          IDCommessa_ID: parseInt(commessaID),
           IDClienteSede: null,
           IDProgetto: 0,
           IDProgettoAttivita: 0,
-          IDTicket: null,
+          IDTicket_ID: ticketID,
           codice: "---",
           descrizione: modelloRapportino.descrizione,
           attivita: "---",
           sede: modelloRapportino.sede,
           destinazione: modelloRapportino.destinazione,
-          giorno: new Date(modelloRapportino.giorno).toISOString(),
+          giorno: this.dateFormater(modelloRapportino.giorno),
           ore: modelloRapportino.ore,
           oreLavorate: modelloRapportino.ore,
-          km: parseFloat(modelloRapportino.km),
+          km: parseInt(modelloRapportino.km),
           kmEuro: modelloRapportino.kmEuro,
           pedaggio: modelloRapportino.pedaggio,
           forfait: modelloRapportino.forfait,

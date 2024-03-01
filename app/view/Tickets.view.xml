@@ -131,7 +131,25 @@
             </FlexBox>
             <FlexBox height="100%" width="100%"  alignItems="Center" justifyContent="Start">
                <ScrollContainer height="auto" width="auto" horizontal="true" vertical="false" class="sapUiSmallMarginBegin">
-                  <t:Table rows="{path: '/Tickets', parameters:{$expand: 'IDCliente,IDTipologia,IDCommessa'}}" selectionMode="MultiToggle" width="99%" height="auto" alternateRowColors="true" id="tabella" fixedColumnCount="2">
+                  <t:Table rows="{path: '/Tickets', parameters:{$expand: 'IDCliente,IDTipologia,IDCommessa,areaFunzionale,status'}}" selectionMode="MultiToggle" width="99%" height="auto" alternateRowColors="true" id="tabella" fixedColumnCount="2">
+                     <t:extension>
+                        <OverflowToolbar style="Clear">
+                           <Title id="title" text="Tickets"/>
+                           <ToolbarSpacer/>
+                           <ComboBox selectionChange=".onSelectSort" id="select-sort">
+                              <core:Item key="insertDate" text="Data di inserimento"/>
+                              <core:Item key="titolo" text="Titolo"/>
+                           </ComboBox>
+                           <Button
+                              icon="sap-icon://sort"
+                              tooltip="Sort Categories in addition to current sorting"
+                              press=".onSort"/>
+                           <Button
+                              icon="sap-icon://decline"
+                              tooltip="Clear all sortings"
+                              press="clearAllSortings"/>
+                        </OverflowToolbar>
+				         </t:extension>
                      <t:columns>
                         <t:Column width="140px">
                            <t:template>
@@ -156,9 +174,9 @@
                            </t:template>
                         </t:Column>
                         <t:Column width="140px">
-                           <Text text="Area Funzionale"/>
+                           <Text text="Tipologia"/>
                            <t:template>
-                              <Text text="{areaFunzionale}"/>
+                              <Text text="{IDTipologia/tipologia}"/>
                            </t:template>
                         </t:Column>
                         <t:Column width="140px">
@@ -174,9 +192,9 @@
                            </t:template>
                         </t:Column>
                         <t:Column width="140px">
-                           <Text text="Stato"/>
+                           <Text text="Testo"/>
                            <t:template>
-                              <Text text="{status}"/>
+                              <Text text="{testo}"/>
                            </t:template>
                         </t:Column>
                      </t:columns>

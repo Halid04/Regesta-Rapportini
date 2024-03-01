@@ -49,15 +49,15 @@
                justifyContent="Center"
                direction="Column">
                   <Label text="Data e ora" labelFor="inputText4" />
-                  <DateTimePicker
+                  <DatePicker
                            id="DTP5"
-                           placeholder="Enter Date"
+                           placeholder="Inserisci Data"
                            change="handleChange"
                            value= "{
                               'path': 'JSONModel>/modelloRapportino/giorno',
-                              'type': 'sap.ui.model.type.DateTime',
+                              'type': 'sap.ui.model.type.Date',
                               'formatOptions': {
-                                 'pattern': 'd/M/yy h:mm a'
+                                 'pattern': 'dd/MM/yyyy'
                               }
                            }"
                            />
@@ -102,12 +102,8 @@
                justifyContent="Center"
                direction="Column">
                   <Label text="Ticket" required="true" />
-                  <ComboBox value="{JSONModel>/modelloRapportino/ticket}" placeholder="Ticket" required="true" width="35vw">
-                           <items>
-                              <core:Item text="Applicazione web per la gestione delle attività di progetto" key="Applicazione web per la gestione delle attività di progetto"/>
-                              <core:Item text="Sistema applicativo per un negozio online" key="Sistema applicativo per un negozio online"/>
-                              <core:Item text="Incontro con i manager dell'azienda" key="Incontro con i manager dell'azienda"/>
-                           </items>
+                  <ComboBox items="{path: '/Tickets'}" selectedKey="{path: 'JSONModel>/modelloRapportino/ticket'}"  selectionChange="handleSelectionChangeTicket" required="true" width="35vw">
+                              <core:ListItem text="{titolo}" key="{ID}"/>
                         </ComboBox>
                </FlexBox>
                <FlexBox
@@ -117,13 +113,9 @@
                justifyContent="Center"
                direction="Column">
                   <Label text="Cliente" />
-                  <ComboBox value="{JSONModel>/modelloRapportino/cliente}" placeholder="Cliente" width="35vw">
-                           <items>
-                              <core:Item text="Feralpi" key="Feralpi"/>
-                              <core:Item text="Ferrero" key="Ferrero"/>
-                              <core:Item text="Regesta SPA" key="Regesta SPA"/>
-                           </items>
-                        </ComboBox>
+                  <ComboBox id="comboClienti" items="{path: '/Clienti'}"  selectedKey="{path: 'JSONModel>/modelloRapportino/cliente'}" placeholder="Cliente" enabled="false" width="35vw">
+                     <core:ListItem text="{descrizione}" key="{ID}"/>
+                </ComboBox>
                </FlexBox>
             </FlexBox>
 
@@ -140,13 +132,9 @@
                justifyContent="Start"
                direction="Column">
                   <Label text="Commessa" />
-                  <ComboBox value="{JSONModel>/modelloRapportino/commessa}" placeholder="Commessa" width="90vw">
-                           <items>
-                              <core:Item text="Aiuto cliente" key="Aiuto cliente"/>
-                              <core:Item text="Partita Biliardino" key="Partita Biliardino"/>
-                              <core:Item text="Problem solving" key="Problem  solving"/>
-                           </items>
-                        </ComboBox>
+                  <ComboBox id="comboCommesse" items="{path: '/Commesse'}" selectedKey="{path: 'JSONModel>/modelloRapportino/commessa'}" placeholder="Commesse" enabled="false" width="35vw">
+                     <core:ListItem text="{descrizione}" key="{ID}"/>
+                </ComboBox>
                </FlexBox>
             </FlexBox>
 
@@ -184,7 +172,7 @@
                            <items>
                               <core:Item text="Ufficio" key="Ufficio"/>
                               <core:Item text="Cliente" key="Cliente"/>
-                              <core:Item text="SmarthWorking" key="SmarthWorking"/>
+                              <core:Item text="SmarthWork" key="SmarthWorking"/>
                            </items>
                    </ComboBox>
                </FlexBox>
@@ -221,8 +209,8 @@
                   <Label text="Km" />
                  <StepInput
                            value="{JSONModel>/modelloRapportino/km}"
-                           step="0.5"
-                           displayValuePrecision="2"
+                           step="1"
+                           displayValuePrecision="0"
                            min="0"
                            placeholder="Km"
                            />
