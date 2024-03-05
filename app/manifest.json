@@ -107,7 +107,7 @@
       "targets": {
         "tabellaRapportini": {
           "id": "tabellaRapportini",
-          "name": "Tabella",
+          "name": "Rapportini",
           "level": 1
         },
         "creaRapportino": {
