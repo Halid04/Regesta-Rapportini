@@ -96,12 +96,13 @@ sap.ui.define([
 
                     if (sub != null) {
                         const table = objects.map((x) => x[main]);
-                        uniqueItems = new Set(table.map((x) => [x["ID"], x[sub]]));
+                        uniqueItems = new Set(table.map((x) => `${x["ID"]}::${x[sub]}`));
                         uniqueItems.forEach((item) => {
+                            const t = item.split("::")
                             oMultiComboBox?.addItem(
                                 new sap.ui.core.Item({
-                                    key: item[0],
-                                    text: item[1],
+                                    key: t[0],
+                                    text: t[1],
                                 })
                             );
                         });
@@ -109,7 +110,6 @@ sap.ui.define([
                     }
 
                     uniqueItems = new Set(objects.map((x) => x[main]));
-                    console.log(uniqueItems)
                     uniqueItems.forEach((item) => {
                         oMultiComboBox?.addItem(
                             new sap.ui.core.Item({
@@ -128,7 +128,6 @@ sap.ui.define([
                     var oControl = oFilterGroupItem.getControl(),
                         aSelectedKeys = oControl.getSelectedKeys(),
                         aFilters = aSelectedKeys.map(function (sSelectedKey) {
-                            if (oFilterGroupItem.getName().substring(0, 2) == "ID") sSelectedKey = sSelectedKey.replace('.', '');
                             return new Filter({
                                 path: oFilterGroupItem.getName(),
                                 operator: FilterOperator.EQ,
