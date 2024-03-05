@@ -61,14 +61,16 @@ controllerName="rapportini.controller.Cestino"
                <Link press="onPress" text="Home"/>
                <Link press="onPress" text="Rapportini"/>
             </Breadcrumbs>
-            <FlexBox height="auto" width="100%" direction="Row" class="sapUiMediumMarginBegin">
-               <Button text="Ripristina tutto" press=".onRestoreAll" icon="sap-icon://refresh" class="sapUiSmallMargin"/>
-               <Button text="Elimina tutto" press=".onDeleteAll" icon="sap-icon://delete" class="sapUiSmallMargin" />   
+            
+            <FlexBox height="auto" width="100%" direction="Row">
+               <Button text="Ripristina tutto" press=".onRestoreAll" icon="sap-icon://refresh" class="sapUiSmallMarginEnd"/>
+               <Button text="Elimina tutto" press=".onDeleteAll" icon="sap-icon://delete" class="sapUiSmallMarginEnd" />   
             </FlexBox>
-            <ScrollContainer height="auto" width="100%" horizontal="true" vertical="true" class="sapUiSmallMarginBegin">
-               <t:Table rows="{path: '/RapportiniCestinati'}" selectionMode="MultiToggle" width="99%" height="auto" alternateRowColors="true" id="tabella" fixedColumnCount="2">
+            
+            <ScrollContainer height="auto" width="100%" horizontal="true" vertical="true" >
+               <t:Table rows="{path: '/RapportiniCestinati'}" selectionMode="MultiToggle" width="100  q%" height="auto" alternateRowColors="true" id="tabella" fixedColumnCount="2">
                   <t:columns>
-                     <t:Column >
+                     <t:Column  >
                         <t:template>
                            <l:HorizontalLayout>
                               <Button icon="sap-icon://refresh" press="onRestoreRapportino(${ID})" class="sapUiTinyMarginEnd" tooltip="Ripristina"/>

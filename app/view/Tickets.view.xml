@@ -61,8 +61,8 @@
                <Link press="onPress" text="Tickets"/>
             </Breadcrumbs>
             <FlexBox height="auto" width="100%" class="sapUiSmallMarginBottom">
-               <Button text="Nuovo Ticket" press=".onCreateTicket" icon="sap-icon://add"/>
-               <Button text="Elimina selezionati" press="onDeleteAllTicket" icon="sap-icon://delete"/>
+               <Button text="Nuovo Ticket" press=".onCreateTicket" icon="sap-icon://add" class="sapUiSmallMarginEnd"/>
+               <Button text="Elimina selezionati" press="onDeleteAllTicket" icon="sap-icon://delete" class="sapUiSmallMarginEnd"/>
             </FlexBox>
 
                <fb:FilterBar  id="filterbar" persistencyKey="myPersKey" useToolbar="false" search=".onSearch" filterChange=".onFilterChange" afterVariantLoad=".onAfterVariantLoad" width="100%">
