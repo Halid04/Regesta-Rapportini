@@ -55,22 +55,17 @@
             </tnt:SideNavigation>
       </tnt:sideContent>
       <tnt:mainContents>
-         <FlexBox height="auto" width="45rem"  alignItems="Center" justifyContent="Center" direction="Column">
-            <FlexBox height="auto" width="100%" alignItems="Center" justifyContent="Center" direction="Column" class="sapUiMediumMarginBegin">
-               <FlexBox height="auto" width="100%"  alignItems="Center" justifyContent="Start" class="sapUiSmallMargin">
-                  <Breadcrumbs currentLocationText="Lista Tickets" separatorStyle="GreaterThan">
-                     <Link press="onPress" text="Home"/>
-                     <Link press="onPress" text="Tickets"/>
-                  </Breadcrumbs>
-               </FlexBox>
+         <FlexBox height="auto" width="100%"  direction="Column">
+            <Breadcrumbs currentLocationText="Lista Tickets" separatorStyle="GreaterThan">
+               <Link press="onPress" text="Home"/>
+               <Link press="onPress" text="Tickets"/>
+            </Breadcrumbs>
+            <FlexBox height="auto" width="100%" class="sapUiSmallMarginBottom">
+               <Button text="Nuovo Ticket" press=".onCreateTicket" icon="sap-icon://add" class="sapUiSmallMarginEnd"/>
+               <Button text="Elimina selezionati" press="onDeleteAllTicket" icon="sap-icon://delete" class="sapUiSmallMarginEnd"/>
+            </FlexBox>
 
-               <FlexBox height="auto" width="100%" alignItems="Center" justifyContent="Start" class="sapUiSmallMarginBottom">
-                  <Button text="Nuovo Ticket" press=".onCreateTicket" icon="sap-icon://add"/>
-                  <Button text="Elimina selezionati"  class="sapUiMediumMarginBegin" press="onDeleteAllTicket" icon="sap-icon://delete"/>
-               </FlexBox>
-
-               <FlexBox height="auto" width="100%" alignItems="Center" justifyContent="Start">
-                  <fb:FilterBar  id="filterbar" persistencyKey="myPersKey" useToolbar="false" search=".onSearch" width="60.75rem">
+               <fb:FilterBar  id="filterbar" persistencyKey="myPersKey" useToolbar="false" search=".onSearch" width="60.75rem">
                      <fb:filterGroupItems >
                         <fb:FilterGroupItem name="utente" label="Utente" groupName="Group1" visibleInFilterBar="true">
                            <fb:control>
@@ -99,12 +94,9 @@
                         </fb:FilterGroupItem>
                      </fb:filterGroupItems>
                   </fb:FilterBar>
-               </FlexBox>
-            </FlexBox>
-            <FlexBox height="100%" width="100%"  alignItems="Center" justifyContent="Start">
-               <ScrollContainer height="auto" width="auto" horizontal="true" vertical="false" class="sapUiSmallMarginBegin">
-                  <t:Table rows="{path: '/Tickets', parameters:{$expand: 'IDCliente,IDTipologia,IDCommessa,areaFunzionale,status'}}" selectionMode="MultiToggle" width="99%" height="auto" alternateRowColors="true" id="tabella" fixedColumnCount="2">
-                     <t:extension>
+             <ScrollContainer height="auto" width="100%" horizontal="true" vertical="false" class="sapUiSmallMarginBegin">
+               <t:Table rows="{path: '/Tickets', parameters:{$expand: 'IDCliente,IDTipologia,IDCommessa,areaFunzionale,status'}}" selectionMode="MultiToggle" width="99%" height="auto" alternateRowColors="true" id="tabella" fixedColumnCount="2">
+               <t:extension>
                         <OverflowToolbar style="Clear">
                            <Title id="title" text="Tickets"/>
                            <ToolbarSpacer/>
@@ -122,57 +114,56 @@
                               press="clearAllSortings"/>
                         </OverflowToolbar>
 				         </t:extension>
-                     <t:columns>
-                        <t:Column width="140px">
-                           <t:template>
-                              <l:HorizontalLayout>
-                                 <Button icon="sap-icon://edit" class="sapUiTinyMarginEnd" press=".openEditTicket(${ID})"/>
-                                 <Button icon="sap-icon://document-text" class="sapUiTinyMarginEnd" press=".onCopyRapportino(${ID})"/>
-                                 <Button icon="sap-icon://delete" class="sapUiTinyMarginEnd" press=".onDeleteTicket(${ID})"/>
-                              </l:HorizontalLayout>
-                           </t:template>
-                        </t:Column>
-						
-                        <t:Column width="140px">
-                           <Text text="Utente"/>
-                           <t:template>
-                              <Text text="{= ${utente} === ${globalData>/myUsername} ? ${globalData>/usernameSuffix} : ${utente}}"/>
-                           </t:template>
-                        </t:Column>
-                        <t:Column width="140px">
-                           <Text text="Cliente"/>
-                           <t:template>
-                              <Text text="{IDCliente/descrizione}"/>
-                           </t:template>
-                        </t:Column>
-                        <t:Column width="140px">
-                           <Text text="Tipologia"/>
-                           <t:template>
-                              <Text text="{IDTipologia/tipologia}"/>
-                           </t:template>
-                        </t:Column>
-                        <t:Column width="140px">
-                           <Text text="Data di inserimento"/>
-                           <t:template>
-                              <Text text="{insertDate}"/>
-                           </t:template>
-                        </t:Column>
-                        <t:Column width="140px">
-                           <Text text="Titolo"/>
-                           <t:template>
-                              <Text text="{titolo}"/>
-                           </t:template>
-                        </t:Column>
-                        <t:Column width="140px">
-                           <Text text="Testo"/>
-                           <t:template>
-                              <Text text="{testo}"/>
-                           </t:template>
-                        </t:Column>
-                     </t:columns>
-                  </t:Table>
-               </ScrollContainer>
-            </FlexBox>
+                  <t:columns>
+                     <t:Column>
+                        <t:template>
+                           <l:HorizontalLayout>
+                              <Button icon="sap-icon://edit" class="sapUiTinyMarginEnd" press=".openEditTicket(${ID})"/>
+                              <Button icon="sap-icon://document-text" class="sapUiTinyMarginEnd" press=".onCopyRapportino(${ID})"/>
+                              <Button icon="sap-icon://delete" class="sapUiTinyMarginEnd" press=".onDeleteTicket(${ID})"/>
+                           </l:HorizontalLayout>
+                        </t:template>
+                     </t:Column>
+               
+                     <t:Column>
+                        <Text text="Utente"/>
+                        <t:template>
+                           <Text text="{= ${utente} === ${globalData>/myUsername} ? ${globalData>/usernameSuffix} : ${utente}}"/>
+                        </t:template>
+                     </t:Column>
+                     <t:Column>
+                        <Text text="Cliente"/>
+                        <t:template>
+                           <Text text="{IDCliente/descrizione}"/>
+                        </t:template>
+                     </t:Column>
+                     <t:Column >
+                        <Text text="Tipologia"/>
+                        <t:template>
+                           <Text text="{IDTipologia/tipologia}"/>
+                        </t:template>
+                     </t:Column>
+                     <t:Column>
+                        <Text text="Data di inserimento"/>
+                        <t:template>
+                           <Text text="{insertDate}"/>
+                        </t:template>
+                     </t:Column>
+                     <t:Column>
+                        <Text text="Titolo"/>
+                        <t:template>
+                           <Text text="{titolo}"/>
+                        </t:template>
+                     </t:Column>
+                     <t:Column>
+                        <Text text="Testo"/>
+                        <t:template>
+                           <Text text="{testo}"/>
+                        </t:template>
+                     </t:Column>
+                  </t:columns>
+               </t:Table>
+            </ScrollContainer>
          </FlexBox>
       </tnt:mainContents>
    </tnt:ToolPage>
