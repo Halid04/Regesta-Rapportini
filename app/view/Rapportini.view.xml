@@ -1,0 +1,208 @@
+<mvc:View
+   controllerName="rapportini.controller.Rapportini"
+   xmlns="sap.m"
+   xmlns:mvc="sap.ui.core.mvc"
+   xmlns:l="sap.ui.layout"
+   xmlns:fiori="sap.ui.webc.fiori"
+   xmlns:tnt="sap.tnt"
+   xmlns:t="sap.ui.table"
+   xmlns:f="sap.f"
+   xmlns:fb="sap.ui.comp.filterbar"
+   xmlns:svm="sap.ui.comp.smartvariants"
+   xmlns:core="sap.ui.core">
+
+   <tnt:ToolPage id="tablePage" class="toolPage">
+      <tnt:header>
+         <tnt:ToolHeader height="4rem" class="toolheader">
+            <Image src="/img/{globalData>/logoImagePath}" width="11rem" height="2.5rem" class="sapUiSmallMarginBegin"/>
+            <ToolbarSpacer>
+               <layoutData>
+                  <OverflowToolbarLayoutData priority="NeverOverflow" minWidth="20px" />
+               </layoutData>
+            </ToolbarSpacer>
+            <tnt:ToolHeaderUtilitySeparator />
+            <Button icon="sap-icon://{globalData>/themeIcon}" tooltip="Cambia tema" press=".onSwitchTheme"/>
+            <Button icon="sap-icon://bell" tooltip="Notifiche" />
+            <Avatar src="/img/shash.jpeg" displaySize="XS" showBorder="true" press="onPress"/> 
+            <Label text="Logout" class="logoutLabel" id="logoutLabel"/>
+         </tnt:ToolHeader>
+      </tnt:header>
+      <tnt:sideContent>
+         <tnt:SideNavigation id="sideNavigation" selectedKey="subItem3">
+               <tnt:NavigationList>
+                  <tnt:NavigationListItem text="Rapportini" icon="sap-icon://activity-items" href='#'>
+                     <tnt:NavigationListItem text="Lista Rapportini" href='#'/>
+                     <tnt:NavigationListItem text="Cestino Rapportini" href='#/cestino'/>
+                  </tnt:NavigationListItem>
+                  <tnt:NavigationListItem text="Tickets" icon="sap-icon://sap-box" href='#/tickets'>
+                     <tnt:NavigationListItem text="Lista Tickets" href='#/tickets'/>
+                     <tnt:NavigationListItem text="Cestino Tickets" href='#/cestinoTickets'/>
+                  </tnt:NavigationListItem>
+                  <tnt:NavigationListItem text="Anagrafiche" icon="sap-icon://business-card">
+                     <tnt:NavigationListItem text="Sub Item 1" />
+                     <tnt:NavigationListItem text="Sub Item 2" />
+                     <tnt:NavigationListItem text="Sub Item 3" />
+                     <tnt:NavigationListItem text="Sub Item 4" />
+                  </tnt:NavigationListItem>
+               </tnt:NavigationList>
+               <tnt:fixedItem>
+                  <tnt:NavigationList>
+                     <tnt:NavigationListItem text="Coordinatori" icon="sap-icon://group" />
+                     <tnt:NavigationListItem text="Team Leader" icon="sap-icon://manager" />
+                     <tnt:NavigationListItem text="Amministazione" icon="sap-icon://primary-key" />
+                  </tnt:NavigationList>
+               </tnt:fixedItem>
+            </tnt:SideNavigation>
+      </tnt:sideContent>
+      <tnt:mainContents>
+         <FlexBox height="auto" width="45rem"  alignItems="Center" justifyContent="Center" direction="Column">
+            <FlexBox height="auto" width="100%" alignItems="Center" justifyContent="Center" direction="Column" class="sapUiMediumMarginBegin">
+               <FlexBox height="auto" width="100%"  alignItems="Center" justifyContent="Start" class="sapUiSmallMargin">
+                  <Breadcrumbs currentLocationText="Lista Rapportini" separatorStyle="GreaterThan">
+                     <Link press="onPress" text="Home"/>
+                     <Link press="onPress" text="Rapportini"/>
+                  </Breadcrumbs>
+               </FlexBox>
+
+               <FlexBox height="auto" width="100%" alignItems="Center" justifyContent="Start" class="sapUiSmallMarginBottom">
+                  <Button text="Nuovo Rapportino" press=".onNavToCreate" icon="sap-icon://add"/>
+                  <Button text="Elimina selezionati"  class="sapUiMediumMarginBegin" press="onDeleteAll" icon="sap-icon://delete"/>
+                  <Label text="Ore lavorate oggi: {globalData>/monteore}" class="sapUiMediumMarginBegin"/>
+               </FlexBox>
+
+               <FlexBox height="auto" width="100%" alignItems="Center" justifyContent="Start">
+                  <fb:FilterBar  id="filterbar" persistencyKey="myPersKey" useToolbar="false" search=".onSearch" width="60.75rem">
+                     <fb:filterGroupItems>
+                        <fb:FilterGroupItem name="utente" label="Utente" groupName="Group1" visibleInFilterBar="false">
+                           <fb:control>
+                              <MultiComboBox name="utente" id="FilterComboBox-utente" selectionChange=".onSelectionChange"/>
+                           </fb:control>
+                        </fb:FilterGroupItem>
+                        <fb:FilterGroupItem name="giorno" label="Giorno" groupName="Group1" visibleInFilterBar="false">
+                           <fb:control>
+                              <MultiComboBox name="giorno" id="FilterComboBox-giorno" selectionChange=".onSelectionChange"/>
+                           </fb:control>
+                        </fb:FilterGroupItem>
+                        <fb:FilterGroupItem name="ore" label="Ore" groupName="Group1" visibleInFilterBar="false">
+                           <fb:control>
+                              <MultiComboBox name="ore" id="FilterComboBox-ore" selectionChange=".onSelectionChange"/>
+                           </fb:control>
+                        </fb:FilterGroupItem>
+                        <fb:FilterGroupItem name="ticket" label="Ticket" groupName="Group1" visibleInFilterBar="false">
+                           <fb:control>
+                              <MultiComboBox name="ticket" id="FilterComboBox-IDTicket_descrizione" selectionChange=".onSelectionChange"/>
+                           </fb:control>
+                        </fb:FilterGroupItem>
+                        <fb:FilterGroupItem name="cliente" label="Cliente" groupName="Group1" visibleInFilterBar="false">
+                           <fb:control>
+                              <MultiComboBox name="cliente" id="FilterComboBox-IDCliente_descrizione" selectionChange=".onSelectionChange"/>
+                           </fb:control>
+                        </fb:FilterGroupItem>
+                        <fb:FilterGroupItem name="commessa" label="Commessa" groupName="Group1" visibleInFilterBar="false">
+                           <fb:control>
+                              <MultiComboBox name="commessa" id="FilterComboBox-IDCommessa_descrizione" selectionChange=".onSelectionChange"/>
+                           </fb:control>
+                        </fb:FilterGroupItem>
+                        <fb:FilterGroupItem name="sede" label="Sede" groupName="Group1" visibleInFilterBar="false">
+                           <fb:control>
+                              <MultiComboBox name="sedde" id="FilterComboBox-sede" selectionChange=".onSelectionChange"/>
+                           </fb:control>
+                        </fb:FilterGroupItem>
+                     </fb:filterGroupItems>
+                  </fb:FilterBar>
+               </FlexBox>
+            </FlexBox>
+            <FlexBox height="100%" width="100%"  alignItems="Center" justifyContent="Start">
+               <ScrollContainer height="auto" width="auto" horizontal="true" vertical="false" class="sapUiSmallMarginBegin">
+                  <t:Table rows="{path: '/Rapportini', parameters:{$expand: 'IDTicket,IDCliente,IDCommessa'}}" selectionMode="MultiToggle" width="99%" height="auto" alternateRowColors="true" id="tabella" fixedColumnCount="2">
+                     <t:extension>
+                        <OverflowToolbar style="Clear">
+                           <Title id="title" text="Rapportini"/>
+                           <ToolbarSpacer/>
+                           <ComboBox id="select-sort">
+                              <core:Item key="giorno" text="Giorno"/>
+                              <core:Item key="ore" text="Ore"/>
+                              <core:Item key="km" text="Km"/>
+                           </ComboBox>
+                           <Button
+                              icon="sap-icon://sort"
+                              tooltip="Sort Categories in addition to current sorting"
+                              press=".onSort"/>
+                           <Button
+                              icon="sap-icon://decline"
+                              tooltip="Clear all sortings"
+                              press=".clearSortings"/>
+                        </OverflowToolbar>
+				         </t:extension>
+                     <t:columns>
+                        <t:Column width="140px">
+                           <t:template>
+                              <l:HorizontalLayout>
+                                 <Button icon="sap-icon://edit" class="sapUiTinyMarginEnd" press=".onEditRapportino(${ID})"/>
+                                 <Button icon="sap-icon://document-text" class="sapUiTinyMarginEnd" press=".onCopyRapportino(${ID})"/>
+                                 <Button icon="sap-icon://delete" class="sapUiTinyMarginEnd" press=".onTrashRapportino(${ID})"/>
+                              </l:HorizontalLayout>
+                           </t:template>
+                        </t:Column>
+                        <t:Column width="140px">
+                           <Text text="Utente"/>
+                           <t:template>
+                              <Text text="{= ${utente} === ${globalData>/myUsername} ? ${globalData>/usernameSuffix} : ${utente}}"/>
+                           </t:template>
+                        </t:Column>
+                        <t:Column width="100px">
+                           <Text text="Giorno" />
+                           <t:template>
+                              <Text text="{giorno}" />
+                           </t:template>
+                        </t:Column>
+                        <t:Column width="50px">
+                           <Text text="Ore" />
+                           <t:template>
+                              <Text text="{ore}" />
+                           </t:template>
+                        </t:Column>
+                        <t:Column width="100px">   
+                           <Text text="Ticket" />
+                           <t:template>
+                              <Text text="{IDTicket/titolo}" />
+                           </t:template>
+                        </t:Column>
+                        <t:Column width="100px">
+                           <Text text="Cliente" />
+                           <t:template>
+                              <Text text="{IDCliente/descrizione}" />
+                           </t:template>
+                        </t:Column>
+                        <t:Column width="100px">
+                           <Text text="Commessa" />
+                           <t:template>
+                              <Text text="{IDCommessa/descrizione}" />
+                           </t:template>
+                        </t:Column>
+                        <t:Column width="50px">
+                           <Text text="Sede" />
+                           <t:template>
+                              <Text text="{sede}" />
+                           </t:template>
+                        </t:Column>
+                        <t:Column width="100px">
+                           <Text text="Descrizione" />
+                           <t:template>
+                              <Text text="{descrizione}" />
+                           </t:template>
+                        </t:Column>
+                        <t:Column width="100px">
+                           <Text text="Spese totali" />
+                           <t:template>
+                              <Text text="{km}" />
+                           </t:template>
+                        </t:Column>
+                     </t:columns>
+                  </t:Table>
+               </ScrollContainer>
+            </FlexBox>
+         </FlexBox>
+      </tnt:mainContents>
+   </tnt:ToolPage>
+</mvc:View>

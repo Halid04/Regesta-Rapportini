@@ -5,7 +5,7 @@ xmlns:mvc="sap.ui.core.mvc"
 xmlns:l="sap.ui.layout">
 
    <App id = "app">
-      <mvc:XMLView viewName = "rapportini.view.Tabella"/> 
+      <mvc:XMLView viewName = "rapportini.view.Rapportini"/> 
    </App>
 
 </mvc:View>
