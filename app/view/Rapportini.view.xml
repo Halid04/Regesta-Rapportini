@@ -165,7 +165,7 @@
                         <t:Column width="100px">   
                            <Text text="Ticket" />
                            <t:template>
-                              <Text text="{IDTicket/descrizione}" />
+                              <Text text="{IDTicket/titolo}" />
                            </t:template>
                         </t:Column>
                         <t:Column width="100px">
