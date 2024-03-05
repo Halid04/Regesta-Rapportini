@@ -8,6 +8,8 @@ sap.ui.define([
 
     function (BaseController, Sorter, Filter, FilterOperator, PersonalizableInfo) {
         return BaseController.extend("rapportini.controller.Tabelle", {
+            // ORDINAMENTO //
+
             onSort: function (oEvent) {
                 if (typeof this.sortOrder == "undefined") {
                     this.sortOrder = false;
@@ -16,42 +18,23 @@ sap.ui.define([
                 const sortKey = this.getView().byId("select-sort").getSelectedKey();
                 this.oTable.getBinding("rows").sort((this.sortOrder == true ? "desc" : "asc") && new Sorter(sortKey, this.sortOrder));
             },
-            filterMultiComboBox: function (parameters, objects) {
-                parameters.forEach((parameter) => {
-                    var oMultiComboBox = this.getView().byId(
-                        "idMultiComboBox-" + parameter
-                    );
-                    oMultiComboBox.removeAllItems();
-                    parameter = parameter.split("_");
-                    let uniqueItems = [];
 
-                    if (parameter.length > 1) {
-                        uniqueItems = [
-                            new Set(objects.map((x) => x[parameter[0]][parameter[1]])),
-                        ];
-                    } else {
-                        uniqueItems = [new Set(objects.map((x) => x[parameter[0]]))];
-                    }
+            clearSortings: function () {
+                this.oTable.getBinding("rows").sort(undefined && new Sorter(sortKey, this.sortOrder));
+            },
 
-                    uniqueItems.forEach((item) => {
-                        oMultiComboBox.addItem(
-                            new sap.ui.core.Item({
-                                key: item,
-                                text: item,
-                            })
-                        );
-                    });
-                });
+            // FILTRI //
+
+            setupFilterBar: function () {
+                this.oFilterBar = this.getView().byId("filterbar");
+                this.oTable = this.getView().byId("tabella");
+
+                this.oFilterBar.registerFetchData(this.fetchData.bind(this));
+                this.oFilterBar.registerApplyData(this.applyData.bind(this));
+                this.oFilterBar.registerGetFiltersWithValues(this.getFiltersWithValues.bind(this));
             },
-            onExit: function () {
-                this.oModel = null;
-                this.oSmartVariantManagement = null;
-                this.oExpandedLabel = null;
-                this.oSnappedLabel = null;
-                this.oFilterBar = null;
-                this.oTable = null;
-                this._oTPC.destroy();
-            },
+
+            // COMPORTAMENTO FILTERBAR //
 
             fetchData: function () {
                 var aData = this.oFilterBar
@@ -97,97 +80,84 @@ sap.ui.define([
             },
 
             onSelectionChange: function (oEvent) {
-                //this.oSmartVariantManagement.currentVariantSetModified(true);
                 this.oFilterBar.fireFilterChange(oEvent);
             },
 
-            onSearch: function () {
-                var aTableFilters = this.oFilterBar
-                    .getFilterGroupItems()
-                    .reduce(function (aResult, oFilterGroupItem) {
-                        var oControl = oFilterGroupItem.getControl(),
-                            aSelectedKeys = oControl.getSelectedKeys(),
-                            aFilters = aSelectedKeys.map(function (sSelectedKey) {
-                                if (oFilterGroupItem.getName().substring(0, 2) == "ID") sSelectedKey = sSelectedKey.replace('.', '');
-                                return new Filter({
-                                    path: oFilterGroupItem.getName(),
-                                    operator: FilterOperator.EQ,
-                                    value1: sSelectedKey,
-                                });
-                            });
+            // RIMOZIONE DUPLICATI DALLE MULTI-COMBOBOX //
 
-                        if (aSelectedKeys.length > 0) {
-                            aResult.push(
-                                new Filter({
-                                    filters: aFilters,
-                                    and: false,
+            filterMultiComboBoxes: function (parameters, objects) {
+                parameters.forEach((parameter) => {
+                    var oMultiComboBox = this.getView().byId(
+                        "FilterComboBox-" + parameter
+                    );
+                    oMultiComboBox?.removeAllItems();
+                    const [main, sub] = parameter.split("_");
+                    let uniqueItems = [];
+
+                    if (sub != null) {
+                        const table = objects.map((x) => x[main]);
+                        uniqueItems = new Set(table.map((x) => [x["ID"], x[sub]]));
+                        uniqueItems.forEach((item) => {
+                            oMultiComboBox?.addItem(
+                                new sap.ui.core.Item({
+                                    key: item[0],
+                                    text: item[1],
                                 })
                             );
-                        }
+                        });
+                        return;
+                    }
 
-                        return aResult;
-                    }, []);
+                    uniqueItems = new Set(objects.map((x) => x[main]));
+                    console.log(uniqueItems)
+                    uniqueItems.forEach((item) => {
+                        oMultiComboBox?.addItem(
+                            new sap.ui.core.Item({
+                                key: item,
+                                text: item,
+                            })
+                        );
+                    });
+                });
+            },
+
+            // FILTRAGGIO //
+
+            onSearch: function () {
+                var aTableFilters = this.oFilterBar.getFilterGroupItems().reduce(function (aResult, oFilterGroupItem) {
+                    var oControl = oFilterGroupItem.getControl(),
+                        aSelectedKeys = oControl.getSelectedKeys(),
+                        aFilters = aSelectedKeys.map(function (sSelectedKey) {
+                            if (oFilterGroupItem.getName().substring(0, 2) == "ID") sSelectedKey = sSelectedKey.replace('.', '');
+                            return new Filter({
+                                path: oFilterGroupItem.getName(),
+                                operator: FilterOperator.EQ,
+                                value1: sSelectedKey,
+                            });
+                        });
+
+                    if (aSelectedKeys.length > 0) {
+                        aResult.push(
+                            new Filter({
+                                filters: aFilters,
+                                and: false,
+                            })
+                        );
+                    }
+
+                    return aResult;
+                }, []);
 
                 this.oTable.getBinding("rows").filter(aTableFilters);
                 this.oTable.setShowOverlay(false);
             },
 
-            onFilterChange: function () {
-                this._updateLabelsAndTable();
+            onExit: function () {
+                this.oModel = null;
+                this.oFilterBar = null;
+                this.oTable = null;
+                this._oTPC.destroy();
             },
-
-            onAfterVariantLoad: function () {
-                this._updateLabelsAndTable();
-            },
-
-            getFormattedSummaryText: function () {
-                var aFiltersWithValues = this.oFilterBar.retrieveFiltersWithValues();
-
-                if (aFiltersWithValues.length === 0) {
-                    return "No filters active";
-                }
-
-                if (aFiltersWithValues.length === 1) {
-                    return (
-                        aFiltersWithValues.length +
-                        " filter active: " +
-                        aFiltersWithValues.join(", ")
-                    );
-                }
-
-                return (
-                    aFiltersWithValues.length +
-                    " filters active: " +
-                    aFiltersWithValues.join(", ")
-                );
-            },
-
-            getFormattedSummaryTextExpanded: function () {
-                var aFiltersWithValues = this.oFilterBar.retrieveFiltersWithValues();
-
-                if (aFiltersWithValues.length === 0) {
-                    return "No filters active";
-                }
-
-                var sText = aFiltersWithValues.length + " filters active",
-                    aNonVisibleFiltersWithValues =
-                        this.oFilterBar.retrieveNonVisibleFiltersWithValues();
-
-                if (aFiltersWithValues.length === 1) {
-                    sText = aFiltersWithValues.length + " filter active";
-                }
-
-                if (
-                    aNonVisibleFiltersWithValues &&
-                    aNonVisibleFiltersWithValues.length > 0
-                ) {
-                    sText += " (" + aNonVisibleFiltersWithValues.length + " hidden)";
-                }
-
-                return sText;
-            },
-
-            _updateLabelsAndTable: function () { },
 
         })
     }

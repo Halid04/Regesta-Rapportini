@@ -70,59 +70,31 @@
                </FlexBox>
 
                <FlexBox height="auto" width="100%" alignItems="Center" justifyContent="Start">
-                  <fb:FilterBar  id="filterbar" persistencyKey="myPersKey" useToolbar="false" search=".onSearch" filterChange=".onFilterChange" afterVariantLoad=".onAfterVariantLoad" width="60.75rem">
+                  <fb:FilterBar  id="filterbar" persistencyKey="myPersKey" useToolbar="false" search=".onSearch" width="60.75rem">
                      <fb:filterGroupItems >
                         <fb:FilterGroupItem name="utente" label="Utente" groupName="Group1" visibleInFilterBar="true">
                            <fb:control>
-                              <MultiComboBox name="Utente" selectionChange=".onSelectionChange" items="{
-                                    path: '/Tickets',
-                                    templateShareable: true
-                                 }">
-                                 <core:Item key="{utente}" text="{utente}"/>
-                              </MultiComboBox>
+                              <MultiComboBox name="Utente" id="FilterComboBox-utente" selectionChange=".onSelectionChange"/>
                            </fb:control>
                         </fb:FilterGroupItem>
                         <fb:FilterGroupItem name="IDCliente_ID" label="Cliente" groupName="Group1" visibleInFilterBar="true">
                            <fb:control>
-                              <MultiComboBox name="Cliente" selectionChange=".onSelectionChange" items="{
-                                    path: '/Tickets',
-                                    templateShareable: true,
-                                    parameters:{$expand: 'IDCliente'}
-                                 }">
-                                 <core:Item key="{IDCliente/ID}" text="{IDCliente/descrizione}"/>
-                              </MultiComboBox>
+                              <MultiComboBox name="Cliente" id="FilterComboBox-IDCliente_descrizione" selectionChange=".onSelectionChange"/>
                            </fb:control>
                         </fb:FilterGroupItem>
                         <fb:FilterGroupItem name="IDCommessa_ID" label="Commessa" groupName="Group1" visibleInFilterBar="true">
                            <fb:control>
-                              <MultiComboBox name="Commessa" selectionChange=".onSelectionChange" items="{
-                                    path: '/Tickets',
-                                    templateShareable: true,
-                                    parameters:{$expand: 'IDCommessa'}
-                                 }">
-                                 <core:Item key="{IDCommessa/ID}" text="{IDCommessa/descrizione}"/>
-                              </MultiComboBox>
+                              <MultiComboBox name="Commessa" id="FilterComboBox-IDCommessa_descrizione" selectionChange=".onSelectionChange"/>
                            </fb:control>
                         </fb:FilterGroupItem>
                         <fb:FilterGroupItem name="IDTipologia_ID" label="Tipologia" groupName="Group1" visibleInFilterBar="false">
                            <fb:control>
-                              <MultiComboBox name="Tipologia" selectionChange=".onSelectionChange" items="{
-                                    path: '/Tickets',
-                                    templateShareable: true,
-                                    parameters:{$expand: 'IDTipologia'}
-                                 }">
-                                 <core:Item key="{IDTipologia/ID}" text="{IDTipologia/tipologia}"/>
-                              </MultiComboBox>
+                              <MultiComboBox name="Tipologia" id="FilterComboBox-IDTipologia_tipologia" selectionChange=".onSelectionChange"/>
                            </fb:control>
                         </fb:FilterGroupItem>
                         <fb:FilterGroupItem name="insertDate" label="Data inserimento" groupName="Group1" visibleInFilterBar="false">
                            <fb:control>
-                              <MultiComboBox name="insertDate" selectionChange=".onSelectionChange" items="{
-                                    path: '/Tickets',
-                                    templateShareable: true
-                                 }">
-                                 <core:Item key="{insertDate}" text="{insertDate}"/>
-                              </MultiComboBox>
+                              <MultiComboBox name="insertDate" id="FilterComboBox-insertDate" selectionChange=".onSelectionChange"/>
                            </fb:control>
                         </fb:FilterGroupItem>
                      </fb:filterGroupItems>

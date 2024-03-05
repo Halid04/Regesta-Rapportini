@@ -25,39 +25,55 @@ sap.ui.define(
           .getRoute("tabellaRapportini")
           .attachPatternMatched(this.onPatternMatched, this);
 
-        this.applyData = this.applyData.bind(this);
-        this.fetchData = this.fetchData.bind(this);
-        this.getFiltersWithValues = this.getFiltersWithValues.bind(this);
+        this.setupFilterBar();
 
-        this.oSmartVariantManagement = this.getView().byId("svm");
-        this.oExpandedLabel = this.getView().byId("expandedLabel");
-        this.oSnappedLabel = this.getView().byId("snappedLabel");
-        this.oFilterBar = this.getView().byId("filterbar");
-        this.oTable = this.getView().byId("tabella");
-
-        this.oFilterBar.registerFetchData(this.fetchData);
-        this.oFilterBar.registerApplyData(this.applyData);
-        this.oFilterBar.registerGetFiltersWithValues(this.getFiltersWithValues);
-
-        /*var oPersInfo = new PersonalizableInfo({
-          type: "filterBar",
-          keyName: "persistencyKey",
-          dataSource: "",
-          control: this.oFilterBar,
-        });
-        this.oSmartVariantManagement.addPersonalizableControl(oPersInfo);
-        this.oSmartVariantManagement.initialise(function () { },
-          this.oFilterBar);
-
-        //STAVAMO LAVORANDO QUI
-        /*const model = this.getOwnerComponent().getModel();
-
-        const contextTickets = await model.bindList("/Tickets", undefined, undefined, undefined, {
-          $expand: "IDCliente,IDCommessa,IDTipologia"
-        }).requestContexts();
-        const parametersTickets = ["utente", "IDCliente_descrizione", "titolo", "status", "assegnatoA", "IDCommessa_descrizione", "giorniStima", "giorniCons", "flagNeedDev", "flagNeedFunz", "allegato", "flagAms", "areaFunzionale", "flagBugFix", "flagCR", "chatPubblica", "flagDev", "flagFunz", "externalID", "giorniConsCliente", "giorniConsDev", "giorniStimaDev", "giorniStimaFunz", "IDParent", "ordineSap", "criticita", "nRilavorazioni", "supportoFunzionale", "testo", "IDTipologia_tipologia", "flagVisibileCliente"]
-        const tickets = contextTickets.map(x => (x.getObject()));
-        this.filterMultiComboBox(parametersTickets, tickets)*/
+        const model = this.getOwnerComponent().getModel();
+        const contextRapportini = await model
+          .bindList("/Rapportini", undefined, undefined, undefined, {
+            $expand: "IDCliente,IDCommessa,IDClienteSede,IDTicket"
+          })
+          .requestContexts();
+        const parametersRapportini = [
+          "utente",
+          "IDCliente",
+          "IDCommessa",
+          "IDClienteSede",
+          "IDProgetto",
+          "IDProgettoAttivita",
+          "IDTicket",
+          "codice",
+          "descrizione",
+          "attivita",
+          "sede",
+          "destinazione",
+          "giorno",
+          "ore",
+          "oreLavorate",
+          "km",
+          "kmEuro",
+          "pedaggio",
+          "forfait",
+          "vitto",
+          "alloggio",
+          "noleggio",
+          "trasporti",
+          "varie",
+          "plus",
+          "fatturabile",
+          "bloccato",
+          "speseVarie",
+          "docente",
+          "IDCommessa2",
+          "IDTicket2",
+          "ore2",
+          "descrizione2",
+          "ruolo",
+          "bloccatoAdmin",
+          "IDCorso",
+          "amsh24",
+        ];
+        const rapportini = contextRapportini.map((x) => x.getObject());
+        this.filterMultiComboBoxes(parametersRapportini, rapportini);
       },
 
       onNavToCreate: function () {

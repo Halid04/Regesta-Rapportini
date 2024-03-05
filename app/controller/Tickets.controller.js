@@ -38,29 +38,7 @@ sap.ui.define(
           persoService: PersoService,
         }).activate();
 
-        this.applyData = this.applyData.bind(this);
-        this.fetchData = this.fetchData.bind(this);
-        this.getFiltersWithValues = this.getFiltersWithValues.bind(this);
-
-        this.oSmartVariantManagement = this.getView().byId("svm");
-        this.oExpandedLabel = this.getView().byId("expandedLabel");
-        this.oSnappedLabel = this.getView().byId("snappedLabel");
-        this.oFilterBar = this.getView().byId("filterbar");
-        this.oTable = this.getView().byId("tabella");
-
-        this.oFilterBar.registerFetchData(this.fetchData);
-        this.oFilterBar.registerApplyData(this.applyData);
-        this.oFilterBar.registerGetFiltersWithValues(this.getFiltersWithValues);
-
-        /*var oPersInfo = new PersonalizableInfo({
-          type: "filterBar",
-          keyName: "persistencyKey",
-          dataSource: "",
-          control: this.oFilterBar,
-        });
-        this.oSmartVariantManagement.addPersonalizableControl(oPersInfo);
-        this.oSmartVariantManagement.initialise(function () { },
-          this.oFilterBar);*/
+        this.setupFilterBar();
 
         // Rimozione duplicati
 
@@ -105,10 +83,7 @@ sap.ui.define(
           "flagVisibileCliente",
         ];
         const tickets = contextTickets.map((x) => x.getObject());
-        this.filterMultiComboBox(parametersTickets, tickets);
-
-        // const context = await oModel.bindList('/Tickets').requestContexts();
-        // const tickets = context.map(x=> (x.getObject()));
+        this.filterMultiComboBoxes(parametersTickets, tickets);
       },
 
       _onObjectMatched: function (oEvent) {
