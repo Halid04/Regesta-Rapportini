@@ -114,7 +114,7 @@
             </FlexBox>
             <FlexBox height="100%" width="100%"  alignItems="Center" justifyContent="Start">
                <ScrollContainer height="auto" width="auto" horizontal="true" vertical="false" class="sapUiSmallMarginBegin">
-                  <t:Table rows="{path: '/Rapportini'}" selectionMode="MultiToggle" width="99%" height="auto" alternateRowColors="true" id="tabella" fixedColumnCount="2">
+                  <t:Table rows="{path: '/Rapportini', parameters:{$expand: 'IDTicket,IDCliente,IDCommessa'}}" selectionMode="MultiToggle" width="99%" height="auto" alternateRowColors="true" id="tabella" fixedColumnCount="2">
                      <t:extension>
                         <OverflowToolbar style="Clear">
                            <Title id="title" text="Rapportini"/>
@@ -165,19 +165,19 @@
                         <t:Column width="100px">   
                            <Text text="Ticket" />
                            <t:template>
-                              <Text text="Ticket esempio" />
+                              <Text text="{IDTicket/descrizione}" />
                            </t:template>
                         </t:Column>
                         <t:Column width="100px">
                            <Text text="Cliente" />
                            <t:template>
-                              <Text text="Cosa nostra" />
+                              <Text text="{IDCliente/descrizione}" />
                            </t:template>
                         </t:Column>
                         <t:Column width="100px">
                            <Text text="Commessa" />
                            <t:template>
-                              <Text text="Trabajo serio en pincanello" />
+                              <Text text="{IDCommessa/descrizione}" />
                            </t:template>
                         </t:Column>
                         <t:Column width="50px">
