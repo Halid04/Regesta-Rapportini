@@ -1,5 +1,7 @@
 body {
-  overflow: hidden; /* Hide scrollbars */
+  overflow: hidden; /*Hide scrollbars */
+  margin: 0;
+  padding: 0;
 }
 
 .creazioneRapportiniFlex,
@@ -9,4 +11,12 @@ body {
 
 .toolbarRichiesta {
   margin-top: 1rem;
+}
+
+#main---tickets--tablePage-main,
+#main---tabellaRapportini--tablePage-main,
+#main---cestinoRapportini--tablePage-main,
+#main---cestinoTickets--tablePage-main {
+  overflow-x: hidden;
+  overflow-y: auto;
 }

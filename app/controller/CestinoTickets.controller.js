@@ -130,6 +130,18 @@ sap.ui.define(
           textDirection: sap.ui.core.TextDirection.Inherit,
         });
       },
+      onBindingChange: function (oEvent) {
+        this.getView()
+          .byId("tabella")
+          .setVisibleRowCount(oEvent.getSource().getLength());
+      },
+      onColumnResize: function (oEvent) {
+        var oColumn = oEvent.getParameter("column");
+
+        if (this.byId("toolColumn") == oColumn) {
+          oEvent.preventDefault();
+        }
+      },
     });
   }
 );

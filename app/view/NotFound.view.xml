@@ -1,11 +1,5 @@
-<mvc:View
-   controllerName="rapportini.controller.NotFound"
+<mvc:View controllerName="rapportini.controller.NotFound"
    xmlns="sap.m"
    xmlns:mvc="sap.ui.core.mvc">
-   <MessagePage
-      title="Not found"
-      text="Non trovato"
-      description="Extraviado"
-      showNavButton="true"
-      navButtonPress="onNavBack"/>
+   <MessagePage title="Not found" text="Non trovato" description="Extraviado" showNavButton="true" navButtonPress="onNavBack"/>
 </mvc:View>

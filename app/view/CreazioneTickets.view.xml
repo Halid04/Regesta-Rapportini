@@ -1,394 +1,187 @@
-<mvc:View
-xmlns="sap.m"
-xmlns:l="sap.ui.layout"
-xmlns:u="sap.ui.unified"
-xmlns:f="sap.ui.layout.form"
-xmlns:core="sap.ui.core"
-xmlns:mvc="sap.ui.core.mvc"
-controllerName="rapportini.controller.CreazioneTickets">
+<mvc:View xmlns="sap.m"
+   xmlns:l="sap.ui.layout"
+   xmlns:u="sap.ui.unified"
+   xmlns:f="sap.ui.layout.form"
+   xmlns:core="sap.ui.core"
+   xmlns:mvc="sap.ui.core.mvc" controllerName="rapportini.controller.CreazioneTickets">
    <Page id="createPage" title="Creazione Ticket">
-	   <VBox  
-      height="auto"
-      width="100%"
-      alignItems="Center"
-      justifyContent="Center"
-      class="sapUiResponsiveMargin">
-		 <FlexBox
-       height="auto"
-       width="100%"
-       alignItems="start"
-       justifyContent="Center"
-       direction="Column"
-       class="creazioneTicketsFlex">
-		 	<FlexBox
-         height="auto"
-         width="90vw"
-         alignItems="start"
-         justifyContent="start">
-               <FlexBox
-               height="auto"
-               width="35vw"
-               alignItems="Start"
-               justifyContent="start"
-               direction="Column">
-               <Label text="Utente" required="true"/>
-               <Input value="{JSONModel>/modelloTicket/utente}" id="utente" placeholder="Username" width="90vw"/>
+      <VBox height="auto" width="100%" alignItems="Center" justifyContent="Center" class="sapUiResponsiveMargin">
+         <FlexBox height="auto" width="100%" alignItems="start" justifyContent="Center" direction="Column" class="creazioneTicketsFlex">
+            <FlexBox height="auto" width="90vw" alignItems="start" justifyContent="start">
+               <FlexBox height="auto" width="35vw" alignItems="Start" justifyContent="start" direction="Column">
+                  <Label text="Utente" required="true"/>
+                  <Input value="{JSONModel>/modelloTicket/utente}" id="utente" placeholder="Username" width="90vw"/>
                </FlexBox>
             </FlexBox>
 
-            <FlexBox
-            height="auto"
-            width="110vw"
-            alignItems="Center"
-            justifyContent="Center">
-               <FlexBox
-               height="auto"
-               width="50vw"
-               alignItems="Start"
-               justifyContent="Center"
-               direction="Column">
+            <FlexBox height="auto" width="110vw" alignItems="Center" justifyContent="Center">
+               <FlexBox height="auto" width="50vw" alignItems="Start" justifyContent="Center" direction="Column">
                   <Label text="Data Inserimento"/>
-                  <DatePicker
-                  id="DP0"
-                  value="{
+                  <DatePicker id="DP0" value="{
                      'path':'JSONModel>/modelloTicket/insertDate',
                      'type':'sap.ui.model.type.Date',
                      'formatOptions': {
                         'pattern': 'dd/MM/yyyy'
                      }
-                  }"
-                  enabled= "false"
-                  change="handleChange"
-                  width="17vw"/>
-                </FlexBox>
+                  }" enabled= "false" change="handleChange" width="17vw"/>
+               </FlexBox>
 
-                <FlexBox
-                height="auto"
-                width="50vw"
-                alignItems="Start"
-                justifyContent="Center"
-                direction="Column">
+               <FlexBox height="auto" width="50vw" alignItems="Start" justifyContent="Center" direction="Column">
                   <Label text="ExternalID" />
                   <Input value="{JSONModel>/modelloTicket/externalID}" placeholder="externalID" width="17vw"/>
-                </FlexBox>
+               </FlexBox>
 
-                <FlexBox
-                height="auto"
-                width="50vw"
-                alignItems="Start"
-                justifyContent="Center"
-                direction="Column">
+               <FlexBox height="auto" width="50vw" alignItems="Start" justifyContent="Center" direction="Column">
                   <Label text="Ordine Sap"/>
                   <ComboBox id="" placeholder="Ordine Sap" selectionChange="" width="17vw" enabled="false">
-                           <core:ListItem text="Ordine Sap 1" key=""/>
-                           <core:ListItem text="Ordine Sap 2" key=""/>
-                           <core:ListItem text="Ordine Sap 3" key=""/>
+                     <core:ListItem text="Ordine Sap 1" key=""/>
+                     <core:ListItem text="Ordine Sap 2" key=""/>
+                     <core:ListItem text="Ordine Sap 3" key=""/>
                   </ComboBox>
-                </FlexBox>
+               </FlexBox>
 
             </FlexBox>
 
-            <FlexBox
-            height="auto"
-            width="90vw"
-            alignItems="Start"
-            justifyContent="Start">
-               <FlexBox
-               height="auto"
-               width="55vw"
-               alignItems="Start"
-               justifyContent="Center"
-               direction="Column">
-                <Label text="Cliente" required="true"/>
-                <ComboBox id="comboClienti" items="{path: '/Clienti'}"  selectedKey="{path: 'JSONModel>/modelloTicket/cliente'}" placeholder="Cliente" selectionChange="handleSelectionChangeCliente" width="35vw">
+            <FlexBox height="auto" width="90vw" alignItems="Start" justifyContent="Start">
+               <FlexBox height="auto" width="55vw" alignItems="Start" justifyContent="Center" direction="Column">
+                  <Label text="Cliente" required="true"/>
+                  <ComboBox id="comboClienti" items="{path: '/Clienti'}" selectedKey="{path: 'JSONModel>/modelloTicket/cliente'}" placeholder="Cliente" selectionChange="handleSelectionChangeCliente" width="35vw">
                      <core:ListItem text="{descrizione}" key="{ID}"/>
-                </ComboBox>
+                  </ComboBox>
                </FlexBox>
 
-               <FlexBox
-               height="auto"
-               width="35vw"
-               alignItems="Start"
-               justifyContent="Center"
-               direction="Column">
-                <Label text="Commessa" required="true"/>
-                <ComboBox id="comboCommesse" items="{path: 'Commesse>/'}" selectedKey="{path: 'JSONModel>/modelloTicket/commessa'}" placeholder="Commesse" selectionChange="handleSelectionChangeCommessa" width="35vw">
+               <FlexBox height="auto" width="35vw" alignItems="Start" justifyContent="Center" direction="Column">
+                  <Label text="Commessa" required="true"/>
+                  <ComboBox id="comboCommesse" items="{path: 'Commesse>/'}" selectedKey="{path: 'JSONModel>/modelloTicket/commessa'}" placeholder="Commesse" selectionChange="handleSelectionChangeCommessa" width="35vw">
                      <core:ListItem text="{Commesse>descrizione}" key="{Commesse>ID}"/>
-                </ComboBox>
+                  </ComboBox>
                </FlexBox>
             </FlexBox>
 
-			   <FlexBox
-            height="auto"
-            width="110vw"
-            alignItems="Center"
-            justifyContent="Start">
-               <FlexBox
-               height="auto"
-               width="50vw"
-               alignItems="Start"
-               justifyContent="Center"
-               direction="Column">
+            <FlexBox height="auto" width="110vw" alignItems="Center" justifyContent="Start">
+               <FlexBox height="auto" width="50vw" alignItems="Start" justifyContent="Center" direction="Column">
                   <Label text="Area Funzionale" required="true"/>
-				      <ComboBox id="comboAreaFunzionale" items="{path: '/AreeFunzionali'}"  selectedKey="{path: 'JSONModel>/modelloTicket/areaFunzionale'}" placeholder="Area Funzionale" selectionChange="handleSelectionChangeAreaFunzionale" width="17vw">
+                  <ComboBox id="comboAreaFunzionale" items="{path: '/AreeFunzionali'}" selectedKey="{path: 'JSONModel>/modelloTicket/areaFunzionale'}" placeholder="Area Funzionale" selectionChange="handleSelectionChangeAreaFunzionale" width="17vw">
                      <core:ListItem text="{areaFunzionale} - {descrizione}" key="{ID}"/>
-                </ComboBox>
+                  </ComboBox>
                </FlexBox>
 
-               <FlexBox
-               height="auto"
-               width="50vw"
-               alignItems="Start"
-               justifyContent="Center"
-               direction="Column">
+               <FlexBox height="auto" width="50vw" alignItems="Start" justifyContent="Center" direction="Column">
                   <Label text="Titolo" required="true"/>
                   <Input value="{JSONModel>/modelloTicket/titolo}" placeholder="Titolo" width="17vw"/>
                </FlexBox>
 
-               <FlexBox
-               height="auto"
-               width="50vw"
-               alignItems="Start"
-               justifyContent="Center"
-               direction="Column">
-                <Label text="Stato" />
-                <ComboBox id="comboStatus" items="{path: '/Status'}"  selectedKey="{path: 'JSONModel>/modelloTicket/status'}" placeholder="Stato" selectionChange="handleSelectionChangeStatus" width="17vw">
+               <FlexBox height="auto" width="50vw" alignItems="Start" justifyContent="Center" direction="Column">
+                  <Label text="Stato" />
+                  <ComboBox id="comboStatus" items="{path: '/Status'}" selectedKey="{path: 'JSONModel>/modelloTicket/status'}" placeholder="Stato" selectionChange="handleSelectionChangeStatus" width="17vw">
                      <core:ListItem text="{status}" key="{ID}"/>
-                </ComboBox>
+                  </ComboBox>
                </FlexBox>
             </FlexBox>
 
-            <FlexBox
-            height="auto"
-            width="90vw"
-            alignItems="Start"
-            justifyContent="Start">
-               <FlexBox
-               height="auto"
-               width="55vw"
-               alignItems="Start"
-               justifyContent="start"
-               direction="Column">
-                <Label text="Testo"/>
-                <Input value="{JSONModel>/modelloTicket/testo}" placeholder="Testo" width="35vw"/>
+            <FlexBox height="auto" width="90vw" alignItems="Start" justifyContent="Start">
+               <FlexBox height="auto" width="55vw" alignItems="Start" justifyContent="start" direction="Column">
+                  <Label text="Testo"/>
+                  <Input value="{JSONModel>/modelloTicket/testo}" placeholder="Testo" width="35vw"/>
                </FlexBox>
 
-               <FlexBox
-               height="auto"
-               width="35vw"
-               alignItems="Start"
-               justifyContent="Center"
-               direction="Column">
-                <Label text="Tipologia" required="true"/>
-                <ComboBox id="comboTipologie" items="{path: 'Tipologia>/'}" selectedKey="{path: 'JSONModel>/modelloTicket/tipologia'}" placeholder="Tipologia" selectionChange="handleSelectionChangeTipologia" width="35vw">
+               <FlexBox height="auto" width="35vw" alignItems="Start" justifyContent="Center" direction="Column">
+                  <Label text="Tipologia" required="true"/>
+                  <ComboBox id="comboTipologie" items="{path: 'Tipologia>/'}" selectedKey="{path: 'JSONModel>/modelloTicket/tipologia'}" placeholder="Tipologia" selectionChange="handleSelectionChangeTipologia" width="35vw">
                      <core:ListItem text="{Tipologia>tipologia}" key="{Tipologia>ID}"/>
-                </ComboBox>
+                  </ComboBox>
                </FlexBox>
             </FlexBox>
 
-         <Toolbar width="90vw" class="toolbarRichiesta">
-				<Title text="Richiesta" level="H3"/>
-			</Toolbar>
+            <Toolbar width="90vw" class="toolbarRichiesta">
+               <Title text="Richiesta" level="H3"/>
+            </Toolbar>
 
-         <FlexBox
-         height="auto"
-         width="110vw"
-         alignItems="Center"
-         justifyContent="Start">
-            <FlexBox
-            height="auto"
-            width="50vw"
-            alignItems="Start"
-            justifyContent="Center"
-            direction="Column">
-               <Label text="Data Consegna Richiesta" required="true"/>
-               <DatePicker
-               id="DP1"
-               value="{
+            <FlexBox height="auto" width="110vw" alignItems="Center" justifyContent="Start">
+               <FlexBox height="auto" width="50vw" alignItems="Start" justifyContent="Center" direction="Column">
+                  <Label text="Data Consegna Richiesta" required="true"/>
+                  <DatePicker id="DP1" value="{
                   'path':'JSONModel>/modelloTicket/dataConsegnaRichiesta',
                   'type':'sap.ui.model.type.Date',
                   'formatOptions': {
                      'pattern': 'dd/MM/yyyy'
                   }
-               }"
-               change="handleChange"
-               width="17vw"/>
+               }" change="handleChange" width="17vw"/>
+               </FlexBox>
+
+               <FlexBox height="auto" width="50vw" alignItems="Start" justifyContent="Center" direction="Column">
+                  <Label text="Giorni Stimati" />
+                  <StepInput value="{JSONModel>/modelloTicket/giorniStima}" step="0.5" displayValuePrecision="3" min="0" placeholder="Giorni Stimati" width="17vw"/>
+               </FlexBox>
+
+               <FlexBox height="auto" width="50vw" alignItems="Start" justifyContent="Start" direction="Column">
+                  <CheckBox text="Bug Fix" selected="{JSONModel>/modelloTicket/flagBugFix}"/>
+               </FlexBox>
             </FlexBox>
 
-            <FlexBox
-            height="auto"
-            width="50vw"
-            alignItems="Start"
-            justifyContent="Center"
-            direction="Column">
-               <Label text="Giorni Stimati" />
-               <StepInput
-               value="{JSONModel>/modelloTicket/giorniStima}"
-               step="0.5"
-               displayValuePrecision="3"
-               min="0"
-               placeholder="Giorni Stimati"
-               width="17vw"/>
+            <FlexBox height="auto" width= "110vw" alignItems="Center" justifyContent="Center">
+               <FlexBox height="auto" width="50vw" alignItems="Start" justifyContent="Center" direction="Column">
+                  <Label text="Assegnato A" />
+                  <Input value="{JSONModel>/modelloTicket/assegnatoA}" placeholder="Assegnato A" width="17vw"/>
+               </FlexBox>
+
+               <FlexBox height="auto" width="50vw" alignItems="Start" justifyContent="Center" direction="Column">
+                  <Label text="Supporto Funzionale" />
+                  <Input value="{JSONModel>/modelloTicket/supportoFunzionale}" placeholder="Supporto Funzionale" width="17vw"/>
+               </FlexBox>
+
+               <FlexBox height="auto" width="50vw" alignItems="Start" justifyContent="Center" direction="Column">
+                  <Label text="Criticita" />
+                  <Input value="{JSONModel>/modelloTicket/criticita}" placeholder="Criticita" width="17vw"/>
+               </FlexBox>
             </FlexBox>
 
-            <FlexBox
-            height="auto"
-            width="50vw"
-            alignItems="Start"
-            justifyContent="Start"
-            direction="Column">
-               <CheckBox text="Bug Fix" selected="{JSONModel>/modelloTicket/flagBugFix}"/>
-            </FlexBox>
-         </FlexBox>
+            <FlexBox height="auto" width="110vw" alignItems="Center" justifyContent="Start">
+               <FlexBox height="auto" width="50vw" alignItems="Start" justifyContent="Center" direction="Column">
+                  <Label text="Giorni previsti dev" />
+                  <StepInput value="{JSONModel>/modelloTicket/giorniStimaDev}" step="0.5" displayValuePrecision="3" min="0" placeholder="Giorni previsti dev" width="17vw"/>
+               </FlexBox>
 
-			<FlexBox
-         height="auto"
-         width= "110vw"
-         alignItems="Center"
-         justifyContent="Center">
-            <FlexBox
-            height="auto"
-            width="50vw"
-            alignItems="Start"
-            justifyContent="Center"
-            direction="Column">
-               <Label text="Assegnato A" />
-               <Input value="{JSONModel>/modelloTicket/assegnatoA}" placeholder="Assegnato A" width="17vw"/>
-            </FlexBox>
+               <FlexBox height="auto" width="50vw" alignItems="Start" justifyContent="Center" direction="Column">
+                  <Label text="Giorni previsti funz" />
+                  <StepInput value="{JSONModel>/modelloTicket/giorniStimaFunz}" step="0.5" displayValuePrecision="3" min="0" placeholder="Giorni previsti funz" width="17vw"/>
+               </FlexBox>
 
-            <FlexBox
-            height="auto"
-            width="50vw"
-            alignItems="Start"
-            justifyContent="Center"
-            direction="Column">
-               <Label text="Supporto Funzionale" />
-               <Input value="{JSONModel>/modelloTicket/supportoFunzionale}" placeholder="Supporto Funzionale" width="17vw"/>
-            </FlexBox>
+               <FlexBox height="auto" width="50vw" alignItems="Start" justifyContent="Start" direction="Column">
+                  <CheckBox text="Cliente Visibile" selected="{JSONModel>/modelloTicket/flagVisibileCliente}"/>
+               </FlexBox>
 
-            <FlexBox
-            height="auto"
-            width="50vw"
-            alignItems="Start"
-            justifyContent="Center"
-            direction="Column">
-               <Label text="Criticita" />
-               <Input value="{JSONModel>/modelloTicket/criticita}" placeholder="Criticita" width="17vw"/>
-            </FlexBox>
-         </FlexBox>
 
-			<FlexBox
-         height="auto"
-         width="110vw"
-         alignItems="Center"
-         justifyContent="Start">
-            <FlexBox
-            height="auto"
-            width="50vw"
-            alignItems="Start"
-            justifyContent="Center"
-            direction="Column">
-               <Label text="Giorni previsti dev" />
-               <StepInput
-               value="{JSONModel>/modelloTicket/giorniStimaDev}"
-               step="0.5"
-               displayValuePrecision="3"
-               min="0"
-               placeholder="Giorni previsti dev"
-               width="17vw"/>
-            </FlexBox>
-
-            <FlexBox
-            height="auto"
-            width="50vw"
-            alignItems="Start"
-            justifyContent="Center"
-            direction="Column">
-               <Label text="Giorni previsti funz" />
-               <StepInput
-               value="{JSONModel>/modelloTicket/giorniStimaFunz}"
-               step="0.5"
-               displayValuePrecision="3"
-               min="0"
-               placeholder="Giorni previsti funz"
-               width="17vw"/>
-            </FlexBox>
-
-            <FlexBox
-            height="auto"
-            width="50vw"
-            alignItems="Start"
-            justifyContent="Start"
-            direction="Column">
-               <CheckBox text="Cliente Visibile" selected="{JSONModel>/modelloTicket/flagVisibileCliente}"/>
-            </FlexBox>
-               
-
-                <!-- <FlexBox
-                height="auto"
-                width="35vw"
-                alignItems="Start"
-                justifyContent="Center"
-                direction="Column">
+               <!-- <FlexBox height="auto" width="35vw" alignItems="Start" justifyContent="Center" direction="Column">
                   <Label text="Data Consegna Schedulata"/>
-                  <DatePicker
-                  id="DP2"
-                  value="{
+                  <DatePicker id="DP2" value="{
                      'path':'JSONModel>/modelloTicket/dataConsegnaSchedulata',
                      'type':'sap.ui.model.type.Date',
                      'formatOptions': {
                         'pattern': 'd/M/yy'
                      }
-                  }"
-                  change="handleChange"
-                  width="35vw"/>
+                  }" change="handleChange" width="35vw"/>
                 </FlexBox> -->
-         </FlexBox>
+            </FlexBox>
 
-         <Toolbar width="90vw" class="toolbarRichiesta">
-				<Title text="Allegati" level="H3"/>
-			</Toolbar>
+            <Toolbar width="90vw" class="toolbarRichiesta">
+               <Title text="Allegati" level="H3"/>
+            </Toolbar>
 
-			<FlexBox
-         height="auto"
-         width= "110vw"
-         alignItems="Start"
-         justifyContent="Start">
-            <FlexBox
-            height="auto"
-            width="50vw"
-            alignItems="Start"
-            justifyContent="Start"
-            direction="Column">
-               <Label text="Allegato" />
-               <u:FileUploader
-               id="fileUploader"
-               name="myFileUpload"
-               uploadUrl="upload/"
-               tooltip="Upload your file to the local server"
-               uploadComplete="handleUploadComplete"/>               
-               <!-- <Input value="{JSONModel>/modelloTicket/allegato}" placeholder="Allegato" width="17vw"/> -->
+            <FlexBox height="auto" width= "110vw" alignItems="Start" justifyContent="Start">
+               <FlexBox height="auto" width="50vw" alignItems="Start" justifyContent="Start" direction="Column">
+                  <Label text="Allegato" />
+                  <u:FileUploader id="fileUploader" name="myFileUpload" uploadUrl="upload/" tooltip="Upload your file to the local server" uploadComplete="handleUploadComplete"/>
+                  <!-- <Input value="{JSONModel>/modelloTicket/allegato}" placeholder="Allegato" width="17vw"/> -->
+               </FlexBox>
+            </FlexBox>
+
+            <FlexBox height="10Vh" width="90vw" alignItems="Center" justifyContent="End">
+               <Button text="Salva" press=".onSave" icon="sap-icon://save" class="sapUiSmallMargin" />
+
+               <Button text="Annulla" press=".onNavToTicketsTable" icon="sap-icon://undo" class="sapUiSmallMargin" />
             </FlexBox>
          </FlexBox>
-
-			<FlexBox
-			height="10Vh"
-			width="90vw"
-			alignItems="Center"
-			justifyContent="End">
-				<Button 
-				text="Salva"
-				press=".onSave"
-				icon="sap-icon://save" 
-				class="sapUiSmallMargin" />
-
-				<Button 
-				text="Annulla" 
-				press=".onNavToTicketsTable"
-				icon="sap-icon://undo"
-				class="sapUiSmallMargin" />
-			</FlexBox>
-		 </FlexBox>
-	</VBox>
-</Page>
+      </VBox>
+   </Page>
 </mvc:View>

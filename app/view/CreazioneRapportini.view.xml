@@ -1,465 +1,202 @@
-<mvc:View
-	xmlns="sap.m"
-	xmlns:l="sap.ui.layout"
-	xmlns:f="sap.ui.layout.form"
-	xmlns:core="sap.ui.core"
-   xmlns:mvc="sap.ui.core.mvc"
-   controllerName="rapportini.controller.CreazioneRapportini">
+<mvc:View xmlns="sap.m"
+   xmlns:l="sap.ui.layout"
+   xmlns:f="sap.ui.layout.form"
+   xmlns:core="sap.ui.core"
+   xmlns:mvc="sap.ui.core.mvc" controllerName="rapportini.controller.CreazioneRapportini">
 
-<Page id="createPage" title="Creazione Rapportino">
-	<VBox  
-         height="auto"
-         width="100%"
-         alignItems="Center"
-         justifyContent="Center"
-         class="sapUiResponsiveMargin">
-		<FlexBox
-         height="auto"
-         width="100%"
-         alignItems="start"
-         justifyContent="Center"
-         direction="Column"
-         class="creazioneRapportiniFlex">
-            <FlexBox
-            height="auto"
-            width="90vw"
-            alignItems="start"
-            justifyContent="start">
-               <FlexBox
-               height="auto"
-               width="35vw"
-               alignItems="Start"
-               justifyContent="start"
-               direction="Column">
-               <Label text="Utente" required="true"/>
-                <Input value="{JSONModel>/modelloRapportino/utente}" id="utente" placeholder="Username" width="90vw"/>
+   <Page id="createPage" title="Creazione Rapportino">
+      <VBox height="auto" width="100%" alignItems="Center" justifyContent="Center" class="sapUiResponsiveMargin">
+         <FlexBox height="auto" width="100%" alignItems="start" justifyContent="Center" direction="Column" class="creazioneRapportiniFlex">
+            <FlexBox height="auto" width="90vw" alignItems="start" justifyContent="start">
+               <FlexBox height="auto" width="35vw" alignItems="Start" justifyContent="start" direction="Column">
+                  <Label text="Utente" required="true"/>
+                  <Input value="{JSONModel>/modelloRapportino/utente}" id="utente" placeholder="Username" width="90vw"/>
                </FlexBox>
             </FlexBox>
 
 
-            <FlexBox
-            height="auto"
-            width="110vw"
-            alignItems="Center"
-            justifyContent="Center">
-               <FlexBox
-               height="auto"
-               width="50vw"
-               alignItems="Start"
-               justifyContent="Center"
-               direction="Column">
+            <FlexBox height="auto" width="110vw" alignItems="Center" justifyContent="Center">
+               <FlexBox height="auto" width="50vw" alignItems="Start" justifyContent="Center" direction="Column">
                   <Label text="Data e ora" labelFor="inputText4" />
-                  <DatePicker
-                           id="DTP5"
-                           placeholder="Inserisci Data"
-                           change="handleChange"
-                           value= "{
+                  <DatePicker id="DTP5" placeholder="Inserisci Data" change="handleChange" value= "{
                               'path': 'JSONModel>/modelloRapportino/giorno',
                               'type': 'sap.ui.model.type.Date',
                               'formatOptions': {
                                  'pattern': 'dd/MM/yyyy'
                               }
-                           }"
-                           />
+                           }" />
                </FlexBox>
 
-               <FlexBox
-               height="auto"
-               width="50vw"
-               alignItems="Start"
-               justifyContent="Center"
-               direction="Column">
+               <FlexBox height="auto" width="50vw" alignItems="Start" justifyContent="Center" direction="Column">
                   <Label text="Ore lavorate" required="true"/>
-                  <StepInput
-                           value="{JSONModel>/modelloRapportino/ore}"
-                           displayValuePrecision="2"
-                           min="0.5"
-                           max="15"
-                           width="15rem"
-                           step="0.5"/>
+                  <StepInput value="{JSONModel>/modelloRapportino/ore}" displayValuePrecision="2" min="0.5" max="15" width="15rem" step="0.5"/>
                </FlexBox>
 
-               <FlexBox
-               height="auto"
-               width="50vw"
-               alignItems="Start"
-               justifyContent="Start"
-               direction="Row">
-                  <CheckBox text="Orario notturno"
-                        selected="{JSONModel>/modelloRapportino/orarioNotturno}"/>
+               <FlexBox height="auto" width="50vw" alignItems="Start" justifyContent="Start" direction="Row">
+                  <CheckBox text="Orario notturno" selected="{JSONModel>/modelloRapportino/orarioNotturno}"/>
                </FlexBox>
             </FlexBox>
 
-            <FlexBox
-            height="auto"
-            width="100vw"
-            alignItems="start"
-            justifyContent="start">
-               <FlexBox
-               height="auto"
-               width="55vw"
-               alignItems="Start"
-               justifyContent="Center"
-               direction="Column">
+            <FlexBox height="auto" width="100vw" alignItems="start" justifyContent="start">
+               <FlexBox height="auto" width="55vw" alignItems="Start" justifyContent="Center" direction="Column">
                   <Label text="Ticket" required="true" />
-                  <ComboBox items="{path: '/Tickets'}" selectedKey="{path: 'JSONModel>/modelloRapportino/ticket'}"  selectionChange="handleSelectionChangeTicket" required="true" width="35vw">
-                              <core:ListItem text="{titolo}" key="{ID}"/>
-                        </ComboBox>
+                  <ComboBox items="{path: '/Tickets'}" selectedKey="{path: 'JSONModel>/modelloRapportino/ticket'}" selectionChange="handleSelectionChangeTicket" required="true" width="35vw">
+                     <core:ListItem text="{titolo}" key="{ID}"/>
+                  </ComboBox>
                </FlexBox>
-               <FlexBox
-               height="auto"
-               width="35vw"
-               alignItems="Start"
-               justifyContent="Center"
-               direction="Column">
+               <FlexBox height="auto" width="35vw" alignItems="Start" justifyContent="Center" direction="Column">
                   <Label text="Cliente" />
-                  <ComboBox id="comboClienti" items="{path: '/Clienti'}"  selectedKey="{path: 'JSONModel>/modelloRapportino/cliente'}" placeholder="Cliente" enabled="false" width="35vw">
+                  <ComboBox id="comboClienti" items="{path: '/Clienti'}" selectedKey="{path: 'JSONModel>/modelloRapportino/cliente'}" placeholder="Cliente" enabled="false" width="35vw">
                      <core:ListItem text="{descrizione}" key="{ID}"/>
-                </ComboBox>
-               </FlexBox>
-            </FlexBox>
-
-
-            <FlexBox
-            height="auto"
-            width="90vw"
-            alignItems="Start"
-            justifyContent="Start">
-               <FlexBox
-               height="auto"
-               width="35vw"
-               alignItems="Start"
-               justifyContent="Start"
-               direction="Column">
-                  <Label text="Commessa" />
-                  <ComboBox id="comboCommesse" items="{path: '/Commesse'}" selectedKey="{path: 'JSONModel>/modelloRapportino/commessa'}" placeholder="Commesse" enabled="false" width="35vw">
-                     <core:ListItem text="{descrizione}" key="{ID}"/>
-                </ComboBox>
-               </FlexBox>
-            </FlexBox>
-
-
-            <FlexBox
-            height="auto"
-            width="90vw"
-            alignItems="Start"
-            justifyContent="Start">
-               <FlexBox
-               height="auto"
-               width="35vw"
-               alignItems="Start"
-               justifyContent="Start"
-               direction="Column">
-                  <Label text="Descrizione" required="true" />
-                  <Input value="{JSONModel>/modelloRapportino/descrizione}"  placeholder="Scrivi una descrizione del lavoro svolto" width="90vw"/>
-               </FlexBox>
-            </FlexBox>
-
-            
-            <FlexBox
-            height="auto"
-            width="90vw"
-            alignItems="start"
-            justifyContent="start">
-               <FlexBox
-               height="auto"
-               width="55vw"
-               alignItems="Start"
-               justifyContent="Center"
-               direction="Column">
-                  <Label text="Sede" />
-                  <ComboBox value="{JSONModel>/modelloRapportino/sede}" placeholder="Sede" width="35vw">
-                           <items>
-                              <core:Item text="Ufficio" key="Ufficio"/>
-                              <core:Item text="Cliente" key="Cliente"/>
-                              <core:Item text="SmarthWork" key="SmarthWorking"/>
-                           </items>
-                   </ComboBox>
-               </FlexBox>
-               <FlexBox
-               height="auto"
-               width="35vw"
-               alignItems="Start"
-               justifyContent="Center"
-               direction="Column">
-                  <Label text="Destinazione"  />
-                  <ComboBox value="{JSONModel>/modelloRapportino/destinazione}" placeholder="Destinazione" width="35vw" >
-                           <items>
-                              <core:Item text="Nessuna" key="N-A"/>
-                              <core:Item text="Mosca" key="Mosca"/>
-                              <core:Item text="Castelletto di Leno" key="Castelletto di Leno"/>
-                              <core:Item text="Borghetto di Sangiacomo" key="Borghetto di Sangiacomo"/>
-                           </items>
                   </ComboBox>
                </FlexBox>
             </FlexBox>
 
 
-            <FlexBox
-            height="auto"
-            width= "110vw"
-            alignItems="Center"
-            justifyContent="Center">
-               <FlexBox
-               height="auto"
-               width="50vw"
-               alignItems="Start"
-               justifyContent="Center"
-               direction="Column">
+            <FlexBox height="auto" width="90vw" alignItems="Start" justifyContent="Start">
+               <FlexBox height="auto" width="35vw" alignItems="Start" justifyContent="Start" direction="Column">
+                  <Label text="Commessa" />
+                  <ComboBox id="comboCommesse" items="{path: '/Commesse'}" selectedKey="{path: 'JSONModel>/modelloRapportino/commessa'}" placeholder="Commesse" enabled="false" width="35vw">
+                     <core:ListItem text="{descrizione}" key="{ID}"/>
+                  </ComboBox>
+               </FlexBox>
+            </FlexBox>
+
+
+            <FlexBox height="auto" width="90vw" alignItems="Start" justifyContent="Start">
+               <FlexBox height="auto" width="35vw" alignItems="Start" justifyContent="Start" direction="Column">
+                  <Label text="Descrizione" required="true" />
+                  <Input value="{JSONModel>/modelloRapportino/descrizione}" placeholder="Scrivi una descrizione del lavoro svolto" width="90vw"/>
+               </FlexBox>
+            </FlexBox>
+
+
+            <FlexBox height="auto" width="90vw" alignItems="start" justifyContent="start">
+               <FlexBox height="auto" width="55vw" alignItems="Start" justifyContent="Center" direction="Column">
+                  <Label text="Sede" />
+                  <ComboBox value="{JSONModel>/modelloRapportino/sede}" placeholder="Sede" width="35vw">
+                     <items>
+                        <core:Item text="Ufficio" key="Ufficio"/>
+                        <core:Item text="Cliente" key="Cliente"/>
+                        <core:Item text="SmarthWork" key="SmarthWorking"/>
+                     </items>
+                  </ComboBox>
+               </FlexBox>
+               <FlexBox height="auto" width="35vw" alignItems="Start" justifyContent="Center" direction="Column">
+                  <Label text="Destinazione" />
+                  <ComboBox value="{JSONModel>/modelloRapportino/destinazione}" placeholder="Destinazione" width="35vw">
+                     <items>
+                        <core:Item text="Nessuna" key="N-A"/>
+                        <core:Item text="Mosca" key="Mosca"/>
+                        <core:Item text="Castelletto di Leno" key="Castelletto di Leno"/>
+                        <core:Item text="Borghetto di Sangiacomo" key="Borghetto di Sangiacomo"/>
+                     </items>
+                  </ComboBox>
+               </FlexBox>
+            </FlexBox>
+
+
+            <FlexBox height="auto" width= "110vw" alignItems="Center" justifyContent="Center">
+               <FlexBox height="auto" width="50vw" alignItems="Start" justifyContent="Center" direction="Column">
                   <Label text="Km" />
-                 <StepInput
-                           value="{JSONModel>/modelloRapportino/km}"
-                           step="1"
-                           displayValuePrecision="0"
-                           min="0"
-                           placeholder="Km"
-                           />
+                  <StepInput value="{JSONModel>/modelloRapportino/km}" step="1" displayValuePrecision="0" min="0" placeholder="Km" />
                </FlexBox>
 
-               <FlexBox
-               height="auto"
-               width="50vw"
-               alignItems="Start"
-               justifyContent="Center"
-               direction="Column">
+               <FlexBox height="auto" width="50vw" alignItems="Start" justifyContent="Center" direction="Column">
                   <Label text="Km/Euro" />
-                 <StepInput
-                           value="{JSONModel>/modelloRapportino/kmEuro}"
-                           step="0.5"
-                           displayValuePrecision="2"
-                           min="0"
-                           placeholder="Km"
-                           />
+                  <StepInput value="{JSONModel>/modelloRapportino/kmEuro}" step="0.5" displayValuePrecision="2" min="0" placeholder="Km/Euro" />
                </FlexBox>
 
-               <FlexBox
-               height="auto"
-               width="50vw"
-               alignItems="Start"
-               justifyContent="Center"
-               direction="Column">
-                  <Label text="Pedaggio"  />
-                 <StepInput
-                           value="{JSONModel>/modelloRapportino/pedaggio}"
-                           step="0.5"
-                           displayValuePrecision="2"
-                           min="0"
-                           placeholder="Km"
-                           />
+               <FlexBox height="auto" width="50vw" alignItems="Start" justifyContent="Center" direction="Column">
+                  <Label text="Pedaggio" />
+                  <StepInput value="{JSONModel>/modelloRapportino/pedaggio}" step="0.5" displayValuePrecision="2" min="0" placeholder="Pedaggio" />
                </FlexBox>
             </FlexBox>
 
 
-            <FlexBox
-            height="auto"
-            width= "110vw"
-            alignItems="Start"
-            justifyContent="Center">  
-               <FlexBox
-               height="auto"
-               width="50vw"
-               alignItems="Start"
-               justifyContent="Center"
-               direction="Column">
+            <FlexBox height="auto" width= "110vw" alignItems="Start" justifyContent="Center">
+               <FlexBox height="auto" width="50vw" alignItems="Start" justifyContent="Center" direction="Column">
                   <Label text="Noleggio" />
-                 <StepInput
-                           value="{JSONModel>/modelloRapportino/noleggio}"
-                           step="0.5"
-                           displayValuePrecision="2"
-                           min="0"
-                           placeholder="Km"
-                           />
+                  <StepInput value="{JSONModel>/modelloRapportino/noleggio}" step="0.5" displayValuePrecision="2" min="0" placeholder="Noleggio" />
                </FlexBox>
 
-               <FlexBox
-               height="auto"
-               width="50vw"
-               alignItems="Start"
-               justifyContent="Center"
-               direction="Column">
+               <FlexBox height="auto" width="50vw" alignItems="Start" justifyContent="Center" direction="Column">
                   <Label text="Trasporti" />
-                 <StepInput
-                           value="{JSONModel>/modelloRapportino/trasporti}"
-                           step="0.5"
-                           displayValuePrecision="2"
-                           min="0"
-                           placeholder="Km"
-                           />
+                  <StepInput value="{JSONModel>/modelloRapportino/trasporti}" step="0.5" displayValuePrecision="2" min="0" placeholder="Trasporti" />
                </FlexBox>
 
-               <FlexBox
-               height="auto"
-               width="50vw"
-               alignItems="Start"
-               justifyContent="Center"
-               direction="Column">
-                  <Label text="Alloggio"  />
-                 <StepInput
-                           value="{JSONModel>/modelloRapportino/alloggio}"
-                           step="0.5"
-                           displayValuePrecision="2"
-                           min="0"
-                           placeholder="Km"
-                           />
+               <FlexBox height="auto" width="50vw" alignItems="Start" justifyContent="Center" direction="Column">
+                  <Label text="Alloggio" />
+                  <StepInput value="{JSONModel>/modelloRapportino/alloggio}" step="0.5" displayValuePrecision="2" min="0" placeholder="Alloggio" />
                </FlexBox>
             </FlexBox>
-            
 
-            <FlexBox
-            height="auto"
-            width="110vw"
-            alignItems="Center"
-            justifyContent="Center">
-               <FlexBox
-               height="auto"
-               width="50vw"
-               alignItems="Start"
-               justifyContent="Center"
-               direction="Column">
+
+            <FlexBox height="auto" width="110vw" alignItems="Center" justifyContent="Center">
+               <FlexBox height="auto" width="50vw" alignItems="Start" justifyContent="Center" direction="Column">
                   <Label text="forfait" />
-                 <StepInput
-                           value="{JSONModel>/modelloRapportino/forfait}"
-                           step="0.5"
-                           displayValuePrecision="2"
-                           min="0"
-                           placeholder="Km"
-                           />
+                  <StepInput value="{JSONModel>/modelloRapportino/forfait}" step="0.5" displayValuePrecision="2" min="0" placeholder="forfait" />
                </FlexBox>
 
-               <FlexBox
-               height="auto"
-               width="50vw"
-               alignItems="Start"
-               justifyContent="Center"
-               direction="Column">
+               <FlexBox height="auto" width="50vw" alignItems="Start" justifyContent="Center" direction="Column">
                   <Label text="Vitto" />
-                 <StepInput
-                           value="{JSONModel>/modelloRapportino/vitto}"
-                           step="0.5"
-                           displayValuePrecision="2"
-                           min="0"
-                           placeholder="Km"
-                           />
+                  <StepInput value="{JSONModel>/modelloRapportino/vitto}" step="0.5" displayValuePrecision="2" min="0" placeholder="Vitto" />
                </FlexBox>
 
-               <FlexBox
-               height="auto"
-               width="50vw"
-               alignItems="Start"
-               justifyContent="Center"
-               direction="Column">
-                  <Label text="Varie"  />
-                 <StepInput
-                           value="{JSONModel>/modelloRapportino/varie}"
-                           step="0.5"
-                           displayValuePrecision="2"
-                           min="0"
-                           placeholder="Km"
-                           />
+               <FlexBox height="auto" width="50vw" alignItems="Start" justifyContent="Center" direction="Column">
+                  <Label text="Varie" />
+                  <StepInput value="{JSONModel>/modelloRapportino/varie}" step="0.5" displayValuePrecision="2" min="0" placeholder="Varie" />
                </FlexBox>
             </FlexBox>
 
 
-            <FlexBox
-            height="auto"
-            width= "110vw"
-            alignItems="Start"
-            justifyContent="Center">
-               <FlexBox
-               height="auto"
-               width="50vw"
-               alignItems="Start"
-               justifyContent="Center"
-               direction="Column">
+            <FlexBox height="auto" width= "110vw" alignItems="Start" justifyContent="Center">
+               <FlexBox height="auto" width="50vw" alignItems="Start" justifyContent="Center" direction="Column">
                   <Label text="Riservato" />
-                 <StepInput
-                           value="{JSONModel>/modelloRapportino/riservato}"
-                           step="0.5"
-                           displayValuePrecision="2"
-                           min="0"
-                           placeholder="Km"
-                           />
+                  <StepInput value="{JSONModel>/modelloRapportino/riservato}" step="0.5" displayValuePrecision="2" min="0" placeholder="Riservato" />
                </FlexBox>
 
-               <FlexBox
-               height="auto"
-               width="50vw"
-               alignItems="Start"
-               justifyContent="Center"
-               direction="Column">
-                  <CheckBox text="Plus"
-                        selected="{JSONModel>/modelloRapportino/plus}"/>
-                
+               <FlexBox height="auto" width="50vw" alignItems="Start" justifyContent="Center" direction="Column">
+                  <CheckBox text="Plus" selected="{JSONModel>/modelloRapportino/plus}"/>
+
                </FlexBox>
 
-               <FlexBox
-               height="auto"
-               width="50vw"
-               alignItems="Start"
-               justifyContent="Center"
-               direction="Column">
-                 <CheckBox text="Fatturabile"
-                        selected="{JSONModel>/modelloRapportino/fatturabile}"/>
-               
+               <FlexBox height="auto" width="50vw" alignItems="Start" justifyContent="Center" direction="Column">
+                  <CheckBox text="Fatturabile" selected="{JSONModel>/modelloRapportino/fatturabile}"/>
+
                </FlexBox>
             </FlexBox>
-            <FlexBox
-            height="auto"
-            width="90vw"
-            alignItems="start"
-            justifyContent="start">
-               <FlexBox
-               height="auto"
-               width="55vw"
-               alignItems="Start"
-               justifyContent="Center"
-               direction="Column">
+            <FlexBox height="auto" width="90vw" alignItems="start" justifyContent="start">
+               <FlexBox height="auto" width="55vw" alignItems="Start" justifyContent="Center" direction="Column">
                   <Label text="Docente" />
                   <ComboBox value="{JSONModel>/modelloRapportino/docente}" placeholder="Docente" width="35vw">
-                           <items>
-                              <core:Item text="" key=""/>
-                              <core:Item text="Mario Mario" key="Mario Mario"/>
-                              <core:Item text="Luigi Mario" key="Luigi Mario"/>
-                              <core:Item text="Stefano Mario" key="Stefano Mario"/>
-                           </items>
-                        </ComboBox>
+                     <items>
+                        <core:Item text="" key=""/>
+                        <core:Item text="Mario Mario" key="Mario Mario"/>
+                        <core:Item text="Luigi Mario" key="Luigi Mario"/>
+                        <core:Item text="Stefano Mario" key="Stefano Mario"/>
+                     </items>
+                  </ComboBox>
                </FlexBox>
-               <FlexBox
-               height="auto"
-               width="35vw"
-               alignItems="Start"
-               justifyContent="Center"
-               direction="Column">
-                  <Label text="Corso"  />
-                  <ComboBox value="{JSONModel>/modelloRapportino/corso}"  placeholder="Corso" width="35vw">
-                           <items>
-                                 <core:Item text="" key=""/>
-                              <core:Item text="idraulica base" key="idraulica base"/>
-                              <core:Item text="Analisi 1" key="Analisi 1"/>
-                              <core:Item text="Corso aggiornamento" key="Corso aggiornamento"/>
-                           </items>
-                        </ComboBox>
+               <FlexBox height="auto" width="35vw" alignItems="Start" justifyContent="Center" direction="Column">
+                  <Label text="Corso" />
+                  <ComboBox value="{JSONModel>/modelloRapportino/corso}" placeholder="Corso" width="35vw">
+                     <items>
+                        <core:Item text="" key=""/>
+                        <core:Item text="idraulica base" key="idraulica base"/>
+                        <core:Item text="Analisi 1" key="Analisi 1"/>
+                        <core:Item text="Corso aggiornamento" key="Corso aggiornamento"/>
+                     </items>
+                  </ComboBox>
                </FlexBox>
             </FlexBox>
-               <FlexBox
-               height="10Vh"
-               width="90vw"
-               alignItems="Center"
-               justifyContent="End">
-                  <Button 
-                  text="Salva"
-                  press=".onSave"
-                  icon="sap-icon://save" 
-                  class="sapUiSmallMargin" />
+            <FlexBox height="10Vh" width="90vw" alignItems="Center" justifyContent="End">
+               <Button text="Salva" press=".onSave" icon="sap-icon://save" class="sapUiSmallMargin" />
 
-                  <Button 
-                  text="Annulla" 
-                  press=".onNavToTable"
-                  icon="sap-icon://undo"
-                  class="sapUiSmallMargin" />
+               <Button text="Annulla" press=".onNavToTable" icon="sap-icon://undo" class="sapUiSmallMargin" />
 
-               </FlexBox>
             </FlexBox>
-	</VBox>
-</Page>
+         </FlexBox>
+      </VBox>
+   </Page>
 </mvc:View>

@@ -1,0 +1,139 @@
+<mvc:View controllerName="rapportini.controller.CestinoRapportini"
+   xmlns="sap.m"
+   xmlns:mvc="sap.ui.core.mvc"
+   xmlns:l="sap.ui.layout"
+   xmlns:fiori="sap.ui.webc.fiori"
+   xmlns:tnt="sap.tnt"
+   xmlns:t="sap.ui.table"
+   xmlns:f="sap.f"
+   xmlns:fb="sap.ui.comp.filterbar"
+   xmlns:svm="sap.ui.comp.smartvariants"
+   xmlns:core="sap.ui.core" height="100%">
+
+   <tnt:ToolPage id="tablePage" class="toolPage" height="auto">
+      <tnt:header>
+         <tnt:ToolHeader height="4rem" class="toolheader">
+            <Image src="/img/{globalData>/logoImagePath}" width="auto" height="2.5rem" class="sapUiSmallMarginBegin"/>
+            <ToolbarSpacer>
+               <layoutData>
+                  <OverflowToolbarLayoutData priority="NeverOverflow" minWidth="20px" />
+               </layoutData>
+            </ToolbarSpacer>
+            <tnt:ToolHeaderUtilitySeparator />
+            <Button icon="sap-icon://{globalData>/themeIcon}" tooltip="Tema chiaro" press=".onSwitchTheme"/>
+            <Button icon="sap-icon://bell" tooltip="Notifiche" />
+            <Avatar src="/img/shash.jpeg" displaySize="XS" showBorder="true" press="onPress"/>
+            <Label text="Logout" class="logoutLabel" id="logoutLabel"/>
+         </tnt:ToolHeader>
+      </tnt:header>
+      <tnt:sideContent>
+         <tnt:SideNavigation id="sideNavigation" selectedKey="subItem3">
+            <tnt:NavigationList>
+               <tnt:NavigationListItem text="Rapportini" icon="sap-icon://activity-items" href='#'>
+                  <tnt:NavigationListItem text="Lista Rapportini" href='#'/>
+                  <tnt:NavigationListItem text="Cestino Rapportini" href='#/cestinoRapportini'/>
+               </tnt:NavigationListItem>
+               <tnt:NavigationListItem text="Tickets" icon="sap-icon://sap-box" href='#/tickets'>
+                  <tnt:NavigationListItem text="Lista Tickets" href='#/tickets'/>
+                  <tnt:NavigationListItem text="Cestino Tickets" href='#/cestinoTickets'/>
+               </tnt:NavigationListItem>
+               <tnt:NavigationListItem text="Anagrafiche" icon="sap-icon://business-card">
+                  <tnt:NavigationListItem text="Sub Item 1" />
+                  <tnt:NavigationListItem text="Sub Item 2" />
+                  <tnt:NavigationListItem text="Sub Item 3" />
+                  <tnt:NavigationListItem text="Sub Item 4" />
+               </tnt:NavigationListItem>
+            </tnt:NavigationList>
+            <tnt:fixedItem>
+               <tnt:NavigationList>
+                  <tnt:NavigationListItem text="Coordinatori" icon="sap-icon://group" />
+                  <tnt:NavigationListItem text="Team Leader" icon="sap-icon://manager" />
+                  <tnt:NavigationListItem text="Amministazione" icon="sap-icon://primary-key" />
+               </tnt:NavigationList>
+            </tnt:fixedItem>
+         </tnt:SideNavigation>
+      </tnt:sideContent>
+      <tnt:mainContents>
+         <FlexBox height="auto" width="100%" direction="Column">
+            <Breadcrumbs class="sapUiSmallMarginTopBottom sapUiTinyMarginBegin" currentLocationText="Cestino Rapportini" separatorStyle="GreaterThan">
+               <Link press="onPress" text="Home"/>
+               <Link press="onPress" text="Rapportini"/>
+            </Breadcrumbs>
+
+            <FlexBox height="auto" width="100%" direction="Row" class="sapUiSmallMarginTopBottom sapUiTinyMarginBegin">
+               <Button text="Ripristina tutto" press=".onRestoreAll" icon="sap-icon://refresh" class="sapUiTinyMarginEnd"/>
+               <Button text="Elimina tutto" press=".onDeleteAll" icon="sap-icon://delete" class="sapUiTinyMarginBegin" />
+            </FlexBox>
+
+            <!-- <ScrollContainer height="auto" width="100%" horizontal="true" vertical="true" class="sapUiSmallMarginTop sapUiTinyMarginBegin"> -->
+            <t:Table columnResize="onColumnResize" rows="{path: '/RapportiniCestinati', events: { change: '.onBindingChange' }}" selectionMode="None" width="100%" height="auto" alternateRowColors="true" id="tabella" fixedColumnCount="2" class="sapUiTinyMarginBegin sapUiLargeMarginBottom">
+               <t:columns>
+                  <t:Column id="toolColumn">
+                     <t:template>
+                        <l:HorizontalLayout>
+                           <Button icon="sap-icon://refresh" press="onRestoreRapportino(${ID})" class="sapUiTinyMarginEnd" tooltip="Ripristina"/>
+                           <Button icon="sap-icon://delete" press="onDeleteRapportino(${ID})" class="sapUiTinyMarginEnd" tooltip="Elimina definitivamente"/>
+                        </l:HorizontalLayout>
+                     </t:template>
+                  </t:Column>
+                  <t:Column >
+                     <Text text="Utente"/>
+                     <t:template>
+                        <Text text="{= ${utente} === ${globalData>/myUsername} ? ${globalData>/usernameSuffix} : ${utente}}"/>
+                     </t:template>
+                  </t:Column>
+                  <t:Column >
+                     <Text text="Giorno" />
+                     <t:template>
+                        <Text text="{giorno}" />
+                     </t:template>
+                  </t:Column>
+                  <t:Column >
+                     <Text text="Ore" />
+                     <t:template>
+                        <Text text="{ore}" />
+                     </t:template>
+                  </t:Column>
+                  <t:Column>
+                     <Text text="Ticket" />
+                     <t:template>
+                        <Text text="Ticket esempio" />
+                     </t:template>
+                  </t:Column>
+                  <t:Column >
+                     <Text text="Cliente" />
+                     <t:template>
+                        <Text text="Cosa nostra" />
+                     </t:template>
+                  </t:Column>
+                  <t:Column >
+                     <Text text="Commessa" />
+                     <t:template>
+                        <Text text="Trabajo serio en pincanello" />
+                     </t:template>
+                  </t:Column>
+                  <t:Column >
+                     <Text text="Sede" />
+                     <t:template>
+                        <Text text="{sede}" />
+                     </t:template>
+                  </t:Column>
+                  <t:Column >
+                     <Text text="Descrizione" />
+                     <t:template>
+                        <Text text="{descrizione}" />
+                     </t:template>
+                  </t:Column>
+                  <t:Column>
+                     <Text text="Spese totali" />
+                     <t:template>
+                        <Text text="{km}" />
+                     </t:template>
+                  </t:Column>
+               </t:columns>
+            </t:Table>
+            <!-- </ScrollContainer> -->
+         </FlexBox>
+      </tnt:mainContents>
+   </tnt:ToolPage>
+</mvc:View>

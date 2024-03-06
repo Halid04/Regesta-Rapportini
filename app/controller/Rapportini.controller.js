@@ -5,7 +5,7 @@ sap.ui.define(
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
     "sap/ui/comp/smartvariants/PersonalizableInfo",
-    "sap/ui/model/Sorter"
+    "sap/ui/model/Sorter",
   ],
 
   function (
@@ -30,7 +30,7 @@ sap.ui.define(
         const model = this.getOwnerComponent().getModel();
         const contextRapportini = await model
           .bindList("/Rapportini", undefined, undefined, undefined, {
-            $expand: "IDCliente,IDCommessa,IDClienteSede,IDTicket"
+            $expand: "IDCliente,IDCommessa,IDClienteSede,IDTicket",
           })
           .requestContexts();
         const parametersRapportini = [
@@ -109,7 +109,7 @@ sap.ui.define(
         if (
           rapportini[index].utente === globalData.getProperty("/myUsername") &&
           rapportini[index].giorno.slice(0, 10) ===
-          globalData.getProperty("/today")
+            globalData.getProperty("/today")
         ) {
           globalData.setProperty(
             "/monteore",
@@ -167,7 +167,7 @@ sap.ui.define(
         );
       },
 
-      onDeleteAll: async function () {
+      onDeleteSelectedRapportino: async function () {
         var oTable = this.getView().byId("tabella");
         var indeces = oTable.getSelectedIndices();
 
@@ -185,6 +185,18 @@ sap.ui.define(
         oModel.submitBatch("myAppUpdateGroup");
 
         MessageToast.show("Elementi spostati nel cestino");
+      },
+      onBindingChange: function (oEvent) {
+        this.getView()
+          .byId("tabella")
+          .setVisibleRowCount(oEvent.getSource().getLength());
+      },
+      onColumnResize: function (oEvent) {
+        var oColumn = oEvent.getParameter("column");
+
+        if (this.byId("toolColumn") == oColumn) {
+          oEvent.preventDefault();
+        }
       },
     });
   }

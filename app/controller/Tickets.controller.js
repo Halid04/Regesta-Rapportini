@@ -9,7 +9,7 @@ sap.ui.define(
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
     "sap/ui/comp/smartvariants/PersonalizableInfo",
-    "sap/ui/model/Sorter"
+    "sap/ui/model/Sorter",
   ],
   function (
     TabelleController,
@@ -139,7 +139,7 @@ sap.ui.define(
         console.log("id", elementID);
         MessageToast.show("Elemento spostato nel cestino");
       },
-      onDeleteAllTicket: async function () {
+      onDeleteSelectedTicket: async function () {
         var oTable = this.getView().byId("tabella");
         var indeces = oTable.getSelectedIndices();
 
@@ -157,6 +157,18 @@ sap.ui.define(
         oModel.submitBatch("myAppUpdateGroup");
 
         MessageToast.show("Elementi spostati nel cestino");
+      },
+      onBindingChange: function (oEvent) {
+        this.getView()
+          .byId("tabella")
+          .setVisibleRowCount(oEvent.getSource().getLength());
+      },
+      onColumnResize: function (oEvent) {
+        var oColumn = oEvent.getParameter("column");
+
+        if (this.byId("toolColumn") == oColumn) {
+          oEvent.preventDefault();
+        }
       },
     });
   }

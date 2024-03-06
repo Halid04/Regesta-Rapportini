@@ -1,25 +1,25 @@
 ID,areaFunzionale,descrizione
-1,APO,Controlling
-2,BASIS,Finance
-3,BI,Production - SCM
-4,CO,Material Management
-5,CRM,Sales distribution
-7,CROSS,MES
-8,CS,EDI
-9,EDI,Ricerca e sviluppo
-10,FI,Plant maintenance
-11,HR,Quality management
-12,MES,ArchiveLink e gestione documentale Arxivar
-13,MKT,Sistemistiche - BC
-14,MM,Business Intelligence
-15,ORC,Customer service
-16,PM,Warehouse Management
-17,PP,Gestione Personale
-19,PS,Applicativi Web
-20,QM,Orchestratore
-21,R&D,Advanced Planning and Optimization
-22,SD,Sap Basis
+1,APO,Advanced Planning and Optimization
+2,BASIS,Sap Basis
+3,BI,Business Intelligence
+4,CO,Controlling
+5,CRM,CRM
+7,CROSS,Attività cross modulo
+8,CS,CS
+9,EDI,EDI
+10,FI,Finance
+11,HR,HR
+12,MES,MES
+13,MKT,MKT
+14,MM,Material Management
+15,ORC,Orchestratore
+16,PM,Plant maintenance
+17,PP,PP
+19,PS,Project System
+20,QM,QM
+21,R&D,R&D
+22,SD,Sales distribution
 24,SUCFACT,Success Factor
-25,SYS,CRM
-26,WEB,Attività cross modulo
-27,WM,Project System
+25,SYS,SYS
+26,WEB,Applicativi Web
+27,WM,Warehouse Management

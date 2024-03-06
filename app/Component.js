@@ -18,10 +18,10 @@ sap.ui.define(
         this.getRouter().initialize();
 
         var oData = {
-          myUsername: "shash",
+          myUsername: "marco.sarnico",
           today: new Date().toISOString().slice(0, 10),
           monteore: 0.0,
-          usernameSuffix: "shash (tu)",
+          usernameSuffix: "marco.sarnico (tu)",
           logoImagePath: "logoBianco.png",
           themeIcon: "light-mode",
         };

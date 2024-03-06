@@ -84,9 +84,9 @@
           "target": "creaRapportino"
         },
         {
-          "pattern": "cestino",
-          "name": "cestino",
-          "target": "cestino"
+          "pattern": "cestinoRapportini",
+          "name": "cestinoRapportini",
+          "target": "cestinoRapportini"
         },
         {
           "pattern": "cestinoTickets",
@@ -116,10 +116,10 @@
           "name": "CreazioneRapportini",
           "level": 2
         },
-        "cestino": {
-          "id": "cestino",
+        "cestinoRapportini": {
+          "id": "cestinoRapportini",
           "path": "rapportini.view",
-          "name": "Cestino",
+          "name": "CestinoRapportini",
           "level": 2
         },
 
