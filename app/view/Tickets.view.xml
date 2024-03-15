@@ -112,7 +112,7 @@
                      <t:template>
                         <l:HorizontalLayout>
                            <Button icon="sap-icon://edit" class="sapUiTinyMarginEnd" press=".openEditTicket(${ID})"/>
-                           <Button icon="sap-icon://document-text" class="sapUiTinyMarginEnd" press=".onCopyRapportino(${ID})"/>
+                           <Button icon="sap-icon://document-text" class="sapUiTinyMarginEnd" press=".onCopyTicket(${ID})"/>
                            <Button icon="sap-icon://delete" class="sapUiTinyMarginEnd" press=".onDeleteTicket(${ID})"/>
                         </l:HorizontalLayout>
                      </t:template>

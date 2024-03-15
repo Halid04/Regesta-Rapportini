@@ -121,6 +121,12 @@ sap.ui.define(
           IDTicket: elementID,
         });
       },
+      onCopyTicket: function (elementID) {
+        this.getRouter().navTo("creaTickets", {
+          operationID: "copia",
+          IDTicket: elementID,
+        });
+      },
       onDeleteTicket: async function (elementID) {
         var oModel = await this.getView().getModel();
         var contexts = await oModel.bindList("/Tickets").requestContexts();

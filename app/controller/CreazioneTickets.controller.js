@@ -217,7 +217,7 @@ sap.ui.define(
         var commesseContexts = await this.getView()
           .getModel()
           .bindList("/Commesse")
-          .requestContexts();
+          .requestContexts()
         var commesseList = [];
         var commesse = commesseContexts.map((x) => x.getObject());
         commesse.forEach((commessa) => {
