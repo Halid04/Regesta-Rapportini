@@ -26,6 +26,7 @@ sap.ui.define(
           .attachPatternMatched(this.onPatternMatched, this);
 
         this.setupFilterBar();
+        this.oTable = this.byId("tabella")
 
         const model = this.getOwnerComponent().getModel();
         const contextRapportini = await model
@@ -35,42 +36,12 @@ sap.ui.define(
           .requestContexts();
         const parametersRapportini = [
           "utente",
-          "IDCliente",
-          "IDCommessa",
-          "IDClienteSede",
-          "IDProgetto",
-          "IDProgettoAttivita",
-          "IDTicket",
-          "codice",
-          "descrizione",
-          "attivita",
+          "IDCliente_descrizione",
+          "IDCommessa_descrizione",
+          "IDTicket_titolo",
           "sede",
-          "destinazione",
           "giorno",
           "ore",
-          "oreLavorate",
-          "km",
-          "kmEuro",
-          "pedaggio",
-          "forfait",
-          "vitto",
-          "alloggio",
-          "noleggio",
-          "trasporti",
-          "varie",
-          "plus",
-          "fatturabile",
-          "bloccato",
-          "speseVarie",
-          "docente",
-          "IDCommessa2",
-          "IDTicket2",
-          "ore2",
-          "descrizione2",
-          "ruolo",
-          "bloccatoAdmin",
-          "IDCorso",
-          "amsh24",
         ];
         const rapportini = contextRapportini.map((x) => x.getObject());
         this.filterMultiComboBoxes(parametersRapportini, rapportini);
@@ -109,7 +80,7 @@ sap.ui.define(
         if (
           rapportini[index].utente === globalData.getProperty("/myUsername") &&
           rapportini[index].giorno.slice(0, 10) ===
-            globalData.getProperty("/today")
+          globalData.getProperty("/today")
         ) {
           globalData.setProperty(
             "/monteore",

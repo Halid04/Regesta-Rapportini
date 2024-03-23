@@ -81,24 +81,24 @@
                         <MultiComboBox name="ore" id="FilterComboBox-ore" selectionChange=".onSelectionChange"/>
                      </fb:control>
                   </fb:FilterGroupItem>
-                  <fb:FilterGroupItem name="ticket" label="Ticket" groupName="Group1" visibleInFilterBar="false">
+                  <fb:FilterGroupItem name="IDTicket_ID" label="Ticket" groupName="Group1" visibleInFilterBar="false">
                      <fb:control>
-                        <MultiComboBox name="ticket" id="FilterComboBox-IDTicket_descrizione" selectionChange=".onSelectionChange"/>
+                        <MultiComboBox name="Ticket" id="FilterComboBox-IDTicket_titolo" selectionChange=".onSelectionChange"/>
                      </fb:control>
                   </fb:FilterGroupItem>
-                  <fb:FilterGroupItem name="cliente" label="Cliente" groupName="Group1" visibleInFilterBar="false">
+                  <fb:FilterGroupItem name="IDCliente_ID" label="Cliente" groupName="Group1" visibleInFilterBar="false">
                      <fb:control>
-                        <MultiComboBox name="cliente" id="FilterComboBox-IDCliente_descrizione" selectionChange=".onSelectionChange"/>
+                        <MultiComboBox name="Cliente" id="FilterComboBox-IDCliente_descrizione" selectionChange=".onSelectionChange"/>
                      </fb:control>
                   </fb:FilterGroupItem>
-                  <fb:FilterGroupItem name="commessa" label="Commessa" groupName="Group1" visibleInFilterBar="false">
+                  <fb:FilterGroupItem name="IDCommessa_ID" label="Commessa" groupName="Group1" visibleInFilterBar="false">
                      <fb:control>
-                        <MultiComboBox name="commessa" id="FilterComboBox-IDCommessa_descrizione" selectionChange=".onSelectionChange"/>
+                        <MultiComboBox name="Commessa" id="FilterComboBox-IDCommessa_descrizione" selectionChange=".onSelectionChange"/>
                      </fb:control>
                   </fb:FilterGroupItem>
                   <fb:FilterGroupItem name="sede" label="Sede" groupName="Group1" visibleInFilterBar="false">
                      <fb:control>
-                        <MultiComboBox name="sedde" id="FilterComboBox-sede" selectionChange=".onSelectionChange"/>
+                        <MultiComboBox name="Sede" id="FilterComboBox-sede" selectionChange=".onSelectionChange"/>
                      </fb:control>
                   </fb:FilterGroupItem>
                </fb:filterGroupItems>

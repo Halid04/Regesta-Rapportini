@@ -85,39 +85,55 @@ sap.ui.define([
 
             // RIMOZIONE DUPLICATI DALLE MULTI-COMBOBOX //
 
+            keepUnique: function (items, key) {
+                let uniqueTexts = [];
+                return items.filter(x => {
+                    if (uniqueTexts.includes(x[key])) {
+                        return false;
+                    }
+                    uniqueTexts.push(x[key]);
+                    return true;
+                });
+            },
+
             filterMultiComboBoxes: function (parameters, objects) {
                 parameters.forEach((parameter) => {
                     var oMultiComboBox = this.getView().byId(
                         "FilterComboBox-" + parameter
                     );
                     oMultiComboBox?.removeAllItems();
-                    const [main, sub] = parameter.split("_");
-                    let uniqueItems = [];
+                    const keys = parameter.split("_");
 
-                    if (sub != null) {
-                        const table = objects.map((x) => x[main]);
-                        uniqueItems = new Set(table.map((x) => `${x["ID"]}::${x[sub]}`));
-                        uniqueItems.forEach((item) => {
-                            const t = item.split("::")
-                            oMultiComboBox?.addItem(
-                                new sap.ui.core.Item({
-                                    key: t[0],
-                                    text: t[1],
-                                })
-                            );
+                    //Se il parametro appartiene alla tabella (es. titolo)
+
+                    let items = objects
+                        .map(x => {
+                            return {
+                                key: x[keys[0]], text: x[keys[0]]
+                            }
+                        })
+                        .filter(x => x["key"] != null && x["text"] != null);
+
+                    //Se il parametro si riferisce a una tabella esterna (es. IDCliente_descrizione)
+                    if (keys[1] != null) {
+                        //le x saranno per forza oggetti e non parametri semplici
+                        items = items.map(x => {
+                            return {
+                                key: x["text"]["ID"], text: x["text"][keys[1]]
+                            };
                         });
-                        return;
                     }
 
-                    uniqueItems = new Set(objects.map((x) => x[main]));
-                    uniqueItems.forEach((item) => {
+                    const uniqueItems = this.keepUnique(items, "key");
+
+                    for (const item of uniqueItems) {
                         oMultiComboBox?.addItem(
                             new sap.ui.core.Item({
-                                key: item,
-                                text: item,
+                                key: item.key,
+                                text: item.text,
                             })
                         );
-                    });
+                    }
                 });
             },
 

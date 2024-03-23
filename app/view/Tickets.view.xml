@@ -65,7 +65,7 @@
             </FlexBox>
 
             <fb:FilterBar id="filterbar" persistencyKey="myPersKey" useToolbar="false" search=".onSearch" width="100%" class="sapUiSmallMarginTop sapUiTinyMarginBegin">
-               <fb:filterGroupItems >
+               <fb:filterGroupItems id="filtergroup">
                   <fb:FilterGroupItem name="utente" label="Utente" groupName="Group1" visibleInFilterBar="false">
                      <fb:control>
                         <MultiComboBox name="Utente" id="FilterComboBox-utente" selectionChange=".onSelectionChange"/>
@@ -84,6 +84,16 @@
                   <fb:FilterGroupItem name="IDTipologia_ID" label="Tipologia" groupName="Group1" visibleInFilterBar="false">
                      <fb:control>
                         <MultiComboBox name="Tipologia" id="FilterComboBox-IDTipologia_tipologia" selectionChange=".onSelectionChange"/>
+                     </fb:control>
+                  </fb:FilterGroupItem>
+                  <fb:FilterGroupItem name="areaFunzionale" label="Area funzionale" groupName="Group1" visibleInFilterBar="false">
+                     <fb:control>
+                        <MultiComboBox name="areaFunzionale" id="FilterComboBox-areaFunzionale" selectionChange=".onSelectionChange"/>
+                     </fb:control>
+                  </fb:FilterGroupItem>
+                  <fb:FilterGroupItem name="criticita" label="Criticità" groupName="Group1" visibleInFilterBar="false">
+                     <fb:control>
+                        <MultiComboBox name="criticita" id="FilterComboBox-criticita" selectionChange=".onSelectionChange"/>
                      </fb:control>
                   </fb:FilterGroupItem>
                   <fb:FilterGroupItem name="insertDate" label="Data inserimento" groupName="Group1" visibleInFilterBar="false">
