@@ -122,10 +122,17 @@ sap.ui.define(
 
               let index = tickets.indexOf(value);
               console.log("index", index);
-
+              console.log("ticket", tickets[index]);
+              console.log("commessa", tickets[index].IDCommessa_ID);
               oData = this.creaModelloEsistente(tickets[index]);
-            }
 
+              if (oData.modelloTicket.cliente != null) {
+                clienteID = oData.modelloTicket.cliente;
+                this.updataComboList();
+              }
+            }
+            console.log("modello", oData);
+            console.log("commessaID", oData.modelloTicket.commessa);
             var oModel = new JSONModel(oData);
             var jsonModel = this.getView().setModel(oModel, "JSONModel");
           }, this);
@@ -198,6 +205,44 @@ sap.ui.define(
         oDataModel.submitBatch("myAppUpdateGroup");
         myRouter.navTo("tickets");
       },
+
+      updataComboList: async function () {
+        var commesseContexts = await this.getView()
+        .getModel()
+        .bindList("/Commesse")
+        .requestContexts()
+      var commesseList = [];
+      var commesse = commesseContexts.map((x) => x.getObject());
+      commesse.forEach((commessa) => {
+        if (commessa.IDCliente_ID == clienteID) {
+          commesseList.push({
+            ID: commessa.ID,
+            descrizione: commessa.descrizione,
+          });
+        }
+      });
+
+      var tipologiaContexts = await this.getView()
+        .getModel()
+        .bindList("/Tipologia")
+        .requestContexts();
+      var tipologiaList = [];
+      var tipologia = tipologiaContexts.map((x) => x.getObject());
+      tipologia.forEach((tipologia) => {
+        if (tipologia.IDCliente_ID == clienteID) {
+          tipologiaList.push({
+            ID: tipologia.ID,
+            tipologia: tipologia.tipologia,
+          });
+        }
+      });
+
+      // console.log(commesseList);
+      var commesseModel = new JSONModel(commesseList);
+      this.getView().setModel(commesseModel, "Commesse");
+      var tipologiaModel = new JSONModel(tipologiaList);
+      this.getView().setModel(tipologiaModel, "Tipologia");
+      },
       handleSelectionChangeCliente: async function (oEvent) {
         let selectedKeys = oEvent.getSource().getSelectedKey();
         clienteID = selectedKeys;
@@ -213,42 +258,7 @@ sap.ui.define(
           // MessageBox.show("Cliente cambiato, Tipologia resettata");
           this.getView().byId("comboTipologie").setSelectedKey(null);
         }
-
-        var commesseContexts = await this.getView()
-          .getModel()
-          .bindList("/Commesse")
-          .requestContexts()
-        var commesseList = [];
-        var commesse = commesseContexts.map((x) => x.getObject());
-        commesse.forEach((commessa) => {
-          if (commessa.IDCliente_ID == clienteID) {
-            commesseList.push({
-              ID: commessa.ID,
-              descrizione: commessa.descrizione,
-            });
-          }
-        });
-
-        var tipologiaContexts = await this.getView()
-          .getModel()
-          .bindList("/Tipologia")
-          .requestContexts();
-        var tipologiaList = [];
-        var tipologia = tipologiaContexts.map((x) => x.getObject());
-        tipologia.forEach((tipologia) => {
-          if (tipologia.IDCliente_ID == clienteID) {
-            tipologiaList.push({
-              ID: tipologia.ID,
-              tipologia: tipologia.tipologia,
-            });
-          }
-        });
-
-        // console.log(commesseList);
-        var commesseModel = new JSONModel(commesseList);
-        this.getView().setModel(commesseModel, "Commesse");
-        var tipologiaModel = new JSONModel(tipologiaList);
-        this.getView().setModel(tipologiaModel, "Tipologia");
+        this.updataComboList();
       },
       handleSelectionChangeCommessa: async function (oEvent) {
         let selectedKeys = oEvent.getSource().getSelectedKey();
