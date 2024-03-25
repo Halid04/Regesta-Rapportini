@@ -11,11 +11,11 @@ sap.ui.define(
     let op;
     let IDCurrent;
     let IDTicketsCreati = [];
-    let clienteID = null;
-    let commessaID = null;
-    let tipologiaID = null;
-    let statutsID = null;
-    let areaFunzionaleID = null;
+    let clienteID;
+    let commessaID;
+    let tipologiaID;
+    let statutsID;
+    let areaFunzionaleID;
     return BaseController.extend("rapportini.controller.CreazioneTickets", {
       generateIDTickets: function () {
         return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
@@ -58,7 +58,6 @@ sap.ui.define(
             supportoFunzionale: "",
             dataConsegnaRichiesta: null,
             status: null,
-            // dataConsegnaSchedulata: null,
             allegato: "",
             externalID: "",
             flagVisibileCliente: false,
@@ -85,8 +84,7 @@ sap.ui.define(
             criticita: ticket.criticita,
             supportoFunzionale: ticket.supportoFunzionale,
             dataConsegnaRichiesta: new Date(ticket.dataConsegnaRichiesta),
-            status: ticket.Status_ID,
-            // dataConsegnaSchedulata: new Date(ticket.dataConsegnaSchedulata),
+            status: ticket.status_ID,
             allegato: ticket.allegato,
             externalID: ticket.externalID,
             flagVisibileCliente: ticket.flagVisibileCliente,
@@ -105,9 +103,19 @@ sap.ui.define(
             op = window.decodeURIComponent(
               oEvent.getParameter("arguments").operationID
             );
+
             IDCurrent = window.decodeURIComponent(
               oEvent.getParameter("arguments").IDTicket
             );
+
+            if (op == "nuovo") {
+              this.getView().byId("createPage").setTitle("Creazione Ticket");
+            } else if (op == "copia") {
+              this.getView().byId("createPage").setTitle("Duplica Ticket");
+            } else if (op == "modifica") {
+              this.getView().byId("createPage").setTitle("Modifica Ticket");
+            }
+
             var oData = this.creaModelloVuoto();
             if (op != "nuovo") {
               var contexts = await this.getView()
@@ -122,40 +130,36 @@ sap.ui.define(
 
               let index = tickets.indexOf(value);
               console.log("index", index);
-
+              console.log("ticket", tickets[index]);
+              console.log("commessa", tickets[index].IDCommessa_ID);
               oData = this.creaModelloEsistente(tickets[index]);
-            }
 
+              if (oData.modelloTicket.cliente != null) {
+                clienteID = oData.modelloTicket.cliente;
+                this.updateComboList();
+              }
+              if (oData.modelloTicket.areaFunzionale != null) {
+                areaFunzionaleID = oData.modelloTicket.areaFunzionale;
+              }
+              if (oData.modelloTicket.status != null) {
+                statutsID = oData.modelloTicket.status;
+              }
+              if (oData.modelloTicket.commessa != null) {
+                commessaID = oData.modelloTicket.commessa;
+              }
+              if (oData.modelloTicket.tipologia != null) {
+                tipologiaID = oData.modelloTicket.tipologia;
+              }
+            }
+            console.log("modello", oData);
+            console.log("commessaID", oData.modelloTicket.commessa);
             var oModel = new JSONModel(oData);
             var jsonModel = this.getView().setModel(oModel, "JSONModel");
           }, this);
       },
-      handleUploadComplete: function (oEvent) {
-        var sResponse = oEvent.getParameter("response"),
-          aRegexResult = /\d{4}/.exec(sResponse),
-          iHttpStatusCode = aRegexResult && parseInt(aRegexResult[0]),
-          sMessage;
-
-        if (sResponse) {
-          sMessage =
-            iHttpStatusCode === 200
-              ? sResponse + " (Upload Success)"
-              : sResponse + " (Upload Error)";
-          MessageToast.show(sMessage);
-        }
-
-        console.log("upload complete");
-      },
-      saveTicket: async function (
-        ticket,
-        binding,
-        oDataModel,
-        myRouter,
-        oFileUploader
-      ) {
+      saveTicket: async function (ticket, binding, oDataModel, myRouter) {
         if (op == "nuovo" || op == "copia") {
           binding.create(ticket);
-          console.log("ticket creato / copiato con successo 👍");
         } else {
           var path = "/Tickets(" + IDCurrent + ")";
 
@@ -174,8 +178,7 @@ sap.ui.define(
             "criticita",
             "supportoFunzionale",
             "dataConsegnaRichiesta",
-            "Status_ID",
-            // "dataConsegnaSchedulata",
+            "status_ID",
             "allegato",
             "externalID",
             "flagVisibileCliente",
@@ -192,32 +195,15 @@ sap.ui.define(
           }
         }
 
-        // await oFileUploader.checkFileReadable();
-        // oFileUploader.upload();
-
         oDataModel.submitBatch("myAppUpdateGroup");
         myRouter.navTo("tickets");
       },
-      handleSelectionChangeCliente: async function (oEvent) {
-        let selectedKeys = oEvent.getSource().getSelectedKey();
-        clienteID = selectedKeys;
 
-        if (commessaID != null) {
-          commessaID = null;
-          // MessageBox.show("Cliente cambiato, commessa resettata");
-          this.getView().byId("comboCommesse").setSelectedKey(null);
-        }
-
-        if (tipologiaID != null) {
-          tipologiaID = null;
-          // MessageBox.show("Cliente cambiato, Tipologia resettata");
-          this.getView().byId("comboTipologie").setSelectedKey(null);
-        }
-
+      updateComboList: async function () {
         var commesseContexts = await this.getView()
           .getModel()
           .bindList("/Commesse")
-          .requestContexts()
+          .requestContexts();
         var commesseList = [];
         var commesse = commesseContexts.map((x) => x.getObject());
         commesse.forEach((commessa) => {
@@ -244,11 +230,25 @@ sap.ui.define(
           }
         });
 
-        // console.log(commesseList);
         var commesseModel = new JSONModel(commesseList);
         this.getView().setModel(commesseModel, "Commesse");
         var tipologiaModel = new JSONModel(tipologiaList);
         this.getView().setModel(tipologiaModel, "Tipologia");
+      },
+      handleSelectionChangeCliente: async function (oEvent) {
+        let selectedKeys = oEvent.getSource().getSelectedKey();
+        clienteID = selectedKeys;
+
+        if (commessaID != null) {
+          commessaID = null;
+          this.getView().byId("comboCommesse").setSelectedKey(null);
+        }
+
+        if (tipologiaID != null) {
+          tipologiaID = null;
+          this.getView().byId("comboTipologie").setSelectedKey(null);
+        }
+        this.updateComboList();
       },
       handleSelectionChangeCommessa: async function (oEvent) {
         let selectedKeys = oEvent.getSource().getSelectedKey();
@@ -297,8 +297,6 @@ sap.ui.define(
             modelloTicket[campiObbligatori[i]] == "" ||
             modelloTicket[campiObbligatori[i]] == null
           ) {
-            // console.log(campiObbligatori[i]);
-            // console.log(modelloTicket[campiObbligatori[i]]);
             MessageToast.show("Per favore, compila tutti i campi obbligatori");
             return;
           }
@@ -366,8 +364,6 @@ sap.ui.define(
           inoltraA: "",
           messageID: "",
         };
-        console.log(clienteID);
-        console.log("ticket da salvare", newTicket);
         let oDataModel = this.getView().getModel();
         let oBinding = await oDataModel.bindList("/Tickets");
         let contexts = await oBinding.requestContexts();
@@ -381,14 +377,7 @@ sap.ui.define(
           bindingFinal = contexts[index];
         }
         var myRouter = this.getRouter();
-        var oFileUploader = this.byId("fileUploader");
-        this.saveTicket(
-          newTicket,
-          bindingFinal,
-          oDataModel,
-          myRouter,
-          oFileUploader
-        );
+        this.saveTicket(newTicket, bindingFinal, oDataModel, myRouter);
       },
     });
   }

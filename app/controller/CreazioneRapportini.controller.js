@@ -103,14 +103,11 @@ sap.ui.define(
       findMonteore: function (allRapportini, utente, giorno) {
         var monteoreUser = 0.0;
         for (var i = 0; i < allRapportini.length; i++) {
-          console.log(allRapportini[i].giorno);
           if (
             allRapportini[i].utente.localeCompare(utente) == 0 &&
             allRapportini[i].giorno.slice(0, 10).localeCompare(giorno) == 0
           ) {
-            console.log(allRapportini[i]);
             monteoreUser += parseFloat(allRapportini[i].ore);
-            console.log(monteoreUser);
           }
         }
         return monteoreUser;
@@ -124,9 +121,20 @@ sap.ui.define(
             op = window.decodeURIComponent(
               oEvent.getParameter("arguments").operationID
             );
+
             IDCurrent = window.decodeURIComponent(
               oEvent.getParameter("arguments").IDRapportino
             );
+
+            if (op == "nuovo") {
+              this.getView()
+                .byId("createPage")
+                .setTitle("Creazione Rapportino");
+            } else if (op == "copia") {
+              this.getView().byId("createPage").setTitle("Duplica Rapportino");
+            } else if (op == "modifica") {
+              this.getView().byId("createPage").setTitle("Modifica Rapportino");
+            }
 
             var oData = this.creaModelloVuoto();
             if (op != "nuovo") {
@@ -148,12 +156,9 @@ sap.ui.define(
               .bindList("/Tickets")
               .requestContexts();
             var ticket = ticketContexts.map((x) => x.getObject());
-            console.log(ticket);
-            console.log("onInit");
             var oModel = new JSONModel(oData);
             this.getView().setModel(oModel, "JSONModel");
           }, this);
-        console.log(this.getView().getModel("JSONModel"));
       },
       handleSelectionChangeTicket: async function (oEvent) {
         let selectedKeys = oEvent.getSource().getSelectedKey();
@@ -182,10 +187,8 @@ sap.ui.define(
         myRouter
       ) {
         //Salva / copia rapportino
-
         if (op == "nuovo" || op == "copia") {
           binding.create(rapportino);
-          console.log("Rapportino creato / copiato con successo 👍");
         } else {
           //Edita rapportino esistente
 
@@ -214,29 +217,23 @@ sap.ui.define(
             "docente",
           ];
 
-          //rapportino.giorno = rapportino.giorno.toISOString();
           for (var i = 0; i < properties.length; i++) {
             binding.setProperty(
               path + "/" + properties[i],
               rapportino[properties[i]]
             );
           }
-
-          console.log("Rapportino modificato con successo 👍");
         }
 
         //Assegna il monteore giornaliero dell'utente
-
         if (
           rapportino.utente === globalData.getProperty("/myUsername") &&
           globalData.getProperty("/today") === rapportino.giorno.slice(0, 10)
         ) {
-          // console.log("sovrascrivi monteore");
           globalData.setProperty("/monteore", monteore);
         }
 
         //Operazioni finali
-
         oDataModel.submitBatch("myAppUpdateGroup");
         myRouter.navTo("tabellaRapportini");
       },
@@ -311,7 +308,6 @@ sap.ui.define(
         };
 
         //Calcola monteore giornaliero dell'utente, considerando anche il nuovo rapportino o le nuove modifiche
-
         var oDataModel = this.getView().getModel();
         var oBinding = await oDataModel.bindList("/Rapportini");
         var contexts = await oBinding.requestContexts();
@@ -360,7 +356,7 @@ sap.ui.define(
           MessageBox.confirm(
             "Il tuo monteore giornaliero supera le 8h. Vuoi comunque aggiungere il rapportino?",
             {
-              title: "Confirm", // default
+              title: "Confirm",
               saveRapportino: this.saveRapportino,
               onClose: function (oAction) {
                 if (oAction == "OK") {
@@ -375,14 +371,14 @@ sap.ui.define(
                     );
                   }
                 }
-              }, // default
-              styleClass: "", // default
+              },
+              styleClass: "",
               actions: [
                 sap.m.MessageBox.Action.OK,
                 sap.m.MessageBox.Action.CANCEL,
-              ], // default
-              emphasizedAction: sap.m.MessageBox.Action.OK, // default
-              initialFocus: null, // default
+              ],
+              emphasizedAction: sap.m.MessageBox.Action.OK,
+              initialFocus: null,
               textDirection: sap.ui.core.TextDirection.Inherit,
             }
           );

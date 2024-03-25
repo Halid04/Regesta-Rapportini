@@ -36,9 +36,7 @@ sap.ui.define(
             allRapportini[i].utente.localeCompare(oData.myUsername) == 0 &&
             allRapportini[i].giorno.slice(0, 10).localeCompare(oData.today) == 0
           ) {
-            console.log(allRapportini[i]);
             oData.monteore += parseFloat(allRapportini[i].ore);
-            // console.log(monteoreUser);
           }
         }
 

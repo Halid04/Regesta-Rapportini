@@ -14,7 +14,6 @@ sap.ui.define(
         oRouter
           .getRoute("cestinoTickets")
           .attachPatternMatched(this.onPatternMatched, this);
-        console.log("CestinoTickets");
       },
 
       onPatternMatched: function () {
@@ -53,7 +52,7 @@ sap.ui.define(
       onDeleteTicket: async function (elementID) {
         var oModel = await this.getView().getModel();
         MessageBox.confirm("Eliminare definitivamente?", {
-          title: "Confirm", // default
+          title: "Confirm",
           onClose: function (oAction) {
             if (oAction == "OK") {
               {
@@ -61,11 +60,11 @@ sap.ui.define(
                 MessageToast.show("Elemento cancellato definitivamente");
               }
             }
-          }, // default
-          styleClass: "", // default
-          actions: [sap.m.MessageBox.Action.OK, sap.m.MessageBox.Action.CANCEL], // default
-          emphasizedAction: sap.m.MessageBox.Action.OK, // default
-          initialFocus: null, // default
+          },
+          styleClass: "",
+          actions: [sap.m.MessageBox.Action.OK, sap.m.MessageBox.Action.CANCEL],
+          emphasizedAction: sap.m.MessageBox.Action.OK,
+          initialFocus: null,
           textDirection: sap.ui.core.TextDirection.Inherit,
         });
       },
@@ -78,7 +77,7 @@ sap.ui.define(
         var tickets = contexts.map((x) => x.getObject());
 
         MessageBox.confirm("Eliminare definitivamente?", {
-          title: "Confirm", // default
+          title: "Confirm",
           onClose: function (oAction) {
             if (oAction == "OK") {
               {
@@ -90,11 +89,11 @@ sap.ui.define(
                 MessageToast.show("Elementi cancellato definitivamente");
               }
             }
-          }, // default
-          styleClass: "", // default
-          actions: [sap.m.MessageBox.Action.OK, sap.m.MessageBox.Action.CANCEL], // default
-          emphasizedAction: sap.m.MessageBox.Action.OK, // default
-          initialFocus: null, // default
+          },
+          styleClass: "",
+          actions: [sap.m.MessageBox.Action.OK, sap.m.MessageBox.Action.CANCEL],
+          emphasizedAction: sap.m.MessageBox.Action.OK,
+          initialFocus: null,
           textDirection: sap.ui.core.TextDirection.Inherit,
         });
       },
@@ -109,7 +108,7 @@ sap.ui.define(
         var oBindingCestino = await oModel.bindList("/Tickets");
 
         MessageBox.confirm("Ripristinare tutto?", {
-          title: "Confirm", // default
+          title: "Confirm",
           onClose: function (oAction) {
             if (oAction == "OK") {
               {
@@ -122,11 +121,11 @@ sap.ui.define(
                 MessageToast.show("Elementi ripristinati");
               }
             }
-          }, // default
-          styleClass: "", // default
-          actions: [sap.m.MessageBox.Action.OK, sap.m.MessageBox.Action.CANCEL], // default
-          emphasizedAction: sap.m.MessageBox.Action.OK, // default
-          initialFocus: null, // default
+          },
+          styleClass: "",
+          actions: [sap.m.MessageBox.Action.OK, sap.m.MessageBox.Action.CANCEL],
+          emphasizedAction: sap.m.MessageBox.Action.OK,
+          initialFocus: null,
           textDirection: sap.ui.core.TextDirection.Inherit,
         });
       },

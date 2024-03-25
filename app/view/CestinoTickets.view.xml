@@ -37,12 +37,6 @@
                   <tnt:NavigationListItem text="Lista Tickets" href='#/tickets'/>
                   <tnt:NavigationListItem text="Cestino Tickets" href='#/cestinoTickets'/>
                </tnt:NavigationListItem>
-               <tnt:NavigationListItem text="Anagrafiche" icon="sap-icon://business-card">
-                  <tnt:NavigationListItem text="Sub Item 1" />
-                  <tnt:NavigationListItem text="Sub Item 2" />
-                  <tnt:NavigationListItem text="Sub Item 3" />
-                  <tnt:NavigationListItem text="Sub Item 4" />
-               </tnt:NavigationListItem>
             </tnt:NavigationList>
             <tnt:fixedItem>
                <tnt:NavigationList>
@@ -63,7 +57,6 @@
                <Button text="Ripristina tutto" press=".onRestoreAll" icon="sap-icon://refresh" class="sapUiTinyMarginEnd"/>
                <Button text="Elimina tutto" press=".onDeleteAll" icon="sap-icon://delete" class="sapUiTinyMarginBegin" />
             </FlexBox>
-            <!-- <ScrollContainer height="auto" width="auto" horizontal="true" vertical="true" class="sapUiSmallMarginTop sapUiTinyMarginBegin"> -->
             <t:Table columnResize="onColumnResize" rows="{path: '/TicketsCestinati', events: { change: '.onBindingChange' } , parameters:{$expand: 'IDCliente,IDTipologia,IDCommessa,areaFunzionale,status'}}" selectionMode="None" width="100%" height="auto" alternateRowColors="true" id="tabella" fixedColumnCount="2" class="sapUiTinyMarginBegin sapUiLargeMarginBottom">
                <t:columns>
                   <t:Column id="toolColumn">
@@ -131,7 +124,6 @@
                   </t:Column>
                </t:columns>
             </t:Table>
-            <!-- </ScrollContainer> -->
          </FlexBox>
       </tnt:mainContents>
    </tnt:ToolPage>

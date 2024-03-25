@@ -41,7 +41,6 @@ sap.ui.define(
         this.setupFilterBar();
 
         // Rimozione duplicati
-
         const model = this.getOwnerComponent().getModel();
 
         const contextTickets = await model
@@ -83,14 +82,6 @@ sap.ui.define(
           operationID: "nuovo",
         });
       },
-      //   openEditTicket: function (oEvent) {
-      //     oEvent.getSource();
-      //     var elementID = oEvent.getSource().getBindingContext().getObject().ID;
-      //     this.getRouter().navTo("creaTickets", {
-      //       operationID: "modifica",
-      //       IDTicket: elementID,
-      //     });
-      //   },
       openEditTicket: function (elementID) {
         this.getRouter().navTo("creaTickets", {
           operationID: "modifica",
@@ -118,7 +109,6 @@ sap.ui.define(
         oModel.submitBatch("myAppUpdateGroup");
 
         oModel.delete("/Tickets(" + elementID + ")", "$auto");
-        console.log("id", elementID);
         MessageToast.show("Elemento spostato nel cestino");
       },
       onDeleteSelectedTicket: async function () {

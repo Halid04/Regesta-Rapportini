@@ -1,61 +1,61 @@
 ID,tipologiaCommessa,fixOrTimeMaterial,tipologia,flagMonitorBudget,flagConfrontoBudget,IDCliente_ID,flagDefault
-1,Riparazione,F,Manutenzione,TRUE,TRUE,1,TRUE
-2,Progettazione,T,Manutenzione,TRUE,FALSE,2,FALSE
-3,Installazione,F,Manutenzione,TRUE,FALSE,3,TRUE
-4,Consulenza,T,Manutenzione,TRUE,TRUE,4,FALSE
-5,Riparazione,T,Manutenzione,FALSE,TRUE,5,FALSE
-6,Progettazione,F,Manutenzione,TRUE,TRUE,6,FALSE
-7,Installazione,T,Manutenzione,FALSE,FALSE,7,TRUE
-8,Consulenza,F,Manutenzione,TRUE,FALSE,8,TRUE
-9,Riparazione,T,Manutenzione,TRUE,TRUE,9,TRUE
-10,Progettazione,F,Manutenzione,FALSE,FALSE,10,FALSE
-11,Installazione,T,Manutenzione,TRUE,TRUE,11,FALSE
-12,Consulenza,F,Manutenzione,FALSE,FALSE,12,TRUE
-13,Riparazione,T,Manutenzione,TRUE,FALSE,13,FALSE
-14,Progettazione,F,Manutenzione,FALSE,TRUE,14,FALSE
-15,Installazione,T,Manutenzione,FALSE,FALSE,15,FALSE
-16,Consulenza,F,Manutenzione,TRUE,TRUE,16,TRUE
-17,Riparazione,T,Manutenzione,TRUE,FALSE,17,FALSE
-18,Progettazione,F,Manutenzione,FALSE,TRUE,18,FALSE
-19,Installazione,T,Manutenzione,FALSE,FALSE,19,TRUE
-20,Consulenza,F,Manutenzione,TRUE,TRUE,20,FALSE
-21,Riparazione,T,Consulenza,FALSE,FALSE,1,FALSE
-22,Progettazione,F,Consulenza,TRUE,TRUE,2,TRUE
-23,Installazione,T,Consulenza,FALSE,TRUE,3,FALSE
-24,Consulenza,F,Consulenza,TRUE,FALSE,4,TRUE
-25,Riparazione,T,Consulenza,TRUE,TRUE,5,FALSE
-26,Progettazione,F,Consulenza,FALSE,FALSE,6,FALSE
-27,Installazione,T,Consulenza,TRUE,TRUE,7,TRUE
-28,Consulenza,F,Consulenza,FALSE,FALSE,8,FALSE
-29,Riparazione,T,Consulenza,FALSE,FALSE,9,TRUE
-30,Progettazione,F,Consulenza,TRUE,TRUE,10,FALSE
-31,Installazione,T,Consulenza,FALSE,FALSE,11,FALSE
-32,Consulenza,F,Consulenza,FALSE,TRUE,12,TRUE
-33,Riparazione,T,Consulenza,TRUE,FALSE,13,FALSE
-34,Progettazione,F,Consulenza,TRUE,FALSE,14,FALSE
-35,Installazione,T,Consulenza,FALSE,TRUE,15,FALSE
-36,Consulenza,F,Consulenza,TRUE,FALSE,16,TRUE
-37,Riparazione,T,Consulenza,TRUE,TRUE,17,FALSE
-38,Progettazione,F,Consulenza,FALSE,FALSE,18,FALSE
-39,Installazione,T,Consulenza,TRUE,TRUE,19,TRUE
-40,Consulenza,F,Consulenza,FALSE,TRUE,20,FALSE
-41,Riparazione,T,Installazione,FALSE,FALSE,1,FALSE
-42,Progettazione,F,Installazione,TRUE,TRUE,2,TRUE
-43,Installazione,T,Installazione,FALSE,TRUE,3,FALSE
-44,Consulenza,F,Installazione,TRUE,FALSE,4,TRUE
-45,Riparazione,T,Installazione,TRUE,TRUE,5,FALSE
-46,Progettazione,F,Installazione,FALSE,FALSE,6,FALSE
-47,Installazione,T,Installazione,TRUE,TRUE,7,TRUE
-48,Consulenza,F,Installazione,FALSE,FALSE,8,FALSE
-49,Riparazione,T,Installazione,FALSE,FALSE,9,TRUE
-50,Progettazione,F,Installazione,TRUE,TRUE,10,FALSE
-51,Installazione,T,Installazione,FALSE,FALSE,11,FALSE
-52,Consulenza,F,Installazione,FALSE,TRUE,12,TRUE
-53,Riparazione,T,Installazione,TRUE,FALSE,13,FALSE
-54,Progettazione,F,Installazione,TRUE,FALSE,14,FALSE
-55,Installazione,T,Installazione,FALSE,TRUE,15,FALSE
-56,Consulenza,F,Installazione,TRUE,FALSE,16,TRUE
-57,Riparazione,T,Installazione,TRUE,TRUE,17,FALSE
-58,Progettazione,F,Installazione,FALSE,FALSE,18,FALSE
-59,Installazione,T,Installazione,TRUE,TRUE,19,TRUE
-60,Consulenza,F,Installazione,FALSE,TRUE,20,FALSE
+1,Riparazione,F,Ottimizzazione del codice,TRUE,TRUE,1,TRUE
+2,Progettazione,T,Gestione dei progetti,TRUE,FALSE,2,FALSE
+3,Installazione,F,Implementazione delle API,TRUE,FALSE,3,TRUE
+4,Consulenza,T,Sviluppo front-end,TRUE,TRUE,4,FALSE
+5,Riparazione,T,Sviluppo back-end,FALSE,TRUE,5,FALSE
+6,Progettazione,F,Gestione dei database,TRUE,TRUE,6,FALSE
+7,Installazione,T,Creazione di interfacce utente,FALSE,FALSE,7,TRUE
+8,Consulenza,F,Analisi dei requisiti,TRUE,FALSE,8,TRUE
+9,Riparazione,T,Manutenzione dei server,TRUE,TRUE,9,TRUE
+10,Progettazione,F,Automatizzazione dei processi,FALSE,FALSE,10,FALSE
+11,Installazione,T,Gestione delle reti,TRUE,TRUE,11,FALSE
+12,Consulenza,F,Risoluzione dei bug,FALSE,FALSE,12,TRUE
+13,Riparazione,T,Backup e ripristino dei dati,TRUE,FALSE,13,FALSE
+14,Progettazione,F,Creazione di dashboard,FALSE,TRUE,14,FALSE
+15,Installazione,T,Sviluppo di app mobili,FALSE,FALSE,15,FALSE
+16,Consulenza,F,Gestione delle licenze software,TRUE,TRUE,16,TRUE
+17,Riparazione,T,Ottimizzazione SEO,TRUE,FALSE,17,FALSE
+18,Progettazione,F,Gestione delle risorse umane,FALSE,TRUE,18,FALSE
+19,Installazione,T,Analisi dei costi,FALSE,FALSE,19,TRUE
+20,Consulenza,F,Gestione delle infrastrutture,TRUE,TRUE,20,FALSE
+21,Riparazione,T,Sviluppo di giochi,FALSE,FALSE,1,FALSE
+22,Progettazione,F,Integrazione dei pagamenti online,TRUE,TRUE,2,TRUE
+23,Installazione,T,Monitoraggio delle prestazioni,FALSE,TRUE,3,FALSE
+24,Consulenza,F,Gestione delle versioni del software,TRUE,FALSE,4,TRUE
+25,Riparazione,T,Test di penetrazione,TRUE,TRUE,5,FALSE
+26,Progettazione,F,Gestione delle identità digitali,FALSE,FALSE,6,FALSE
+27,Installazione,T,Archiviazione dei documenti,TRUE,TRUE,7,TRUE
+28,Consulenza,F,Gestione delle code di lavoro,FALSE,FALSE,8,FALSE
+29,Riparazione,T,Sviluppo di sistemi embedded,FALSE,FALSE,9,TRUE
+30,Progettazione,F,Integrazione dei social media,TRUE,TRUE,10,FALSE
+31,Installazione,T,Gestione delle conferenze web,FALSE,FALSE,11,FALSE
+32,Consulenza,F,Monitoraggio della sicurezza,FALSE,TRUE,12,TRUE
+33,Riparazione,T,Gestione delle licenze open-source,TRUE,FALSE,13,FALSE
+34,Progettazione,F,Migrazione verso il cloud,TRUE,FALSE,14,FALSE
+35,Installazione,T,Sviluppo di algoritmi,FALSE,TRUE,15,FALSE
+36,Consulenza,F,Ottimizzazione della distribuzione,TRUE,FALSE,16,TRUE
+37,Riparazione,T,Analisi dei dati in tempo reale,TRUE,TRUE,17,FALSE
+38,Progettazione,F,Implementazione della blockchain,FALSE,FALSE,18,FALSE
+39,Installazione,T,Sviluppo di chatbot,TRUE,TRUE,19,TRUE
+40,Consulenza,F,Personalizzazione dei software,FALSE,TRUE,20,FALSE
+41,Riparazione,T,Manutenzione preventiva,FALSE,FALSE,1,FALSE
+42,Progettazione,F,Sviluppo software,TRUE,TRUE,2,TRUE
+43,Installazione,T,Test e QA,FALSE,TRUE,3,FALSE
+44,Consulenza,F,Assistenza tecnica,TRUE,FALSE,4,TRUE
+45,Riparazione,T,Migrazione dei dati,TRUE,TRUE,5,FALSE
+46,Progettazione,F,Integrazione dei sistemi,FALSE,FALSE,6,FALSE
+47,Installazione,T,Ottimizzazione delle prestazioni,TRUE,TRUE,7,TRUE
+48,Consulenza,F,Gestione della sicurezza,FALSE,FALSE,8,FALSE
+49,Riparazione,T,Analisi dei dati,FALSE,FALSE,9,TRUE
+50,Progettazione,F,Formazione e consulenza,TRUE,TRUE,10,FALSE
+51,Installazione,T,Gestione dei ticket di supporto,FALSE,FALSE,11,FALSE
+52,Consulenza,F,Monitoraggio della disponibilità dei servizi,FALSE,TRUE,12,TRUE
+53,Riparazione,T,Gestione delle patch di sicurezza,TRUE,FALSE,13,FALSE
+54,Progettazione,F,Analisi dei dati di utilizzo,TRUE,FALSE,14,FALSE
+55,Installazione,T,Creazione di dashboard di monitoraggio,FALSE,TRUE,15,FALSE
+56,Consulenza,F,Ottimizzazione dei tempi di caricamento,TRUE,FALSE,16,TRUE
+57,Riparazione,T,Gestione degli aggiornamenti del software,TRUE,TRUE,17,FALSE
+58,Progettazione,F,Creazione di documentazione tecnica,FALSE,FALSE,18,FALSE
+59,Installazione,T,Gestione delle risorse di calcolo,TRUE,TRUE,19,TRUE
+60,Consulenza,F,Monitoraggio delle prestazioni del server,FALSE,TRUE,20,FALSE

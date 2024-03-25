@@ -150,18 +150,6 @@
                <FlexBox height="auto" width="50vw" alignItems="Start" justifyContent="Start" direction="Column">
                   <CheckBox text="Cliente Visibile" selected="{JSONModel>/modelloTicket/flagVisibileCliente}"/>
                </FlexBox>
-
-
-               <!-- <FlexBox height="auto" width="35vw" alignItems="Start" justifyContent="Center" direction="Column">
-                  <Label text="Data Consegna Schedulata"/>
-                  <DatePicker id="DP2" value="{
-                     'path':'JSONModel>/modelloTicket/dataConsegnaSchedulata',
-                     'type':'sap.ui.model.type.Date',
-                     'formatOptions': {
-                        'pattern': 'd/M/yy'
-                     }
-                  }" change="handleChange" width="35vw"/>
-                </FlexBox> -->
             </FlexBox>
 
             <Toolbar width="90vw" class="toolbarRichiesta">
@@ -171,8 +159,7 @@
             <FlexBox height="auto" width= "110vw" alignItems="Start" justifyContent="Start">
                <FlexBox height="auto" width="50vw" alignItems="Start" justifyContent="Start" direction="Column">
                   <Label text="Allegato" />
-                  <u:FileUploader id="fileUploader" name="myFileUpload" uploadUrl="upload/" tooltip="Upload your file to the local server" uploadComplete="handleUploadComplete"/>
-                  <!-- <Input value="{JSONModel>/modelloTicket/allegato}" placeholder="Allegato" width="17vw"/> -->
+                  <u:FileUploader id="fileUploader" name="myFileUpload" uploadUrl="" tooltip="Upload your file to the local server" uploadComplete=""/>
                </FlexBox>
             </FlexBox>
 

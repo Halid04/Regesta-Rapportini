@@ -26,7 +26,7 @@ sap.ui.define(
           .attachPatternMatched(this.onPatternMatched, this);
 
         this.setupFilterBar();
-        this.oTable = this.byId("tabella")
+        this.oTable = this.byId("tabella");
 
         const model = this.getOwnerComponent().getModel();
         const contextRapportini = await model
@@ -75,12 +75,11 @@ sap.ui.define(
         let index = rapportini.indexOf(value);
 
         //Abbassa monteore giornaliero
-
         const globalData = this.getView().getModel("globalData");
         if (
           rapportini[index].utente === globalData.getProperty("/myUsername") &&
           rapportini[index].giorno.slice(0, 10) ===
-          globalData.getProperty("/today")
+            globalData.getProperty("/today")
         ) {
           globalData.setProperty(
             "/monteore",
