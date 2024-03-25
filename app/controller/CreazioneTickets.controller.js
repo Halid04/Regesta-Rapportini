@@ -132,6 +132,8 @@ sap.ui.define(
               console.log("index", index);
               console.log("ticket", tickets[index]);
               console.log("commessa", tickets[index].IDCommessa_ID);
+              console.log("ticket", tickets[index]);
+              console.log("commessa", tickets[index].IDCommessa_ID);
               oData = this.creaModelloEsistente(tickets[index]);
 
               if (oData.modelloTicket.cliente != null) {
