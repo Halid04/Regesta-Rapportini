@@ -38,6 +38,7 @@ sap.ui.define(
 
       onNavToTicketsTable: function () {
         this.getRouter().navTo("tickets");
+      
       },
 
       onSwitchTheme: function () {

@@ -115,7 +115,6 @@ sap.ui.define(
             } else if (op == "modifica") {
               this.getView().byId("createPage").setTitle("Modifica Ticket");
             }
-
             var oData = this.creaModelloVuoto();
             if (op != "nuovo") {
               var contexts = await this.getView()
@@ -129,16 +128,14 @@ sap.ui.define(
               });
 
               let index = tickets.indexOf(value);
-              console.log("index", index);
-              console.log("ticket", tickets[index]);
-              console.log("commessa", tickets[index].IDCommessa_ID);
-              console.log("ticket", tickets[index]);
-              console.log("commessa", tickets[index].IDCommessa_ID);
               oData = this.creaModelloEsistente(tickets[index]);
 
-              if (oData.modelloTicket.cliente != null) {
-                clienteID = oData.modelloTicket.cliente;
+              clienteID = oData.modelloTicket.cliente;
+              commessaID = oData.modelloTicket.commessa;
+              tipologiaID = oData.modelloTicket.tipologia;
+              if (clienteID != null) {
                 this.updateComboList();
+                this.updateComboBox();
               }
               if (oData.modelloTicket.areaFunzionale != null) {
                 areaFunzionaleID = oData.modelloTicket.areaFunzionale;
@@ -153,8 +150,6 @@ sap.ui.define(
                 tipologiaID = oData.modelloTicket.tipologia;
               }
             }
-            console.log("modello", oData);
-            console.log("commessaID", oData.modelloTicket.commessa);
             var oModel = new JSONModel(oData);
             var jsonModel = this.getView().setModel(oModel, "JSONModel");
           }, this);
@@ -216,7 +211,6 @@ sap.ui.define(
             });
           }
         });
-
         var tipologiaContexts = await this.getView()
           .getModel()
           .bindList("/Tipologia")
@@ -230,12 +224,18 @@ sap.ui.define(
               tipologia: tipologia.tipologia,
             });
           }
+         
         });
-
         var commesseModel = new JSONModel(commesseList);
         this.getView().setModel(commesseModel, "Commesse");
         var tipologiaModel = new JSONModel(tipologiaList);
         this.getView().setModel(tipologiaModel, "Tipologia");
+        
+      },
+      updateComboBox: async function () {
+        this.getView().byId("comboClienti").setSelectedKey(null);
+        this.getView().byId("comboCommesse").setSelectedKey(null);
+        this.getView().byId("comboTipologie").setSelectedKey(null);
       },
       handleSelectionChangeCliente: async function (oEvent) {
         let selectedKeys = oEvent.getSource().getSelectedKey();
