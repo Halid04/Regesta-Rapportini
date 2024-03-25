@@ -78,7 +78,7 @@
                      <items>
                         <core:Item text="Ufficio" key="Ufficio"/>
                         <core:Item text="Cliente" key="Cliente"/>
-                        <core:Item text="SmarthWork" key="SmarthWorking"/>
+                        <core:Item text="SmarthWork" key="SmarthWork"/>
                      </items>
                   </ComboBox>
                </FlexBox>
