@@ -62,7 +62,7 @@ Esecuzione dell'applicazione
 1. Per scaricare il progetto, puoi clonare la repository utilizzando il seguente comando da terminale:
 
 ```shell
-git clone https://github.com/Halid04/Regesta-Rapportini.git
+git clone https://github.com/Halid04/Regesta-Stage-2023-Project.git
 ```
 Oppure, puoi scaricare il file ZIP della [repository da GitHub](https://github.com/Halid04/Regesta-Rapportini) e estrarlo sul tuo computer. <br /> <br />
 2. Dopo aver scaricato il progetto, accedi alla directory del progetto tramite il terminale e installa tutte le dipendenze necessarie eseguendo il seguente comando:
